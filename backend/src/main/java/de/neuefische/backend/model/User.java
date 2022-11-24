@@ -7,6 +7,6 @@ import java.util.Locale;
 public record User(
         String id,
         String name,
-        List<Country> countryList
+        List<Country> visitedCountries
 ) {
 }
