@@ -1,10 +1,12 @@
 package de.neuefische.backend.repository;
 
 import de.neuefische.backend.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
 
+@Repository
 public class UserRepo {
     private final List<User> users;
 
