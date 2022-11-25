@@ -8,6 +8,4 @@ export type User = {
 
 export type NewUser = {
     name : string,
-    visitedCountries: Country[]
-
 }
