@@ -9,9 +9,11 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserRepo userRepo;
+    private final UuidGeneratorService uuidGeneratorService;
 
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
+        this.uuidGeneratorService = new UuidGeneratorService();
     }
 
     public List<User> listUsers() {
@@ -19,7 +21,8 @@ public class UserService {
     }
 
     public User addUser(User user){
-        return userRepo.addUser(user);
+        User userWithId = new User(this.uuidGeneratorService.generateUuid(),user.name(),user.visitedCountries());
+        return userRepo.addUser(userWithId);
     }
 
 
