@@ -1,5 +1,6 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.exception.RestCountryException;
 import de.neuefische.backend.model.Country;
 import de.neuefische.backend.model.restcountries.RestCountry;
 import de.neuefische.backend.service.RestCountriesService;
@@ -24,7 +25,7 @@ public class RestCountriesController {
     }
 
     @GetMapping()
-    public List<Country> countries() {
+    public List<Country> countries() throws RestCountryException {
         RestCountry[] restCountries = webClient
                 .method(HttpMethod.GET)
                 .uri("/all")
