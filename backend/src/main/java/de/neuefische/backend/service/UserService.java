@@ -11,9 +11,9 @@ public class UserService {
     private final UserRepo userRepo;
     private final UuidGeneratorService uuidGeneratorService;
 
-    public UserService(UserRepo userRepo) {
+    public UserService(UserRepo userRepo, UuidGeneratorService uuidGeneratorService) {
         this.userRepo = userRepo;
-        this.uuidGeneratorService = new UuidGeneratorService();
+        this.uuidGeneratorService = uuidGeneratorService;
     }
 
     public List<User> listUsers() {
