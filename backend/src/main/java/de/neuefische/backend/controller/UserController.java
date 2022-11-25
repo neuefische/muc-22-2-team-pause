@@ -16,12 +16,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<User> listUsers(){
         return userService.listUsers();
     }
 
-    @PostMapping("")
+    @PostMapping()
     public User addUser(@RequestBody User user){
         return userService.addUser(user);
     }
