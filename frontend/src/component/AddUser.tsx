@@ -2,7 +2,7 @@ import {NewUser} from "../model/User";
 import {ChangeEvent, useState} from "react";
 
 type AddUserProps ={
-    creatUser:(user:NewUser)=> void
+    createUser:(user:NewUser)=> void
 }
 
 export default function AddUser(props:AddUserProps){
@@ -11,7 +11,7 @@ export default function AddUser(props:AddUserProps){
     }
     const[newUser,setNewUser]=useState<NewUser>(emptyUser)
     function handleSubmit(){
-        props.creatUser(newUser)
+        props.createUser(newUser)
     }
 
     function handleOnChange(event:ChangeEvent<HTMLInputElement>){
