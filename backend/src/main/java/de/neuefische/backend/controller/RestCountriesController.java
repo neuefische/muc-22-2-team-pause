@@ -4,11 +4,10 @@ import de.neuefische.backend.exception.RestCountryException;
 import de.neuefische.backend.model.Country;
 import de.neuefische.backend.model.restcountries.RestCountry;
 import de.neuefische.backend.service.RestCountriesService;
-import org.springframework.http.HttpMethod;
+import de.neuefische.backend.RestCountriesWebClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -16,21 +15,16 @@ import java.util.List;
 @RequestMapping("/api/countries")
 public class RestCountriesController {
 
-    private final WebClient webClient;
+    private final RestCountriesWebClient webClient = new RestCountriesWebClient("https://restcountries.com/v3.1/");
     private final RestCountriesService restCountriesService;
 
-    public RestCountriesController(WebClient webClient, RestCountriesService restCountriesService) {
-        this.webClient = webClient;
+    public RestCountriesController( RestCountriesService restCountriesService) {
         this.restCountriesService = restCountriesService;
     }
 
     @GetMapping()
     public List<Country> countries() throws RestCountryException {
-        RestCountry[] restCountries = webClient
-                .method(HttpMethod.GET)
-                .uri("/all")
-                .exchangeToMono(clientResponse -> clientResponse.bodyToMono(RestCountry[].class))
-                .block();
+        RestCountry[] restCountries = this.webClient.sendGetRequest();
 
         return restCountriesService.refactorApiResponse(restCountries);
     }
