@@ -4,7 +4,6 @@ import de.neuefische.backend.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
 public class UserRepo {
@@ -20,14 +19,10 @@ public class UserRepo {
     }
 
     public User addUser(User user) {
-        User newUser = new User(generateID(), user.name(), user.visitedCountries());
-        this.users.add(newUser);
-        return newUser;
+        this.users.add(user);
+        return user;
     }
 
-    private String generateID() {
-        return UUID.randomUUID().toString();
-    }
 
 
 }
