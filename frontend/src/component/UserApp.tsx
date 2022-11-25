@@ -15,7 +15,7 @@ export default function UserApp() {
     )
 
 
-    function creatUser(user: NewUser) {
+    function createUser(user: NewUser) {
         addUser(user)
             .then(response => response.data)
             .then(data => {
@@ -29,7 +29,7 @@ export default function UserApp() {
     return (
 
         <div><UserList users={users}/>
-        <AddUser creatUser={creatUser}/>
+        <AddUser createUser={createUser}/>
         </div>
     )
 
