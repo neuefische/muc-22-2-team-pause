@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {NewUser, User} from "../model/User";
-import {addUser, getUsers} from "../ApiCalls";
+import {addUser, deleteUser, getUsers} from "../ApiCalls";
 
 export default function useUsers() {
     const [users, setUsers] = useState<User[]>([])
@@ -14,14 +14,20 @@ export default function useUsers() {
 
     function addNewUser(newUser: NewUser) {
         addUser(newUser)
-            .then(response => response.data)
-            .then(data => {
-                    users.push(data)
-                    setUsers(users)
-                }
-            ).catch(console.error)
+            .then(newTodoResponse => {
+                setUsers(prevTodoList => {
+                    return [...prevTodoList, newTodoResponse.data]
+                })
+            }).catch(console.error)
     }
 
+    function deleteTodoByID(id:string){
+        deleteUser(id)
+            .then(() => {
+                const updateUsers = users.filter((user: User) => user.id !== id)
+                setUsers(updateUsers)
+            }).catch(console.error)
+    }
 
-    return {users, addNewUser}
+    return {users, addNewUser,deleteTodoByID}
 }
