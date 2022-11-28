@@ -2,7 +2,7 @@ import axios from "axios";
 import {NewUser} from "./model/User";
 
 export function getUsers(){
-    return axios.get("/api/user")
+    return axios.get("/api/user").then(response => response.data)
 }
 
 export function addUser(user:NewUser){
