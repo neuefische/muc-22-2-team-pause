@@ -11,8 +11,6 @@ export default function UserList(props: UserListProps) {
     return (
         <div>
             {props.users.map(user => <UserCard key={user.id} user={user}/>)}
-
-
         </div>
     )
 }

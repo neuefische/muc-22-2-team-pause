@@ -4,16 +4,18 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {User} from "../model/User";
 
-export default function UserOverview (){
-    const {users} =useUsers()
-    const {state} = useLocation();
-    const [loggedInUser, setLoggedInUser] = useState<User>();
 
-    useEffect(()=> {
+export default function UserOverview() {
+    const {users} = useUsers()
+    const {state} = useLocation()
+    const [loggedInUser, setLoggedInUser] = useState<User>()
+
+    useEffect(() => {
         setLoggedInUser(state)
-    },[state])
+    }, [loggedInUser, state])
 
-    return(<div>
+    return (<div>
         <UserList users={users}/>
+        Logged in as : {loggedInUser && loggedInUser.name}
     </div>)
 }
