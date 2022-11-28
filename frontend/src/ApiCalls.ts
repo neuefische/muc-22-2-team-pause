@@ -6,5 +6,5 @@ export function getUsers(){
 }
 
 export function addUser(user:NewUser){
-    return axios.post("/api/user",user)
+    return axios.post("/api/user",user).then(response => response.data)
 }
