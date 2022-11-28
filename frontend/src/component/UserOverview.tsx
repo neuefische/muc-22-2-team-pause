@@ -1,5 +1,5 @@
 import UserList from "./UserList";
-import useUsers from "../hooks/useUsers";
+import useUsers from "../hook/useUsers";
 import {User} from "../model/User";
 
 type UserOverviewProps = {
@@ -7,14 +7,18 @@ type UserOverviewProps = {
     setLoggedInUser(user: User): void;
 }
 export default function UserOverview(props:UserOverviewProps) {
-    const {users} = useUsers()
+    const {users, deleteUserByID} = useUsers()
 
     function handleLoginAs(user:User) {
         props.setLoggedInUser(user)
     }
 
+    function handleDeleteUser(id:string){
+        deleteUserByID(id)
+    }
+
     return (<div>
-        <UserList users={users} handleLoginAs={handleLoginAs}/>
+        <UserList users={users} handleLoginAs={handleLoginAs} deleteUser={handleDeleteUser}/>
         Logged in as : {props.loggedInUser && props.loggedInUser.name}
     </div>)
 }

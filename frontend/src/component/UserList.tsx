@@ -16,8 +16,7 @@ export default function UserList(props: UserListProps) {
 
     return (
         <div>
-            {props.users.map(user => <UserCard key={user.id} user={user} deleteUser={props.deleteUser}/>)}
-            {props.users.map(user => <UserCard key={user.id} user={user} handleLoginAs={handleLogInAs}/>)}
+            {props.users.map(user => <UserCard key={user.id} user={user} handleLoginAs={handleLogInAs} deleteUser={props.deleteUser}/>)}
         </div>
     )
 }

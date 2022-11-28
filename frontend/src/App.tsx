@@ -19,7 +19,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<SignUp setLoggedInUser={handleLoginUser}/>}/>
                     <Route path="/overview" element={<UserOverview loggedInUser={loggedInUser!}
-                                                                   setLoggedInUser={handleLoginUser}/>}>
+                                                                   setLoggedInUser={handleLoginUser} />}>
 
                     </Route>
                     <Route path="/overview/:id" element={<p>detail</p>}></Route>
