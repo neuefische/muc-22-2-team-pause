@@ -4,7 +4,7 @@ import de.neuefische.backend.model.User;
 import de.neuefische.backend.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -16,7 +16,7 @@ public class UserService {
         this.uuidGeneratorService = uuidGeneratorService;
     }
 
-    public Map<String,User> listUsers() {
+    public List<User> listUsers() {
         return userRepo.getUsers();
     }
 

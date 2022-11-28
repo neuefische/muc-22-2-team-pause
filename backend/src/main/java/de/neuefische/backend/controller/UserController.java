@@ -4,7 +4,7 @@ import de.neuefische.backend.model.User;
 import de.neuefische.backend.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -17,7 +17,7 @@ public class UserController {
     }
 
     @GetMapping()
-    public Map<String,User> listUsers(){
+    public List<User> listUsers(){
         return userService.listUsers();
     }
 
