@@ -32,6 +32,7 @@ export default function AddUser(props:AddUserProps){
                         placeholder={"hi, traveller"}
                     />
                 </label>
+                <button type={"submit"}>Register</button>
             </form>
         </div>
     )
