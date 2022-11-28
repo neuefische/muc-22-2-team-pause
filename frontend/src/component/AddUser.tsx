@@ -1,5 +1,5 @@
 import {NewUser} from "../model/User";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 
 type AddUserProps ={
     createUser:(user:NewUser)=> void
@@ -10,7 +10,8 @@ export default function AddUser(props:AddUserProps){
         name:""
     }
     const[newUser,setNewUser]=useState<NewUser>(emptyUser)
-    function handleSubmit(){
+    function handleSubmit(event:FormEvent<HTMLFormElement>){
+        event.preventDefault()
         props.createUser(newUser)
     }
 
