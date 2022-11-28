@@ -14,7 +14,7 @@ public class RestCountriesService {
 
     public List<Country> refactorApiResponse(RestCountry[] apiResponse) throws RestCountryException {
         if (apiResponse == null) {
-            throw new RestCountryException("RESTCountry API seems to be unvailable");
+            throw new RestCountryException("RESTCountry API seems to be unavailable");
         }
         List<Country> countries = new ArrayList<>();
 
