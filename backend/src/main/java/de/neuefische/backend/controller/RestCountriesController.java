@@ -15,7 +15,8 @@ import java.util.List;
 @RequestMapping("/api/countries")
 public class RestCountriesController {
 
-    private final RestCountriesWebClient webClient = new RestCountriesWebClient("https://restcountries.com/v3.1/");
+    private final RestCountriesWebClient webClient =
+            new RestCountriesWebClient("https://restcountries.com/v3.1/all");
     private final RestCountriesService restCountriesService;
 
     public RestCountriesController( RestCountriesService restCountriesService) {

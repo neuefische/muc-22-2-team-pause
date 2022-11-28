@@ -31,7 +31,6 @@ public class RestCountriesWebClient {
 
         return this.webClient
                 .method(HttpMethod.GET)
-                .uri("/all")
                 .exchangeToMono(clientResponse -> clientResponse.bodyToMono(RestCountry[].class))
                 .block();
     }

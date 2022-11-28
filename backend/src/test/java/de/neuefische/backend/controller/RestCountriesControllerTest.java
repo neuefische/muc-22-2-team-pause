@@ -71,7 +71,8 @@ class RestCountriesControllerTest {
 
         MockWebServer mockWebServer = new MockWebServer();
 
-        RestCountriesWebClient restCountriesWebClient = new RestCountriesWebClient(mockWebServer.url("/").url().toString());
+        RestCountriesWebClient restCountriesWebClient =
+                new RestCountriesWebClient(mockWebServer.url("/").url().toString());
 
         mockWebServer.enqueue(
                 new MockResponse().setResponseCode(200)
@@ -82,7 +83,6 @@ class RestCountriesControllerTest {
         RecordedRequest request = mockWebServer.takeRequest();
 
         assertThat(request.getMethod()).isEqualTo("GET");
-
 
         mockWebServer.close();
 
