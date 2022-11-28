@@ -1,12 +1,21 @@
 import React from 'react';
 import './App.css';
-import UserApp from "./component/UserApp";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import SignUp from "./component/SignUp";
 
 
 function App() {
     return (
         <div>
-            <UserApp/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<SignUp/>}/>
+                    <Route path="/overview" element={<p>Overview</p>}></Route>
+                    <Route path="/overview/:id" element={<p>detail</p>}></Route>
+                    <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
+                    <Route path="/overview/:id/countries" element={<p>edit countries</p>}></Route>
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 }
