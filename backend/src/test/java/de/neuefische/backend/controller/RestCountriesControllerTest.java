@@ -5,15 +5,27 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@SpringBootTest
+@AutoConfigureMockMvc
 class RestCountriesControllerTest {
+    String endPoint = "/api/countries";
+
+    @Autowired
+    private MockMvc mvc;
+
 
     @Test
     void get_countries_returns_a_list_of_countries_and_deserialize()
@@ -85,7 +97,11 @@ class RestCountriesControllerTest {
         assertThat(request.getMethod()).isEqualTo("GET");
 
         mockWebServer.close();
+    }
 
-
+    @Test
+    void getCountries_expect_status_ok() throws Exception {
+        mvc.perform(get(endPoint))
+                .andExpect(status().isOk());
     }
 }

@@ -53,9 +53,7 @@ class UserControllerTest {
 
         User actualResult = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
 
-        assertInstanceOf(User.class, actualResult);
         assertFalse(actualResult.id().isEmpty());
-        assertFalse(actualResult.id().isBlank());
     }
 
 
