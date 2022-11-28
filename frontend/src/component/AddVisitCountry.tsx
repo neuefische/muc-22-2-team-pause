@@ -1,7 +1,7 @@
 import {Country} from "../model/Country";
 import {ChangeEvent, useState} from "react";
 import VisitCountryCard from "./VisitCountryCard";
-
+import "./AddVisitCountry.css"
 type AddVisitCountryProps = {
     countries: Country[]
 }
@@ -28,8 +28,8 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
             <div>
                 <input type={"search"} onChange={handleSearchText} placeholder={"Search for a country.."}/>
             </div>
-            <div>
-                {filteredCountries.map((value) => {
+            <div className={"card-display"}>
+                {filteredCountries.length < 5 && filteredCountries.map((value) => {
                     return <VisitCountryCard country={value}
                                              addCountryToUser={addCountryToUser}
                                              key={value.threeLetterCode}/>
