@@ -12,10 +12,14 @@ export default function UserOverview() {
 
     useEffect(() => {
         setLoggedInUser(state)
-    }, [loggedInUser, state])
+    }, [])
+
+    function handleLoginAs(user:User) {
+        setLoggedInUser(user)
+    }
 
     return (<div>
-        <UserList users={users}/>
+        <UserList users={users} handleLoginAs={handleLoginAs}/>
         Logged in as : {loggedInUser && loggedInUser.name}
     </div>)
 }
