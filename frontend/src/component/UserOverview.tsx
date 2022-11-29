@@ -18,7 +18,7 @@ export default function UserOverview(props:UserOverviewProps) {
     }
 
     return (<div>
-        <UserList users={users} handleLoginAs={handleLoginAs} deleteUser={handleDeleteUser}/>
+        <UserList users={users} handleLoginAs={handleLoginAs} deleteUser={handleDeleteUser} loggedInUser={props.loggedInUser}/>
         Logged in as : {props.loggedInUser && props.loggedInUser.name}
     </div>)
 }

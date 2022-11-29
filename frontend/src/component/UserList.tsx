@@ -3,6 +3,7 @@ import UserCard from "./UserCard";
 
 type UserListProps = {
     users: User[]
+    loggedInUser:User
     deleteUser(id:string):void
     handleLoginAs(user:User): void;
 }
@@ -16,7 +17,7 @@ export default function UserList(props: UserListProps) {
 
     return (
         <div>
-            {props.users.map(user => <UserCard key={user.id} user={user} handleLoginAs={handleLogInAs} deleteUser={props.deleteUser}/>)}
+            {props.users.map(user => <UserCard key={user.id} user={user} handleLoginAs={handleLogInAs} loggedInUser={props.loggedInUser} deleteUser={props.deleteUser}/>)}
         </div>
     )
 }
