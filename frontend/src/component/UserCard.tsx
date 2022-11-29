@@ -1,20 +1,22 @@
 import {User} from "../model/User";
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 type UserCardProps = {
     user: User
+    loggedInUser: User
     handleLoginAs(user: User): void;
-    deleteUser(id:string):void
+    deleteUser(id: string): void
 }
 
 export default function UserCard(props: UserCardProps) {
+    const navigate = useNavigate()
 
-function handleDeleteUser(){
-    console.log("userid: ",props.user.id)
+    function handleDeleteUser() {
+        console.log("userid: ", props.user.id)
         props.deleteUser(props.user.id)
-
-
-}
+        navigate("/")
+    }
 
     function handleLoginAs() {
         props.handleLoginAs(props.user)
@@ -22,9 +24,8 @@ function handleDeleteUser(){
 
     return (<div>
             <h2>Name:{props.user.name} </h2>
-
-            <button onClick={handleDeleteUser}>delete User</button>
-            <button onClick={handleLoginAs}>Login as</button>
+            {props.loggedInUser === props.user && <button onClick={handleDeleteUser}>delete User</button>}
+            {props.loggedInUser !== props.user && < button onClick={handleLoginAs}>Login as</button>}
         </div>
 
     )
