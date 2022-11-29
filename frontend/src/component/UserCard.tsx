@@ -13,7 +13,6 @@ export default function UserCard(props: UserCardProps) {
     const navigate = useNavigate()
 
     function handleDeleteUser() {
-        console.log("userid: ", props.user.id)
         props.deleteUser(props.user.id)
         navigate("/")
     }
