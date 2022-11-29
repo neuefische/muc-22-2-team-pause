@@ -76,7 +76,7 @@ class UserControllerTest {
         User textResultUser = objectMapper.readValue(textResult, User.class);
         String id = textResultUser.id();
 
-        mvc.perform(delete(endPoint + "/"+id))
+        mvc.perform(delete(endPoint + "/" + id))
                 .andExpect(status().isOk());
     }
 }

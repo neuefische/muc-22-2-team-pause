@@ -27,6 +27,5 @@ export default function UserCard(props: UserCardProps) {
             {props.loggedInUser.id === props.user.id && <button onClick={handleDeleteUser}>delete User</button>}
             {props.loggedInUser.id !== props.user.id && < button onClick={handleLoginAs}>Login as</button>}
         </div>
-
     )
 }
