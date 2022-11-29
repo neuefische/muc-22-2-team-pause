@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UserControllerTest {
 
-    String endPoint = "/api/user";
+    String userEndPoint = "/api/user";
 
     @Autowired
     private MockMvc mvc;
@@ -31,7 +31,7 @@ class UserControllerTest {
 
     @Test
     void listUsers_expect_empty_list() throws Exception {
-        mvc.perform(get(endPoint))
+        mvc.perform(get(userEndPoint))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         []
@@ -40,7 +40,7 @@ class UserControllerTest {
 
     @Test
     void addUser_expect_valid_user_and_an_id() throws Exception {
-        MvcResult result = mvc.perform(post(endPoint)
+        MvcResult result = mvc.perform(post(userEndPoint)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -61,9 +61,9 @@ class UserControllerTest {
 
     @DirtiesContext
     @Test
-    void expectSuccessfulDelete() throws Exception {
-        String textResult = mvc.perform(
-                        post(endPoint)
+    void expect_successful_delete() throws Exception {
+        String userAsString = mvc.perform(
+                        post(userEndPoint)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("""
                                         {"name":"Max Mustermann"}
@@ -73,10 +73,10 @@ class UserControllerTest {
                 .getResponse()
                 .getContentAsString();
 
-        User textResultUser = objectMapper.readValue(textResult, User.class);
-        String id = textResultUser.id();
+        User resultUser = objectMapper.readValue(userAsString, User.class);
+        String id = resultUser.id();
 
-        mvc.perform(delete(endPoint + "/" + id))
+        mvc.perform(delete(userEndPoint + "/" + id))
                 .andExpect(status().isOk());
     }
 }
