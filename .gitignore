@@ -34,3 +34,4 @@ build/
 
 /frontend/node_modules
 /backend/src/main/resources/static/
+!/fly.toml
