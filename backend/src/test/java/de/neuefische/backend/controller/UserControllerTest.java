@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -55,5 +56,27 @@ class UserControllerTest {
         assertInstanceOf(User.class, actualResult);
         assertFalse(actualResult.id().isEmpty());
         assertFalse(actualResult.id().isBlank());
+    }
+
+
+    @DirtiesContext
+    @Test
+    void expectSuccessfulDelete() throws Exception {
+        String textResult = mvc.perform(
+                        post(endPoint)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                                        {"name":"Max Mustermann"}
+                                        """)
+                )
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        User textResultUser = objectMapper.readValue(textResult, User.class);
+        String id = textResultUser.id();
+
+        mvc.perform(delete(endPoint + "/"+id))
+                .andExpect(status().isOk());
     }
 }

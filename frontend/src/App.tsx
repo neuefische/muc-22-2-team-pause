@@ -7,18 +7,21 @@ import {User} from "./model/User";
 
 
 function App() {
-    const [loggedInUser, setLoggedInUser] = useState<User>()
+    const [loggedInUser, setLoggedInUser] = useState<User>({id:"null",name:"loading",visitedCountries:[]})
 
     function handleLoginUser(loggedInUser:User) {
         setLoggedInUser(loggedInUser)
     }
 
     return (
+
+
+
         <div>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<SignUp setLoggedInUser={handleLoginUser}/>}/>
-                    <Route path="/overview" element={<UserOverview loggedInUser={loggedInUser!}
+                    <Route path="/overview" element={<UserOverview loggedInUser={loggedInUser}
                                                                    setLoggedInUser={handleLoginUser} />}>
 
                     </Route>
@@ -29,6 +32,10 @@ function App() {
             </BrowserRouter>
         </div>
     );
+
+
+
+
 }
 
 export default App;

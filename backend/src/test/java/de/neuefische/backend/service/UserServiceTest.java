@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -37,5 +36,19 @@ class UserServiceTest {
         //then
         assertEquals(givenUser,result);
         verify(userRepo).addUser(givenUser);
+    }
+
+    @Test
+    void deleteUser_expect_success() {
+        //GIVEN
+        String expected = "1";
+
+        //WHEN
+        when(userRepo.deleteUser(expected)).thenReturn(expected);
+        String result = userService.deleteUser(expected);
+
+        //THEN
+        verify(userRepo).deleteUser(expected);
+        assertEquals(expected,result);
     }
 }
