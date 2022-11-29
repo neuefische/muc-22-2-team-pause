@@ -23,7 +23,8 @@ public class UserRepo {
         return user;
     }
 
-    public void deleteUser(String id) {
+    public String deleteUser(String id) {
         users.removeIf(user -> user.id().equals(id));
+        return id;
     }
 }
