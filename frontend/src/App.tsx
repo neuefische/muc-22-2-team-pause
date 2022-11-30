@@ -4,17 +4,19 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
 import {User} from "./model/User";
+import AddVisitCountry from "./component/AddVisitCountry";
+import useCountries from "./hook/useCountries";
 
 
 function App() {
-    const [loggedInUser, setLoggedInUser] = useState<User>({id:"null",name:"loading",visitedCountries:[]})
+    const [loggedInUser, setLoggedInUser] = useState<User>({id: "null", name: "loading", visitedCountries: []})
+    const {countries} = useCountries()
 
-    function handleLoginUser(loggedInUser:User) {
+    function handleLoginUser(loggedInUser: User) {
         setLoggedInUser(loggedInUser)
     }
 
     return (
-
 
 
         <div>
@@ -22,18 +24,19 @@ function App() {
                 <Routes>
                     <Route path="/" element={<SignUp setLoggedInUser={handleLoginUser}/>}/>
                     <Route path="/overview" element={<UserOverview loggedInUser={loggedInUser}
-                                                                   setLoggedInUser={handleLoginUser} />}>
-
+                                                                   setLoggedInUser={handleLoginUser}/>}>
                     </Route>
                     <Route path="/overview/:id" element={<p>detail</p>}></Route>
                     <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
-                    <Route path="/overview/:id/countries" element={<p>edit countries</p>}></Route>
+                    <Route path="/overview/:id/countries" element={<AddVisitCountry
+                        countries={countries}
+                        loggedInUser={loggedInUser}
+                        />}>
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </div>
     );
-
-
 
 
 }

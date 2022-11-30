@@ -8,8 +8,7 @@ export default function useUsers() {
             getUsers()
                 .then(data => setUsers(data))
                 .catch(console.error)
-        }, []
-    )
+        }, [])
 
 
     function deleteUserByID(id:string){
