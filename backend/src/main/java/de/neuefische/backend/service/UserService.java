@@ -5,7 +5,7 @@ import de.neuefische.backend.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -21,19 +21,20 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User addUser(User user){
-        User userWithId = new User(this.uuidGeneratorService.generateUuid(),user.name(),user.visitedCountries());
+    public User addUser(User user) {
+        User userWithId = new User(this.uuidGeneratorService.generateUuid(), user.name(), user.visitedCountries());
         return userRepo.save(userWithId);
     }
 
 
-    public String deleteUser(String id){
-        Optional<User> byId = userRepo.findById(id);
-        if (byId.isEmpty()){
-            throw new IllegalArgumentException();
-        }
-        userRepo.delete(byId.get());
+    public String deleteUserById(String id) {
+        userRepo.deleteById(id);
         return id;
+    }
+
+    public User findUserById(String id){
+        return userRepo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + id + "does not exsist"));
     }
 
 }
