@@ -25,4 +25,9 @@ public class UserRepo {
         this.users.remove(id);
         return id;
     }
+
+    public User updateUser(String id, User editedUser) {
+        this.users.put(id, editedUser);
+        return editedUser;
+    }
 }

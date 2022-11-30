@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.exception.NoSuchUserException;
 import de.neuefische.backend.model.User;
 import de.neuefische.backend.repository.UserRepo;
 import org.springframework.stereotype.Service;
@@ -20,15 +21,29 @@ public class UserService {
         return userRepo.getUsers();
     }
 
-    public User addUser(User user){
-        User userWithId = new User(this.uuidGeneratorService.generateUuid(),user.name(),user.visitedCountries());
+    public User addUser(User user) {
+        User userWithId = new User(this.uuidGeneratorService.generateUuid(), user.name(), user.visitedCountries());
         return userRepo.addUser(userWithId);
     }
 
 
-    public String deleteUser(String id){
+    public String deleteUser(String id) {
         userRepo.deleteUser(id);
         return id;
     }
 
+    public User updateUser(String id, User editedUser) {
+        checkIfExsists(id);
+        return userRepo.updateUser(id, editedUser);
+    }
+
+    private void checkIfExsists(String id) {
+        for (User user :
+                listUsers()) {
+            if (user.id().equals(id)) {
+                return;
+            }
+        }
+        throw new NoSuchUserException("User with id"+ id+" not found ");
+    }
 }
