@@ -2,6 +2,7 @@ package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.backend.model.User;
+import de.neuefische.backend.repository.UserRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserControllerTest {
 
     String userEndPoint = "/api/user";
+    UserRepo userRepo = mock(UserRepo.class);
 
     @Autowired
     private MockMvc mvc;
@@ -76,5 +79,19 @@ class UserControllerTest {
 
         mvc.perform(delete(userEndPoint + "/" + id))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void update_expect_NotFound_status() throws Exception {
+        mvc.perform(put(userEndPoint + "/" + "10")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "id": "0",
+                                "name": "nick",
+                                "visitedCountries": []
+                                }
+                                """))
+                .andExpect(status().isNotFound());
     }
 }

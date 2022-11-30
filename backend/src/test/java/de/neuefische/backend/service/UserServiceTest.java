@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.exception.NoSuchUserException;
 import de.neuefische.backend.model.User;
 import de.neuefische.backend.repository.UserRepo;
 import org.junit.jupiter.api.Test;
@@ -51,5 +52,12 @@ class UserServiceTest {
         //THEN
         verify(userRepo).deleteUser(expected);
         assertEquals(expected,result);
+    }
+
+    @Test
+    void updateUser_expect_exception() {
+        User user = new User("10","nick",new HashSet<>());
+
+        assertThrows(NoSuchUserException.class, () -> userService.updateUser("10", user));
     }
 }

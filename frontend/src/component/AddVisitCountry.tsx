@@ -1,10 +1,10 @@
 import {Country} from "../model/Country";
 import {ChangeEvent, useState} from "react";
 import VisitCountryCard from "./VisitCountryCard";
-import "./AddVisitCountry.css"
+import "./AddVisitCountry.css";
 import {User} from "../model/User";
-import {updateUser} from "../apiCalls";
 import {useNavigate} from "react-router-dom";
+import {updateUser} from "../apiCalls";
 
 type AddVisitCountryProps = {
     countries: Country[],

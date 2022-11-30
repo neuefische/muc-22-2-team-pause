@@ -32,12 +32,12 @@ public class UserService {
         return id;
     }
 
-    public User updateUser(String id, User editedUser) {
+    public User updateUser(String id, User editedUser){
         checkIfExsists(id);
         return userRepo.updateUser(id, editedUser);
     }
 
-    private void checkIfExsists(String id) {
+    private void checkIfExsists(String id) throws NoSuchUserException {
         for (User user :
                 listUsers()) {
             if (user.id().equals(id)) {
