@@ -33,9 +33,10 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
         props.loggedInUser.visitedCountries.push(country)
 
         updateUser(props.loggedInUser.id, props.loggedInUser)
+            .then(() => {
+                navigate("/overview")
+            })
             .catch(console.error)
-
-        navigate("/overview")
     }
 
     return (
