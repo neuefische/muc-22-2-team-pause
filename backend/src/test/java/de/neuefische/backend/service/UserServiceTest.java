@@ -5,6 +5,7 @@ import de.neuefische.backend.repository.UserRepo;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -27,7 +28,7 @@ class UserServiceTest {
     @Test
     void addUser_expect_valid_user() {
         //given
-        User givenUser = new User(null,"nick",new ArrayList<>());
+        User givenUser = new User(null,"nick",new HashSet<>());
 
         //when
         when(userRepo.addUser(givenUser)).thenReturn(givenUser);
