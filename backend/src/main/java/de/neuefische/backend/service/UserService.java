@@ -5,6 +5,7 @@ import de.neuefische.backend.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -17,17 +18,21 @@ public class UserService {
     }
 
     public List<User> listUsers() {
-        return userRepo.getUsers();
+        return userRepo.findAll();
     }
 
     public User addUser(User user){
         User userWithId = new User(this.uuidGeneratorService.generateUuid(),user.name(),user.visitedCountries());
-        return userRepo.addUser(userWithId);
+        return userRepo.save(userWithId);
     }
 
 
     public String deleteUser(String id){
-        userRepo.deleteUser(id);
+        Optional<User> byId = userRepo.findById(id);
+        if (byId.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        userRepo.delete(byId.get());
         return id;
     }
 
