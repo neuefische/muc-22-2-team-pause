@@ -10,7 +10,6 @@ type UserOverviewProps = {
 export default function UserOverview(props:UserOverviewProps) {
     const {users, deleteUserByID} = useUsers()
 
-    console.log(users)
     function handleLoginAs(user:User) {
         props.setLoggedInUser(user)
     }
