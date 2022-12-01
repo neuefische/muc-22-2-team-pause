@@ -28,7 +28,7 @@ export default function UserCard(props: UserCardProps) {
     return (<div>
             <h2>Name:{props.user.name} </h2>
             <div>{props.user.visitedCountries &&
-                props.user.visitedCountries.map((country) => <p key={country.threeLetterCode}> {country.name}[{country.threeLetterCode}] {country.flag}</p>})
+                props.user.visitedCountries.map((country) => <p key={country.threeLetterCode}> {country.name}[{country.threeLetterCode}] {country.flag}</p>)}
             </div>
             {props.loggedInUser.id === props.user.id && <button onClick={handleDeleteUser}>Delete User</button>}
             {props.loggedInUser.id === props.user.id && <button
