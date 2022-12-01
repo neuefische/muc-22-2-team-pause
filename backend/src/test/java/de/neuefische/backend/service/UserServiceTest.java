@@ -60,7 +60,7 @@ class UserServiceTest {
     @Test
     void findUser_expect_correct_user() {
         //given
-        User givenUser = new User("0","hanna",new ArrayList<>());
+        User givenUser = new User("0","hanna",new HashSet<>());
         //when
         when(userRepo.findById(givenUser.id())).thenReturn(Optional.of(givenUser));
         User userResult = userService.findUserById(givenUser.id());

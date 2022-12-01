@@ -40,7 +40,7 @@ public class UserService {
 
     public User updateUser(String id, User editedUser){
         checkIfExsists(id);
-        return userRepo.updateUser(id, editedUser);
+        return userRepo.save(editedUser);
     }
 
     private void checkIfExsists(String id) throws NoSuchUserException {
