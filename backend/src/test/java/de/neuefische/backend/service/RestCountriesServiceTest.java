@@ -75,5 +75,8 @@ class RestCountriesServiceTest {
         assertThat(countries.get(0).name()).isEqualTo("Mauritania");
         assertThat(countries.get(0).flag()).isEqualTo("🇲🇷");
         assertThat(countries.get(0).threeLetterCode()).isEqualTo("MRT");
+        assertThat(countries.get(1).name()).isEqualTo("Aruba");
+        assertThat(countries.get(1).flag()).isEqualTo("🇦🇼");
+        assertThat(countries.get(1).threeLetterCode()).isEqualTo("ABW");
     }
 }

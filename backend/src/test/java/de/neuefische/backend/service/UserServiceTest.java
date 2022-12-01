@@ -70,7 +70,7 @@ class UserServiceTest {
     }
 
     @Test
-    void updateUser_expect_exception() {
+    void updateUser_expect_exception_because_there_are_no_users_saved() {
         User user = new User("10", "nick", new HashSet<>());
 
         assertThrows(NoSuchUserException.class, () -> userService.updateUser("10", user));
@@ -78,7 +78,7 @@ class UserServiceTest {
 
 
     @Test
-    void updateUser_expect_noException() {
+    void updateUser_expect_noException_because_there_are_users_saved() {
         User user = new User("10", "lily", new HashSet<>());
 
         when(userRepo.findAll()).thenReturn(List.of(user));
