@@ -10,6 +10,8 @@ import Login from "./component/Login";
 import useLoggedInUserAndTraveller from "./hook/useLoggedInUserAndTraveller";
 import ProtectedRoutes from "./component/ProtectedRoutes";
 import NavBar from "./component/NavBar";
+import useCountries from "./hook/useCountries";
+import WorldMap from "./component/WorldMap";
 
 
 function App() {
@@ -45,6 +47,7 @@ function App() {
                     <Route path="/login" element={<Login handleLogInUser={loginUser} loggedInUsername={username}/>}/>
 
                     <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller}/>}>
+                        <Route path="/overview/map" element={<WorldMap/>}></Route>
                         <Route path="/overview"
                                element={<UserOverview searchText={searchText}
                                                       loggedInTraveller={loggedInTraveller}/>}></Route>
@@ -53,7 +56,6 @@ function App() {
                         <Route path="/overview/:id/countries" element={<AddVisitCountry
                             loggedInTraveller={loggedInTraveller}
                         />}>
-
                         </Route>
 
                     </Route>
