@@ -6,6 +6,7 @@ import UserOverview from "./component/UserOverview";
 import {User} from "./model/User";
 import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
+import WelcomeScreen from "./component/WelcomeScreen";
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<SignUp setLoggedInUser={handleLoginUser}/>}/>
+                    <Route path="/" element={<WelcomeScreen/>}/>
+                    <Route path="/signup" element={<SignUp setLoggedInUser={handleLoginUser}/>}/>
                     <Route path="/overview" element={<UserOverview loggedInUser={loggedInUser}
                                                                    setLoggedInUser={handleLoginUser}/>}>
                     </Route>
@@ -29,7 +31,7 @@ function App() {
                     <Route path="/overview/:id/countries" element={<AddVisitCountry
                         countries={countries}
                         loggedInUser={loggedInUser}
-                        />}>
+                    />}>
                     </Route>
                 </Routes>
             </BrowserRouter>
