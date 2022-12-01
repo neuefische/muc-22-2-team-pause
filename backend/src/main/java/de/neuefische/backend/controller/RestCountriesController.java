@@ -25,7 +25,7 @@ public class RestCountriesController {
 
     @GetMapping()
     public List<Country> countries() throws RestCountryException {
-        RestCountry[] restCountries = this.webClient.sendGetRequest();
+        RestCountry[] restCountries = this.webClient.getAllCountries();
 
         return restCountriesService.refactorApiResponse(restCountries);
     }

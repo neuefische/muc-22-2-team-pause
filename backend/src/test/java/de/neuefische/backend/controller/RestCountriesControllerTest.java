@@ -91,7 +91,7 @@ class RestCountriesControllerTest {
                         .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .setBody(givenJson));
 
-        restCountriesWebClient.sendGetRequest();
+        restCountriesWebClient.getAllCountries();
         RecordedRequest request = mockWebServer.takeRequest();
 
         assertThat(request.getMethod()).isEqualTo("GET");

@@ -27,7 +27,7 @@ public class RestCountriesWebClient {
                 .build();
     }
 
-    public RestCountry[] sendGetRequest(){
+    public RestCountry[] getAllCountries(){
 
         return this.webClient
                 .method(HttpMethod.GET)
