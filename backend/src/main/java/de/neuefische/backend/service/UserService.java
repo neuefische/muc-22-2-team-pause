@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.exception.NoSuchUserException;
 import de.neuefische.backend.model.User;
 import de.neuefische.backend.repository.UserRepo;
 import org.springframework.stereotype.Service;
@@ -37,4 +38,18 @@ public class UserService {
                 .orElseThrow(() -> new NoSuchElementException("User with id " + id + "does not exsist"));
     }
 
+    public User updateUser(String id, User editedUser){
+        checkIfExsists(id);
+        return userRepo.save(editedUser);
+    }
+
+    private void checkIfExsists(String id) throws NoSuchUserException {
+        for (User user :
+                listUsers()) {
+            if (user.id().equals(id)) {
+                return;
+            }
+        }
+        throw new NoSuchUserException("User with id"+ id+" not found ");
+    }
 }

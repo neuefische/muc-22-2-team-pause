@@ -5,6 +5,7 @@ import de.neuefische.backend.model.UserRequest;
 import de.neuefische.backend.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -24,12 +25,18 @@ public class UserController {
 
     @PostMapping()
     public User addUser(@RequestBody UserRequest userRequest){
-        User saveUser = new User(userRequest.id(), userRequest.name(), userRequest.visitedCountries());
+        User saveUser = new User("", userRequest.name(),new HashSet<>());
         return userService.addUser(saveUser);
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable String id) {
        return userService.deleteUserById(id);
+    }
+
+    @PutMapping("/{id}")
+    public User update(@PathVariable String id, @RequestBody UserRequest userRequest){
+        User toEditUser = new User(id,userRequest.name(),userRequest.visitedCountries());
+        return userService.updateUser(id,toEditUser);
     }
 }

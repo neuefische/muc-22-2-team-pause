@@ -1,10 +1,10 @@
 package de.neuefische.backend.model;
 
-import java.util.List;
+import java.util.Set;
 
 public record UserRequest(
-        String id,
         String name,
-        List<Country> visitedCountries
+        Set<Country> visitedCountries
+
 ) {
 }

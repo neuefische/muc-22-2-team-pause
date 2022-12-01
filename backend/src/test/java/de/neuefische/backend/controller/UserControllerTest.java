@@ -11,6 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,9 +54,7 @@ class UserControllerTest {
 
         User actualResult = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
 
-        assertInstanceOf(User.class, actualResult);
         assertFalse(actualResult.id().isEmpty());
-        assertFalse(actualResult.id().isBlank());
     }
 
 
@@ -79,4 +78,19 @@ class UserControllerTest {
         mvc.perform(delete(userEndPoint + "/" + id))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void update_expect_NotFound_status() throws Exception {
+        mvc.perform(put(userEndPoint + "/" + "10")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "id": "0",
+                                "name": "nick",
+                                "visitedCountries": []
+                                }
+                                """))
+                .andExpect(status().isNotFound());
+    }
+
 }

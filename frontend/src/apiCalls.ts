@@ -1,5 +1,5 @@
 import axios from "axios";
-import {NewUser} from "./model/User";
+import {NewUser, User} from "./model/User";
 
 export function getUsers(){
     return axios.get("/api/user")
@@ -13,4 +13,14 @@ export function addUser(user:NewUser){
 
 export function deleteUser(id:string){
     return axios.delete(`/api/user/${id}`)
+}
+
+export function getCountries(){
+    return axios.get("/api/countries")
+        .then(response => response.data)
+}
+
+export function updateUser(id:string,user:User){
+    return axios.put(`/api/user/${id}`,user)
+        .then(response => response.data)
 }
