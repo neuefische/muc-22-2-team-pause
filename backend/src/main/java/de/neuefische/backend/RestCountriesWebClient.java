@@ -1,9 +1,13 @@
 package de.neuefische.backend;
 
+import de.neuefische.backend.exception.RestCountryException;
 import de.neuefische.backend.model.restcountries.RestCountry;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class RestCountriesWebClient {
     private WebClient webClient;
@@ -27,12 +31,17 @@ public class RestCountriesWebClient {
                 .build();
     }
 
-    public RestCountry[] getAllCountries(){
+    public List<RestCountry> getAllCountries() throws RestCountryException {
 
-        return this.webClient
+        RestCountry[] restCountries =  this.webClient
                 .method(HttpMethod.GET)
                 .exchangeToMono(clientResponse -> clientResponse.bodyToMono(RestCountry[].class))
                 .block();
+        if (restCountries != null) {
+            return Arrays.asList(restCountries);
+        }else {
+            throw new RestCountryException("Respone is null");
+        }
     }
 
 }

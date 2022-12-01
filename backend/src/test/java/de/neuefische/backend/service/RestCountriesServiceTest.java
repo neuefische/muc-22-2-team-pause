@@ -7,6 +7,7 @@ import de.neuefische.backend.model.Country;
 import de.neuefische.backend.model.restcountries.RestCountry;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,7 +71,7 @@ class RestCountriesServiceTest {
         ObjectMapper objectMapper = new ObjectMapper();
         RestCountry[] restCountries = objectMapper.readValue(givenJson, RestCountry[].class);
 
-        List<Country> countries = restCountriesService.refactorApiResponse(restCountries);
+        List<Country> countries = restCountriesService.refactorApiResponse(Arrays.asList(restCountries));
         assertThat(countries.get(0).name()).isEqualTo("Mauritania");
         assertThat(countries.get(0).flag()).isEqualTo("🇲🇷");
         assertThat(countries.get(0).threeLetterCode()).isEqualTo("MRT");

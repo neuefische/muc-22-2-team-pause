@@ -1,6 +1,7 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.RestCountriesWebClient;
+import de.neuefische.backend.exception.RestCountryException;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -29,7 +30,7 @@ class RestCountriesControllerTest {
 
     @Test
     void get_countries_returns_a_list_of_countries_and_deserialize()
-            throws IOException, InterruptedException {
+            throws IOException, InterruptedException, RestCountryException {
         String givenJson = """
                 [
                     {
