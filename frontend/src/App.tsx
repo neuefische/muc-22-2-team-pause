@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
 import {User} from "./model/User";
+import MapSVG from "./component/MapSVG";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/overview/:id" element={<p>detail</p>}></Route>
                     <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
                     <Route path="/overview/:id/countries" element={<p>edit countries</p>}></Route>
+                    <Route path="/overview/map" element={<MapSVG loggedInUser={loggedInUser}/>}></Route>
                 </Routes>
             </BrowserRouter>
         </div>
