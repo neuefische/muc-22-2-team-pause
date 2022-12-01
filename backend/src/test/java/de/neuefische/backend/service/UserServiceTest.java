@@ -4,6 +4,7 @@ import de.neuefische.backend.exception.NoSuchUserException;
 import de.neuefische.backend.model.User;
 import de.neuefische.backend.repository.UserRepo;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ class UserServiceTest {
 
     UserRepo userRepo = mock(UserRepo.class);
     UuidGeneratorService uuidGeneratorService = mock(UuidGeneratorService.class);
-    UserService userService = new UserService(userRepo,uuidGeneratorService);
+    UserService userService = new UserService(userRepo, uuidGeneratorService);
 
     @Test
     void listUsers_expect_emptyList() {
@@ -25,27 +26,27 @@ class UserServiceTest {
 
         List<User> result = userService.listUsers();
 
-        assertEquals(expList,result);
+        assertEquals(expList, result);
     }
 
     @Test
     void addUser_expect_valid_user() {
         //given
-        User givenUser = new User(null,"nick",new HashSet<>());
+        User givenUser = new User(null, "nick", new HashSet<>());
 
         //when
         when(userRepo.save(givenUser)).thenReturn(givenUser);
         User result = userService.addUser(givenUser);
 
         //then
-        assertEquals(givenUser,result);
+        assertEquals(givenUser, result);
         verify(userRepo).save(givenUser);
     }
 
     @Test
     void deleteUser_expect_correct_id() {
         //given
-        User givenUser = new User("0","hanna",new HashSet<>());
+        User givenUser = new User("0", "hanna", new HashSet<>());
         //when
         userService.deleteUserById(givenUser.id());
         //then
@@ -54,24 +55,38 @@ class UserServiceTest {
 
     @Test
     void findUserById_expect_throws_exception() {
-        assertThrows(NoSuchElementException.class,()->userService.findUserById("0"));
+        assertThrows(NoSuchElementException.class, () -> userService.findUserById("0"));
     }
 
     @Test
     void findUser_expect_correct_user() {
         //given
-        User givenUser = new User("0","hanna",new HashSet<>());
+        User givenUser = new User("0", "hanna", new HashSet<>());
         //when
         when(userRepo.findById(givenUser.id())).thenReturn(Optional.of(givenUser));
         User userResult = userService.findUserById(givenUser.id());
         //then
-        assertEquals(givenUser,userResult);
+        assertEquals(givenUser, userResult);
     }
 
     @Test
     void updateUser_expect_exception() {
-        User user = new User("10","nick",new HashSet<>());
+        User user = new User("10", "nick", new HashSet<>());
 
         assertThrows(NoSuchUserException.class, () -> userService.updateUser("10", user));
+    }
+
+
+    @Test
+    void updateUser_expect_noException() {
+        User user = new User("10", "lily", new HashSet<>());
+
+        when(userRepo.findAll()).thenReturn(List.of(user));
+        when(userRepo.save(Mockito.any(User.class)))
+                .thenReturn(user);
+        User result = userService.updateUser(user.id(), user);
+
+        assertEquals(user, result);
+
     }
 }
