@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.backend.model.User;
 import de.neuefische.backend.repository.UserRepo;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.HashSet;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -93,5 +97,24 @@ class UserControllerTest {
                                 }
                                 """))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void update() throws Exception {
+        User user = new User("10", "lily", new HashSet<>());
+
+        when(userRepo.findAll()).thenReturn(List.of(user));
+        when(userRepo.save(Mockito.any(User.class)))
+                .thenReturn(user);
+        mvc.perform(put(userEndPoint + "/" + "10")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "id": "10",
+                                "name": "lily",
+                                "visitedCountries": []
+                                }
+                                """))
+                .andExpect(status().isOk());
     }
 }
