@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -32,26 +34,38 @@ class UserServiceTest {
         User givenUser = new User(null,"nick",new HashSet<>());
 
         //when
-        when(userRepo.addUser(givenUser)).thenReturn(givenUser);
+        when(userRepo.save(givenUser)).thenReturn(givenUser);
         User result = userService.addUser(givenUser);
 
         //then
         assertEquals(givenUser,result);
-        verify(userRepo).addUser(givenUser);
+        verify(userRepo).save(givenUser);
     }
 
     @Test
-    void deleteUser_expect_success() {
-        //GIVEN
-        String expected = "1";
+    void deleteUser_expect_correct_id() {
+        //given
+        User givenUser = new User("0","hanna",new HashSet<>());
+        //when
+        userService.deleteUserById(givenUser.id());
+        //then
+        verify(userRepo).deleteById(givenUser.id());
+    }
 
-        //WHEN
-        when(userRepo.deleteUser(expected)).thenReturn(expected);
-        String result = userService.deleteUser(expected);
+    @Test
+    void findUserById_expect_throws_exception() {
+        assertThrows(NoSuchElementException.class,()->userService.findUserById("0"));
+    }
 
-        //THEN
-        verify(userRepo).deleteUser(expected);
-        assertEquals(expected,result);
+    @Test
+    void findUser_expect_correct_user() {
+        //given
+        User givenUser = new User("0","hanna",new ArrayList<>());
+        //when
+        when(userRepo.findById(givenUser.id())).thenReturn(Optional.of(givenUser));
+        User userResult = userService.findUserById(givenUser.id());
+        //then
+        assertEquals(givenUser,userResult);
     }
 
     @Test

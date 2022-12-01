@@ -1,6 +1,7 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.User;
+import de.neuefische.backend.model.UserRequest;
 import de.neuefische.backend.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +23,14 @@ public class UserController {
     }
 
     @PostMapping()
-    public User addUser(@RequestBody User user){
-        return userService.addUser(user);
+    public User addUser(@RequestBody UserRequest userRequest){
+        User saveUser = new User(userRequest.id(), userRequest.name(), userRequest.visitedCountries());
+        return userService.addUser(saveUser);
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable String id) {
-       return userService.deleteUser(id);
+       return userService.deleteUserById(id);
     }
 
     @PutMapping("/{id}")
