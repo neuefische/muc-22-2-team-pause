@@ -6,6 +6,7 @@ import UserOverview from "./component/UserOverview";
 import {User} from "./model/User";
 import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
+import WorldMap from "./component/WorldMap";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                     </Route>
                     <Route path="/overview/:id" element={<p>detail</p>}></Route>
                     <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
+                    <Route path="/overview/map" element={<WorldMap/>}></Route>
                     <Route path="/overview/:id/countries" element={<AddVisitCountry
                         countries={countries}
                         loggedInUser={loggedInUser}
