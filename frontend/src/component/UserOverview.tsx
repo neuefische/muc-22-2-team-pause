@@ -23,18 +23,19 @@ export default function UserOverview(props: UserOverviewProps) {
 
     const filteredUsers = users.filter(user => {
         return user.name.toLowerCase().includes(searchQuery.toLowerCase())
-            || user.visitedCountries.length>0 && user.visitedCountries.every(country => {
+            || user.visitedCountries.filter(country => {
                 return country.name.toLowerCase().includes(searchQuery.toLowerCase())
                     || country.threeLetterCode.toLowerCase().includes(searchQuery.toLowerCase())
-            })
+            }).length > 0
     })
 
     function handleSearchText(event: ChangeEvent<HTMLInputElement>) {
         setSearchQuery(event.target.value)
     }
+
     function handleEditUserName(id: string, user: User) {
         props.setLoggedInUser(user)
-        editUserName(id,user)
+        editUserName(id, user)
     }
 
 
