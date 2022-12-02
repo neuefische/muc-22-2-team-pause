@@ -4,9 +4,9 @@ import UserCard from "./UserCard";
 type UserListProps = {
     users: User[]
     loggedInUser:User
-    deleteUser(id:string):void
+    handleDeleteUser(id:string):void
     handleLoginAs(user:User): void;
-    editUser(id:string, userToEdit: User):void
+    handleEditUser(id:string, userToEdit: User):void
 }
 
 export default function UserList(props: UserListProps) {
@@ -23,8 +23,8 @@ export default function UserList(props: UserListProps) {
                 user={user}
                 handleLoginAs={handleLogInAs}
                 loggedInUser={props.loggedInUser}
-                deleteUser={props.deleteUser}
-                editUser={props.editUser}
+                handleDeleteUser={props.handleDeleteUser}
+                handleEditUser={props.handleEditUser}
             />)}
         </div>
     )

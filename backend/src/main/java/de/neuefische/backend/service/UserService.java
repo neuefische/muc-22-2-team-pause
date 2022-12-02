@@ -39,11 +39,11 @@ public class UserService {
     }
 
     public User updateUser(String id, User editedUser){
-        checkIfExists(id);
+        checkIfUserExists(id);
         return userRepo.save(editedUser);
     }
 
-    private void checkIfExists(String id) throws NoSuchUserException {
+    private void checkIfUserExists(String id) throws NoSuchUserException {
         for (User user :
                 listUsers()) {
             if (user.id().equals(id)) {
