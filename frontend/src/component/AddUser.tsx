@@ -49,7 +49,7 @@ export default function AddUser(props:AddUserProps){
                     placeholder={"hi, new traveller"}
                     required={true}
                 />
-                <IconButton color={"primary"} type={"submit"}>
+                <IconButton color={"secondary"} type={"submit"}>
                     <AddSharp/>
                 </IconButton>
             </form>
