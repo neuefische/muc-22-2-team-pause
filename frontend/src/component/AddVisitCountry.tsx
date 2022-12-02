@@ -5,6 +5,7 @@ import "./AddVisitCountry.css";
 import {Traveller} from "../model/User";
 import {useNavigate} from "react-router-dom";
 import {updateUser} from "../apiCalls";
+import {Autocomplete, TextField} from "@mui/material";
 
 type AddVisitCountryProps = {
     countries: Country[],
@@ -41,6 +42,11 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
 
     return (
         <div>
+            <Autocomplete renderInput={(params) =>
+                <TextField {...params} label={"Choose a country"}/>}
+                          getOptionLabel={(option) => option.name}
+                          options={props.countries}
+            />
             <div>
                 <input type={"search"} onChange={handleSearchText} placeholder={"Search for a country.."}/>
             </div>
