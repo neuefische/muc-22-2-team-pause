@@ -24,6 +24,11 @@ function App() {
                 dark: "#c48b9f",
                 light: "#ffeeff"
             },
+            secondary: {
+                main: "#ad1457",
+                dark: "#78002e",
+                light: "#e35183"
+            },
             contrastThreshold: 4.5,
         }
     })
