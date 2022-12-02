@@ -9,7 +9,9 @@ export default function AddUser(props:AddUserProps){
     const emptyUser:NewUser={
         name:""
     }
-    const[newUser,setNewUser]=useState<NewUser>(emptyUser)
+    const [newUser, setNewUser] = useState<NewUser>(emptyUser)
+
+
     function handleSubmit(event:FormEvent<HTMLFormElement>){
         event.preventDefault()
         props.createUser(newUser)
