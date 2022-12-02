@@ -4,8 +4,11 @@
 }
 
 .cardContent{
-    background: #FAF9F6;
+    background-color: #FAF9F6;
+}
 
+.card :hover{
+    background-color: #b2b2b0;
 }
 
 h2{
