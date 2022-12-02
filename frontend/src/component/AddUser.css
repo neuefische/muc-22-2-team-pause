@@ -1,0 +1,14 @@
+.loginContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px;
+}
+
+.formContainer{
+    flex-direction: column;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 10px;
+}

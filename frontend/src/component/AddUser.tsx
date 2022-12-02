@@ -1,8 +1,11 @@
 import {NewUser} from "../model/User";
 import {ChangeEvent, FormEvent, useState} from "react";
+import {IconButton, TextField} from "@mui/material";
+import  "./AddUser.css"
+import {AddSharp} from "@mui/icons-material";
 
-type AddUserProps ={
-    createUser:(user:NewUser)=> void
+type AddUserProps = {
+    createUser: (user: NewUser) => void
 }
 
 export default function AddUser(props:AddUserProps){
@@ -12,30 +15,19 @@ export default function AddUser(props:AddUserProps){
     }
     const [newUser, setNewUser] = useState<NewUser>(emptyUser)
 
-
-    function handleSubmit(event:FormEvent<HTMLFormElement>){
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         props.createUser(newUser)
     }
 
-    function handleOnChange(event:ChangeEvent<HTMLInputElement>){
+    function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
         setNewUser(prevState => ({...prevState, [event.target.name]: event.target.value}))
 
     }
 
-    return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    UserName:
-                    <input
-                        type={"text"}
-                        name={"username"}
-                        value={newUser.username}
-                        onChange={handleOnChange}
-                        placeholder={"hi, traveller"}
-                    />
-                </label>
+    return (
+        <div className={"loginContainer"}>
+            <form className={"formContainer"} onSubmit={handleSubmit}>
 
                 <label>
                     Password:
@@ -48,7 +40,18 @@ export default function AddUser(props:AddUserProps){
                     />
                 </label>
 
-                <button type={"submit"}>Register</button>
+                <TextField
+                    label={"Name"}
+                    type={"text"}
+                    name={"name"}
+                    value={newUser.name}
+                    onChange={handleOnChange}
+                    placeholder={"hi, new traveller"}
+                    required={true}
+                />
+                <IconButton color={"primary"} type={"submit"}>
+                    <AddSharp/>
+                </IconButton>
             </form>
         </div>
     )
