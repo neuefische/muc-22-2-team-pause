@@ -1,5 +1,5 @@
 import {User} from "../model/User";
-import React, {ChangeEvent, FormEvent} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 type UserCardProps = {
@@ -12,6 +12,7 @@ type UserCardProps = {
 
 export default function UserCard(props: UserCardProps) {
     const navigate = useNavigate()
+    const [changedUserName, setChangedUserName] = useState("")
 
     function handleDeleteUser() {
         props.handleDeleteUser(props.user.id)
@@ -20,11 +21,12 @@ export default function UserCard(props: UserCardProps) {
 
     function handleEditName(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
+        props.user.name = changedUserName
         props.handleEditUser(props.loggedInUser.id, props.user)
     }
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
-        props.user.name = event.target.value
+        setChangedUserName(event.target.value)
     }
 
     function handleLoginAs() {
@@ -47,7 +49,6 @@ export default function UserCard(props: UserCardProps) {
                         <input
                             type={"text"}
                             name={"name"}
-                            value={props.user.name}
                             onChange={handleNameChange}
                             placeholder={"name"}
                         />
