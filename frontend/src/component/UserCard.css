@@ -1,0 +1,13 @@
+.card {
+    margin: 20px;
+    border: none !important;
+}
+
+.cardContent{
+    background: #FAF9F6;
+
+}
+
+h2{
+    text-align: center;
+}

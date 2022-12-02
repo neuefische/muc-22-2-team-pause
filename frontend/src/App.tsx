@@ -28,8 +28,9 @@ function App() {
                 main: "#ad1457",
                 dark: "#78002e",
                 light: "#e35183"
-            },
-            contrastThreshold: 4.5,
+            }
+            ,
+            contrastThreshold: 4.5
         }
     })
 
@@ -37,6 +38,9 @@ function App() {
         <ThemeProvider theme={theme}>
             <div>
                 <head>
+                    <title>
+                        Visited Countries
+                    </title>
                     <link
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/icon?family=Material+Icons"
