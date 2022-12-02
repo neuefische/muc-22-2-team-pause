@@ -1,11 +1,11 @@
 import {Country} from "../model/Country";
-import "./VisitCountryCard.css"
+import "./CountryCard.css"
 type VisitCountryCardProps = {
     country:Country
     addCountryToUser(country: Country): void;
 }
 
-export default function VisitCountryCard (props:VisitCountryCardProps){
+export default function CountryCard (props:VisitCountryCardProps){
 
     function handleAdd() {
         props.addCountryToUser(props.country)
