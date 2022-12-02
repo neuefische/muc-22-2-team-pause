@@ -29,7 +29,7 @@ function App() {
                     </Route>
                     <Route path="/overview/:id" element={<p>detail</p>}></Route>
                     <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
-                    <Route path="/overview/map" element={<WorldMap/>}></Route>
+                    <Route path="/overview/map" element={<WorldMap loggedInUser={loggedInUser} countries={countries}/>}></Route>
                     <Route path="/overview/:id/countries" element={<AddVisitCountry
                         countries={countries}
                         loggedInUser={loggedInUser}
