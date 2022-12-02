@@ -6,6 +6,7 @@ type UserListProps = {
     loggedInUser:User
     deleteUser(id:string):void
     handleLoginAs(user:User): void;
+    editUser(id:string, userToEdit: User):void
 }
 
 export default function UserList(props: UserListProps) {
@@ -23,6 +24,7 @@ export default function UserList(props: UserListProps) {
                 handleLoginAs={handleLogInAs}
                 loggedInUser={props.loggedInUser}
                 deleteUser={props.deleteUser}
+                editUser={props.editUser}
             />)}
         </div>
     )
