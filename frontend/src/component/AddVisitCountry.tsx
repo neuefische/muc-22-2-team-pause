@@ -1,6 +1,6 @@
 import {Country} from "../model/Country";
 import {ChangeEvent, useState} from "react";
-import VisitCountryCard from "./VisitCountryCard";
+import CountryCard from "./CountryCard";
 import "./AddVisitCountry.css";
 import {Traveller} from "../model/User";
 import {useNavigate} from "react-router-dom";
@@ -46,9 +46,9 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
             </div>
             <div className={"card-display"}>
                 {filteredCountries.length < 5 && filteredCountries.map((value) => {
-                    return <VisitCountryCard country={value}
-                                             addCountryToUser={addCountryToUser}
-                                             key={value.threeLetterCode}/>
+                    return <CountryCard country={value}
+                                        addCountryToUser={addCountryToUser}
+                                        key={value.threeLetterCode}/>
                 })}
             </div>
         </div>
