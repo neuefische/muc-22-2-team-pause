@@ -1,5 +1,6 @@
 import {Traveller} from "../model/User";
 import UserCard from "./UserCard";
+import "./UserList.css"
 
 type UserListProps = {
     users: Traveller[]
@@ -14,7 +15,7 @@ export default function UserList(props: UserListProps) {
 
 
     return (
-        <div>
+        <div className={"userList"}>
             {props.users.map(user => <UserCard
                 key={user.id}
                 user={user}
