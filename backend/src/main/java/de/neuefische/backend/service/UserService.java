@@ -35,7 +35,7 @@ public class UserService {
 
     public User findUserById(String id){
         return userRepo.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("User with id " + id + "does not exsist"));
+                .orElseThrow(() -> new NoSuchElementException("User with id " + id + "does not exist"));
     }
 
     public User updateUser(String id, User editedUser){
