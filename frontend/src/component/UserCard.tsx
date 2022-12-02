@@ -1,6 +1,9 @@
 import {Traveller} from "../model/User";
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {Button, ButtonGroup, Card, CardContent} from "@mui/material";
+import "./UserCard.css"
+import {Add, DeleteForever} from "@mui/icons-material";
 
 type UserCardProps = {
     user: Traveller
@@ -35,29 +38,44 @@ export default function UserCard(props: UserCardProps) {
         navigate("/overview/" + props.user.id + "/countries")
     }
 
-    return (<div>
-            <h2>Name:{props.user.name} </h2>
-            <div>{props.user.visitedCountries &&
-                props.user.visitedCountries.map((country) => <p
-                    key={country.threeLetterCode}> {country.name}[{country.threeLetterCode}] {country.flag}</p>)}
-            </div>
-            {props.loggedInUser.id === props.user.id &&
-                <form onSubmit={handleEditName}>
-                    <label>
-                        <input
-                            type={"text"}
-                            name={"name"}
-                            onChange={handleNameChange}
-                            placeholder={"name"}
-                        />
-                    </label>
-                    <button type={"submit"}>Edit name</button>
-                </form>}
-            {props.loggedInUser.id === props.user.id && <button onClick={handleDeleteUser}>Delete user</button>}
-            {props.loggedInUser.id === props.user.id && <button
-                onClick={handleAddCountry}>
-                Add country you've visited
-            </button>}
-        </div>
+    return (<Card variant={"outlined"} className={"card"}>
+            <CardContent className={"cardContent"}>
+                <h2>{props.user.name}</h2>
+                <div>{props.user.visitedCountries &&
+                    props.user.visitedCountries.map((country) => <p
+                        key={country.threeLetterCode}> {country.name}[{country.threeLetterCode}] {country.flag}</p>)}
+                </div>
+                {props.loggedInUser.id === props.user.id &&
+                    <form onSubmit={handleEditName}>
+                        <label>
+                            <input
+                                type={"text"}
+                                name={"name"}
+                                value={props.user.name}
+                                onChange={handleNameChange}
+                                placeholder={"name"}
+                            />
+                        </label>
+                        <button type={"submit"}>Edit name</button>
+                    </form>}
+                <ButtonGroup variant={"contained"}>
+                    {props.loggedInUser.id === props.user.id && <Button
+                        startIcon={<DeleteForever/>}
+                        onClick={handleDeleteUser}
+                    >
+                        Delete
+                    </Button>
+                    }
+                    {props.loggedInUser.id === props.user.id && <Button
+                        startIcon={<Add/>}
+                        onClick={handleAddCountry}
+                    >
+                        Add country you've visited
+                    </Button>}
+                    {props.loggedInUser.id !== props.user.id && <Button onClick={handleLoginAs}>Login as</Button>}
+                </ButtonGroup>
+            </CardContent>
+        </Card>
+
     )
 }
