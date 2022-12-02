@@ -23,7 +23,7 @@ export default function UserOverview(props: UserOverviewProps) {
 
     const filteredUsers = users.filter(user => {
         return user.name.toLowerCase().includes(searchQuery.toLowerCase())
-            || user.visitedCountries.every(country => {
+            || user.visitedCountries.length>0 && user.visitedCountries.every(country => {
                 return country.name.toLowerCase().includes(searchQuery.toLowerCase())
                     || country.threeLetterCode.toLowerCase().includes(searchQuery.toLowerCase())
             })
