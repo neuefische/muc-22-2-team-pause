@@ -19,6 +19,13 @@ function App() {
 
     return (
         <div>
+            <head>
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                />
+            </head>
+
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<WelcomeScreen/>}/>
