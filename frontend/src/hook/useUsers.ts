@@ -20,14 +20,12 @@ export default function useUsers() {
     }
 
     function editUserName(id: string, newUser: User) {
-        console.log(newUser)
         updateUser(id, newUser)
             .then((editedUserWithId) => {
                 const updatedUsers = users.map((user) => {
                     return user.id === id ? editedUserWithId : user
                 })
                 setUsers(updatedUsers)
-                console.log(updatedUsers)
             }).catch(console.error)
     }
 
