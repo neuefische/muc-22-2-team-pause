@@ -33,7 +33,7 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
             onChange={addCountryToUser}
             renderInput={(params) =>
                 <TextField {...params} label={"Choose a country"}/>}
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => option.name+ " " + option.flag}
             options={props.countries}
         />
     )
