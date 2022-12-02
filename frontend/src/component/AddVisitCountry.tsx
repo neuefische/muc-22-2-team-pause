@@ -29,7 +29,7 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
 
     }
 
-    return (<Autocomplete
+    return (<Autocomplete className={"autocomplete"}
             onChange={addCountryToUser}
             renderInput={(params) =>
                 <TextField {...params} label={"Choose a country"}/>}
