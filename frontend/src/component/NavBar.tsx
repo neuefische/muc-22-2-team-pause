@@ -24,8 +24,7 @@ export default function NavBar() {
 
     return (<AppBar position={"sticky"}
                     color={"secondary"}
-                    component={"nav"}
-        >
+                    component={"nav"}>
             <Toolbar>
                 <Typography
                     variant="h6"
