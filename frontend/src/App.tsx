@@ -11,6 +11,7 @@ import WelcomeScreen from "./component/WelcomeScreen";
 import Login from "./component/Login";
 import useLoggedInUserAndTraveller from "./hook/useLoggedInUserAndTraveller";
 import ProtectedRoutes from "./component/ProtectedRoutes";
+import NavBar from "./component/NavBar";
 
 
 function App() {
@@ -22,22 +23,22 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div>
-                <head>
-                    <title>
-                        Visited Countries
-                    </title>
-                    <link
-                        rel="stylesheet"
-                        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-                    />
-                    <link
-                        rel="stylesheet"
-                        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-                    />
-                </head>
+            <head>
+                <title>
+                    Visited Countries
+                </title>
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                />
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                />
+            </head>
 
                 <BrowserRouter>
+                    <NavBar/>
                     <Routes>
                         <Route path="/" element={<WelcomeScreen/>}/>
                         <Route path="/signup" element={<SignUp/>}/>
@@ -56,7 +57,6 @@ function App() {
                         </Route>
                     </Routes>
                 </BrowserRouter>
-            </div>
         </ThemeProvider>
 
     );
