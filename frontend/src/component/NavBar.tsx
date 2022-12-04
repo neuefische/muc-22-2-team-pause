@@ -1,20 +1,23 @@
 import {AppBar, Box, Button, IconButton, Toolbar, Typography} from "@mui/material";
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import {Language} from "@mui/icons-material";
+import {Home, List, PersonAdd, Public} from "@mui/icons-material";
 
 export default function NavBar() {
     const navItems = [
         {
             name: 'Home',
-            path: "/"
+            path: "/",
+            icon: <Home/>
         }
         , {
             name: 'Sign Up',
-            path: "/"
+            path: "/",
+            icon: <PersonAdd/>
         }, {
             name: 'Overview',
-            path: "/overview"
+            path: "/overview",
+            icon:<List/>
         }];
 
     const navigate = useNavigate();
@@ -28,7 +31,7 @@ export default function NavBar() {
                     component={"nav"}>
             <Toolbar>
                 <IconButton color={"primary"} onClick={() => handleNavigation('/')}>
-                    <Language/>
+                    <Public/>
                 </IconButton>
                 <Typography
                     variant="h6"
@@ -39,7 +42,7 @@ export default function NavBar() {
 
                 <Box>
                     {navItems.map((item) => (
-                        <Button key={item.name} onClick={() => handleNavigation(item.path)}>{item.name}</Button>
+                        <Button startIcon={item.icon} key={item.name} onClick={() => handleNavigation(item.path)}>{item.name}</Button>
                     ))}
                 </Box>
             </Toolbar>
