@@ -6,6 +6,7 @@ import UserOverview from "./component/UserOverview";
 import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
 import {createTheme, ThemeProvider} from "@mui/material";
+import {themeOptions} from "./mui-theme";
 import WelcomeScreen from "./component/WelcomeScreen";
 import Login from "./component/Login";
 import useLoggedInUserAndTraveller from "./hook/useLoggedInUserAndTraveller";
@@ -17,22 +18,7 @@ function App() {
     const {loggedInTraveller, loginUser, username} = useLoggedInUserAndTraveller()
 
 
-    const theme = createTheme({
-        palette: {
-            primary: {
-                main: "#f8bbd0",
-                dark: "#c48b9f",
-                light: "#ffeeff"
-            },
-            secondary: {
-                main: "#ad1457",
-                dark: "#78002e",
-                light: "#e35183"
-            }
-            ,
-            contrastThreshold: 4.5
-        }
-    })
+    const theme = createTheme(themeOptions)
 
     return (
         <ThemeProvider theme={theme}>
@@ -44,6 +30,10 @@ function App() {
                     <link
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                    />
+                    <link
+                        rel="stylesheet"
+                        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
                     />
                 </head>
 
