@@ -1,9 +1,9 @@
 import {Traveller} from "../model/User";
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Button, ButtonGroup, Card, CardContent} from "@mui/material";
+import {Box, Button, ButtonGroup, Card, CardContent, TextField, Typography} from "@mui/material";
 import "./UserCard.css"
-import {Add, DeleteForever} from "@mui/icons-material";
+import {Add, DeleteForever, Edit} from "@mui/icons-material";
 
 type UserCardProps = {
     user: Traveller
@@ -17,13 +17,13 @@ export default function UserCard(props: UserCardProps) {
     const navigate = useNavigate()
     const [changedUserName, setChangedUserName] = useState("")
 
+
     function handleDeleteUser() {
         props.handleDeleteUser(props.user.id)
         navigate("/")
     }
 
-    function handleEditName(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
+    function handleEditName() {
         props.user.name = changedUserName
         props.handleEditUser(props.loggedInUser.id, props.user)
     }
@@ -40,24 +40,40 @@ export default function UserCard(props: UserCardProps) {
 
     return (<Card variant={"outlined"} className={"card"}>
             <CardContent className={"cardContent"}>
-                <h2>{props.user.name}</h2>
-                <div>{props.user.visitedCountries &&
-                    props.user.visitedCountries.map((country) => <p
-                        key={country.threeLetterCode}> {country.name}[{country.threeLetterCode}] {country.flag}</p>)}
-                </div>
+                <Typography variant={"h4"} align={"center"}>{props.user.name}</Typography>
+                <Box>{props.user.visitedCountries &&
+                    props.user.visitedCountries.map((country) =>
+                        <Typography variant={"subtitle1"} key={country.threeLetterCode}>
+                            {country.name}[{country.threeLetterCode}] {country.flag}
+                        </Typography>)
+                }
+                </Box>
                 {props.loggedInUser.id === props.user.id &&
-                    <form onSubmit={handleEditName}>
-                        <label>
-                            <input
-                                type={"text"}
-                                name={"name"}
-                                value={props.user.name}
-                                onChange={handleNameChange}
-                                placeholder={"name"}
-                            />
-                        </label>
-                        <button type={"submit"}>Edit name</button>
-                    </form>}
+                    <Box sx={{
+                        my: 3
+                    }}>
+                        <TextField label={"Name"}
+                                   type={"text"}
+                                   name={"name"}
+                                   onChange={handleNameChange}
+                                   placeholder={"New name..."}
+                                   required={true}
+                                   color={"secondary"}
+                        />
+
+                        <Button variant={"contained"}
+                                startIcon={<Edit/>}
+                                color={"secondary"}
+                                sx={{
+                                    height: 53,
+                                    ml: 2,
+                                }}
+                                onClick={handleEditName}>
+                            Edit name
+                        </Button>
+                    </Box>
+                }
+
                 <ButtonGroup variant={"contained"}>
                     {props.loggedInUser.id === props.user.id && <Button
                         startIcon={<DeleteForever/>}
