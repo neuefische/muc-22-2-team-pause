@@ -68,7 +68,12 @@ export default function UserCard(props: UserCardProps) {
                     }
                 </Box>
                 {props.loggedInUser.id === props.user.id &&
-                    <Box display={"flex"} flexWrap={"wrap"} sx={{my: 3}}>
+                    <Box display={"flex"}
+                         flexWrap={"wrap"}
+                         flexDirection={"row"}
+                         alignItems={"flex-start"}
+                         sx={{my: 3}}>
+
                         <TextField label={"Name"}
                                    type={"text"}
                                    name={"name"}
@@ -78,8 +83,7 @@ export default function UserCard(props: UserCardProps) {
                                    color={"secondary"}
                                    sx={{
                                        mb: 2
-                                   }}
-                        />
+                                   }}/>
 
                         <Button variant={"contained"}
                                 startIcon={<Edit/>}
@@ -97,21 +101,24 @@ export default function UserCard(props: UserCardProps) {
                 <ButtonGroup
                     variant={"contained"}
                     fullWidth={true}
-                    orientation={`${matches ? `horizontal` : `vertical`}`}
-                >
+                    orientation={`${matches ? `horizontal` : `vertical`}`}>
+
                     {props.loggedInUser.id === props.user.id && <Button
                         startIcon={<DeleteForever/>}
                         onClick={handleDeleteUser}
                     >
                         Delete
-                    </Button>
-                    }
-                    {props.loggedInUser.id === props.user.id && <Button
-                        startIcon={<Add/>}
-                        onClick={handleAddCountry}
-                    >
-                        Add country you've visited
                     </Button>}
+
+                    {props.loggedInUser.id === props.user.id &&
+                        <Button
+                            startIcon={<Add/>}
+                            onClick={handleAddCountry}>
+
+                            Add country you've visited
+
+                        </Button>
+                    }
                 </ButtonGroup>
             </CardContent>
         </Card>
