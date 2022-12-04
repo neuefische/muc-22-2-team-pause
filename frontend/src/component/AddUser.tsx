@@ -1,7 +1,7 @@
 import {NewUser} from "../model/User";
 import {ChangeEvent, FormEvent, useState} from "react";
-import {IconButton, TextField} from "@mui/material";
-import  "./AddUser.css"
+import {Box, IconButton, TextField} from "@mui/material";
+import "./AddUser.css"
 import {AddSharp} from "@mui/icons-material";
 
 type AddUserProps = {
@@ -26,7 +26,13 @@ export default function AddUser(props:AddUserProps){
     }
 
     return (
-        <div className={"loginContainer"}>
+        <Box
+            flexDirection={"column"}
+            display={"grid"}
+            flexWrap={"wrap"}
+            justifyContent={"center"}
+            margin={"30px"}
+        >
             <form className={"formContainer"} onSubmit={handleSubmit}>
 
                 <label>
@@ -53,6 +59,6 @@ export default function AddUser(props:AddUserProps){
                     <AddSharp/>
                 </IconButton>
             </form>
-        </div>
+        </Box>
     )
 }
