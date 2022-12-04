@@ -1,7 +1,7 @@
 import {Traveller} from "../model/User";
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Box, Button, ButtonGroup, Card, CardContent, TextField, Typography} from "@mui/material";
+import {Box, Button, ButtonGroup, Card, CardContent, TextField, Typography, useMediaQuery} from "@mui/material";
 import "./UserCard.css"
 import {Add, DeleteForever, Edit} from "@mui/icons-material";
 
@@ -16,7 +16,7 @@ type UserCardProps = {
 export default function UserCard(props: UserCardProps) {
     const navigate = useNavigate()
     const [changedUserName, setChangedUserName] = useState("")
-
+    const matches = useMediaQuery("(min-width:600px)");
 
     function handleDeleteUser() {
         props.handleDeleteUser(props.user.id)
@@ -40,18 +40,31 @@ export default function UserCard(props: UserCardProps) {
 
     return (<Card variant={"outlined"} className={"card"}>
             <CardContent className={"cardContent"}>
-                <Typography variant={"h4"} align={"center"}>{props.user.name}</Typography>
-                <Box>{props.user.visitedCountries &&
-                    props.user.visitedCountries.map((country) =>
-                        <Typography variant={"subtitle1"} key={country.threeLetterCode}>
-                            {country.name}[{country.threeLetterCode}] {country.flag}
-                        </Typography>)
-                }
+                <Box display={"flex"} justifyContent={"space-between"} alignItems={"flex-end"}>
+                    <Typography variant={"h4"} align={"center"}>{props.user.name}</Typography>
+                    {props.loggedInUser.id !== props.user.id && <
+                        Button variant={"contained"}
+                               onClick={handleLoginAs}
+                    >
+                        Login as
+                    </Button>
+                    }
+                </Box>
+                <Box display={"flow"}
+                     flexDirection={"row"}
+                     flexWrap={"wrap"}
+                     alignItems={"flex-start"}
+                     sx={{my: 3}}
+                >
+                    {props.user.visitedCountries &&
+                        props.user.visitedCountries.map((country) =>
+                            <Typography variant={"subtitle1"} key={country.threeLetterCode}>
+                                {country.name}[{country.threeLetterCode}] {country.flag}
+                            </Typography>)
+                    }
                 </Box>
                 {props.loggedInUser.id === props.user.id &&
-                    <Box sx={{
-                        my: 3
-                    }}>
+                    <Box display={"flex"} flexWrap={"wrap"} sx={{my: 3}}>
                         <TextField label={"Name"}
                                    type={"text"}
                                    name={"name"}
@@ -59,6 +72,9 @@ export default function UserCard(props: UserCardProps) {
                                    placeholder={"New name..."}
                                    required={true}
                                    color={"secondary"}
+                                   sx={{
+                                       mb:2
+                                   }}
                         />
 
                         <Button variant={"contained"}
@@ -74,7 +90,11 @@ export default function UserCard(props: UserCardProps) {
                     </Box>
                 }
 
-                <ButtonGroup variant={"contained"}>
+                <ButtonGroup
+                    variant={"contained"}
+                    fullWidth={true}
+                    orientation={`${matches ? `horizontal` : `vertical`}`}
+                >
                     {props.loggedInUser.id === props.user.id && <Button
                         startIcon={<DeleteForever/>}
                         onClick={handleDeleteUser}
@@ -88,7 +108,6 @@ export default function UserCard(props: UserCardProps) {
                     >
                         Add country you've visited
                     </Button>}
-                    {props.loggedInUser.id !== props.user.id && <Button onClick={handleLoginAs}>Login as</Button>}
                 </ButtonGroup>
             </CardContent>
         </Card>
