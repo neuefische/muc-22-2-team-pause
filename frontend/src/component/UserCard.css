@@ -7,10 +7,15 @@
     background-color: #FAF9F6;
 }
 
-.card :hover{
-    background-color: #b2b2b0;
-}
-
 h2{
     text-align: center;
+}
+
+.same-size-input {
+    height: 38px;
+    margin: 1px;
+}
+
+.edit-user-div {
+    margin: 20px;
 }
