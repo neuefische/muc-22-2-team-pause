@@ -40,22 +40,26 @@ export default function UserCard(props: UserCardProps) {
 
     return (<Card variant={"outlined"} className={"card"}>
             <CardContent className={"cardContent"}>
-                <Box display={"flex"} justifyContent={"space-between"} alignItems={"flex-end"}>
+                <Box
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    alignItems={"flex-end"}
+                    flexWrap={"wrap"}>
+
                     <Typography variant={"h4"} align={"center"}>{props.user.name}</Typography>
-                    {props.loggedInUser.id !== props.user.id && <
-                        Button variant={"contained"}
-                               onClick={handleLoginAs}
-                    >
-                        Login as
-                    </Button>
+
+                    {props.loggedInUser.id !== props.user.id &&
+                        <Button variant={"contained"}
+                                onClick={handleLoginAs}>
+                            Login as
+                        </Button>
                     }
                 </Box>
                 <Box display={"flow"}
                      flexDirection={"row"}
                      flexWrap={"wrap"}
                      alignItems={"flex-start"}
-                     sx={{my: 3}}
-                >
+                     sx={{my: 3}}>
                     {props.user.visitedCountries &&
                         props.user.visitedCountries.map((country) =>
                             <Typography variant={"subtitle1"} key={country.threeLetterCode}>
@@ -73,7 +77,7 @@ export default function UserCard(props: UserCardProps) {
                                    required={true}
                                    color={"secondary"}
                                    sx={{
-                                       mb:2
+                                       mb: 2
                                    }}
                         />
 
