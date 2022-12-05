@@ -41,7 +41,7 @@ export default function UserOverview(props: UserOverviewProps) {
 
     return (<div>
         <div>
-            <input type={"search"} onChange={handleSearchText} placeholder={"Search for user or countries.."}/>
+            <input type={"search"} onChange={handleSearchText} value={searchQuery} placeholder={"Search for user or countries.."}/>
         </div>
         <UserList
             users={filteredUsers}
