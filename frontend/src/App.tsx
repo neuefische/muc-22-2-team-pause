@@ -38,7 +38,7 @@ function App() {
             </head>
 
                 <BrowserRouter>
-                    <NavBar/>
+                    <NavBar loggedInUser={loggedInUser}/>
                     <Routes>
                         <Route path="/" element={<WelcomeScreen/>}/>
                         <Route path="/signup" element={<SignUp/>}/>

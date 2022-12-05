@@ -1,9 +1,13 @@
-import {AppBar, Box, Button, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, IconButton, Toolbar, Tooltip, Typography} from "@mui/material";
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import {Home, List, PersonAdd, Public} from "@mui/icons-material";
+import {Home, List, Person, PersonAdd, Public} from "@mui/icons-material";
+import {User} from "../model/User";
 
-export default function NavBar() {
+type NavBarProps = {
+    loggedInUser:User
+}
+export default function NavBar(props:NavBarProps) {
     const navItems = [
         {
             name: 'Home',
@@ -40,10 +44,16 @@ export default function NavBar() {
                     Country tracker
                 </Typography>
 
-                <Box>
+                <Box flexGrow={1}>
                     {navItems.map((item) => (
                         <Button startIcon={item.icon} key={item.name} onClick={() => handleNavigation(item.path)}>{item.name}</Button>
                     ))}
+                </Box>
+
+                <Box flexGrow={0}>
+                    <Tooltip title={props.loggedInUser.name}>
+                        <Person/>
+                    </Tooltip>
                 </Box>
             </Toolbar>
         </AppBar>
