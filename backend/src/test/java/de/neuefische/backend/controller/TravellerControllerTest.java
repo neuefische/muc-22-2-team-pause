@@ -20,9 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserControllerTest {
+class TravellerControllerTest {
 
-    String userEndPoint = "/api/user";
+    String userEndPoint = "/api/traveller";
 
     @Autowired
     private MockMvc mvc;

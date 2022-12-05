@@ -26,15 +26,19 @@ public class MongoUserService {
     public Traveller addNewUserAndTraveller(MongoUserRequest mongoUserRequest){
         String idForUserAndTraveller = uuidGeneratorService.generateUuid();
 
-        Traveller newTraveller = new Traveller
-                (idForUserAndTraveller,mongoUserRequest.username(),new HashSet<>());
-        Traveller savedTraveller = travellerRepo.save(newTraveller);
+        Traveller savedTraveller = travellerRepo.save(createTraveller(idForUserAndTraveller,mongoUserRequest));
 
-        MongoUser newMongoUser = new MongoUser
-                (idForUserAndTraveller, mongoUserRequest.username(), encoder.encode(mongoUserRequest.password()));
-        mongoUserRepo.save(newMongoUser);
+        mongoUserRepo.save(createMongoUser(idForUserAndTraveller,mongoUserRequest));
 
         return savedTraveller;
+    }
+
+    public Traveller createTraveller(String id, MongoUserRequest mongoUserRequest){
+        return new Traveller(id,mongoUserRequest.username(),new HashSet<>());
+    }
+
+    public MongoUser createMongoUser(String id, MongoUserRequest mongoUserRequest){
+        return new MongoUser(id, mongoUserRequest.username(), encoder.encode(mongoUserRequest.password()));
     }
 
 

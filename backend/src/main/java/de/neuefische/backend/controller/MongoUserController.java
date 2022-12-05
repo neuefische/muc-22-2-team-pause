@@ -15,7 +15,6 @@ public class MongoUserController {
 
     @PostMapping
     public Traveller addUser(@RequestBody MongoUserRequest userRequest){
-
         return mongoUserService.addNewUserAndTraveller(userRequest);
     }
 
