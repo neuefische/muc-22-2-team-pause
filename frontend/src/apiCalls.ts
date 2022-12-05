@@ -1,8 +1,8 @@
 import axios from "axios";
-import {NewUser, User} from "./model/User";
+import {NewUser, Traveller} from "./model/User";
 
-export function getUsers(){
-    return axios.get("/api/user")
+export function getTravellers(){
+    return axios.get("/api/traveller")
         .then(response => response.data)
 }
 
@@ -20,7 +20,7 @@ export function getCountries(){
         .then(response => response.data)
 }
 
-export function updateUser(id:string,user:User){
-    return axios.put(`/api/user/${id}`,user)
+export function updateUser(id:string,user:Traveller){
+    return axios.put(`/api/traveller/${id}`,user)
         .then(response => response.data)
 }

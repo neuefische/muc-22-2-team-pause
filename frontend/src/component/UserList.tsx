@@ -1,17 +1,17 @@
-import {User} from "../model/User";
+import {Traveller} from "../model/User";
 import UserCard from "./UserCard";
 
 type UserListProps = {
-    users: User[]
-    loggedInUser:User
+    users: Traveller[]
+    loggedInUser:Traveller
     handleDeleteUser(id:string):void
-    handleLoginAs(user:User): void;
-    handleEditUser(id:string, userToEdit: User):void
+    handleLoginAs(user:Traveller): void;
+    handleEditUser(id:string, userToEdit: Traveller):void
 }
 
 export default function UserList(props: UserListProps) {
 
-    function handleLogInAs(user: User) {
+    function handleLogInAs(user: Traveller) {
         props.handleLoginAs(user)
     }
 

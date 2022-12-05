@@ -1,8 +1,8 @@
 package de.neuefische.backend.service;
 
-import de.neuefische.backend.exception.NoSuchUserException;
-import de.neuefische.backend.model.User;
-import de.neuefische.backend.repository.UserRepo;
+import de.neuefische.backend.exception.NoSuchTravellerException;
+import de.neuefische.backend.model.Traveller;
+import de.neuefische.backend.repository.TravellerRepo;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -16,75 +16,51 @@ import static org.mockito.Mockito.*;
 
 class UserServiceTest {
 
-    UserRepo userRepo = mock(UserRepo.class);
-    UuidGeneratorService uuidGeneratorService = mock(UuidGeneratorService.class);
-    UserService userService = new UserService(userRepo, uuidGeneratorService);
+    TravellerRepo userRepo = mock(TravellerRepo.class);
+    TravellerService userService = new TravellerService(userRepo);
 
     @Test
     void listUsers_expect_emptyList() {
-        List<User> expList = new ArrayList<>();
+        List<Traveller> expList = new ArrayList<>();
 
-        List<User> result = userService.listUsers();
+        List<Traveller> result = userService.listTravellers();
 
         assertEquals(expList, result);
     }
 
-    @Test
-    void addUser_expect_valid_user() {
-        //given
-        User givenUser = new User(null, "nick", new HashSet<>());
-
-        //when
-        when(userRepo.save(givenUser)).thenReturn(givenUser);
-        User result = userService.addUser(givenUser);
-
-        //then
-        assertEquals(givenUser, result);
-        verify(userRepo).save(givenUser);
-    }
-
-    @Test
-    void deleteUser_expect_correct_id() {
-        //given
-        User givenUser = new User("0", "hanna", new HashSet<>());
-        //when
-        userService.deleteUserById(givenUser.id());
-        //then
-        verify(userRepo).deleteById(givenUser.id());
-    }
 
     @Test
     void findUserById_expect_throws_exception() {
-        assertThrows(NoSuchElementException.class, () -> userService.findUserById("0"));
+        assertThrows(NoSuchElementException.class, () -> userService.findTravellerById("0"));
     }
 
     @Test
     void findUser_expect_correct_user() {
         //given
-        User givenUser = new User("0", "hanna", new HashSet<>());
+        Traveller givenUser = new Traveller("0", "hanna", new HashSet<>());
         //when
         when(userRepo.findById(givenUser.id())).thenReturn(Optional.of(givenUser));
-        User userResult = userService.findUserById(givenUser.id());
+        Traveller userResult = userService.findTravellerById(givenUser.id());
         //then
         assertEquals(givenUser, userResult);
     }
 
     @Test
     void updateUser_expect_exception_because_there_are_no_users_saved() {
-        User user = new User("10", "nick", new HashSet<>());
+        Traveller user = new Traveller("10", "nick", new HashSet<>());
 
-        assertThrows(NoSuchUserException.class, () -> userService.updateUser("10", user));
+        assertThrows(NoSuchTravellerException.class, () -> userService.updateTraveller("10", user));
     }
 
 
     @Test
     void updateUser_expect_noException_because_there_are_users_saved() {
-        User user = new User("10", "lily", new HashSet<>());
+        Traveller user = new Traveller("10", "lily", new HashSet<>());
 
         when(userRepo.findAll()).thenReturn(List.of(user));
-        when(userRepo.save(Mockito.any(User.class)))
+        when(userRepo.save(Mockito.any(Traveller.class)))
                 .thenReturn(user);
-        User result = userService.updateUser(user.id(), user);
+        Traveller result = userService.updateTraveller(user.id(), user);
 
         assertEquals(user, result);
 

@@ -2,7 +2,7 @@ package de.neuefische.backend.model;
 
 import java.util.Set;
 
-public record UserRequest(
+public record TravellerRequest(
         String name,
         Set<Country> visitedCountries
 

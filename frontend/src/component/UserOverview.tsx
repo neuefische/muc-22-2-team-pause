@@ -1,11 +1,11 @@
 import UserList from "./UserList";
 import useUsers from "../hook/useUsers";
-import {User} from "../model/User";
+import {Traveller} from "../model/User";
 import {ChangeEvent, useState} from "react";
 
 type UserOverviewProps = {
-    loggedInUser: User
-    setLoggedInUser(user: User): void;
+    loggedInUser: Traveller
+    setLoggedInUser(user: Traveller): void;
 }
 
 export default function UserOverview(props: UserOverviewProps) {
@@ -13,7 +13,7 @@ export default function UserOverview(props: UserOverviewProps) {
 
     const [searchQuery, setSearchQuery] = useState("")
 
-    function handleLoginAs(user: User) {
+    function handleLoginAs(user: Traveller) {
         props.setLoggedInUser(user)
     }
 
@@ -33,7 +33,7 @@ export default function UserOverview(props: UserOverviewProps) {
         setSearchQuery(event.target.value)
     }
 
-    function handleEditUserName(id: string, user: User) {
+    function handleEditUserName(id: string, user: Traveller) {
         props.setLoggedInUser(user)
         editUserName(id, user)
     }

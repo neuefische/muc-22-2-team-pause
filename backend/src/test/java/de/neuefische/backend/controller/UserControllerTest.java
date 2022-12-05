@@ -1,7 +1,7 @@
 package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.neuefische.backend.model.User;
+import de.neuefische.backend.model.Traveller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -52,7 +52,7 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        User actualResult = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
+        Traveller actualResult = objectMapper.readValue(result.getResponse().getContentAsString(), Traveller.class);
 
         assertFalse(actualResult.id().isEmpty());
     }
@@ -72,7 +72,7 @@ class UserControllerTest {
                 .getResponse()
                 .getContentAsString();
 
-        User resultUser = objectMapper.readValue(userAsString, User.class);
+        Traveller resultUser = objectMapper.readValue(userAsString, Traveller.class);
         String id = resultUser.id();
 
         mvc.perform(delete(userEndPoint + "/" + id))

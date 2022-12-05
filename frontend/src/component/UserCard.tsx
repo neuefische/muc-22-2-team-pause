@@ -1,13 +1,13 @@
-import {User} from "../model/User";
+import {Traveller} from "../model/User";
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 type UserCardProps = {
-    user: User
-    loggedInUser: User
-    handleLoginAs(user: User): void
+    user: Traveller
+    loggedInUser: Traveller
+    handleLoginAs(user: Traveller): void
     handleDeleteUser(id: string): void
-    handleEditUser(id: string, userToEdit: User): void
+    handleEditUser(id: string, userToEdit: Traveller): void
 }
 
 export default function UserCard(props: UserCardProps) {

@@ -3,17 +3,17 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
-import {User} from "./model/User";
+import {Traveller} from "./model/User";
 import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
 import WelcomeScreen from "./component/WelcomeScreen";
 
 
 function App() {
-    const [loggedInUser, setLoggedInUser] = useState<User>({id: "null", name: "loading", visitedCountries: []})
+    const [loggedInUser, setLoggedInUser] = useState<Traveller>({id: "null", name: "loading", visitedCountries: []})
     const {countries} = useCountries()
 
-    function handleLoginUser(loggedInUser: User) {
+    function handleLoginUser(loggedInUser: Traveller) {
         setLoggedInUser(loggedInUser)
     }
 

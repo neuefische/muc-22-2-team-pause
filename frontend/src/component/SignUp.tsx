@@ -1,10 +1,10 @@
 import AddUser from "./AddUser";
-import {NewUser, User} from "../model/User";
+import {NewUser, Traveller} from "../model/User";
 import {addUser} from "../apiCalls";
 import {useNavigate} from "react-router-dom";
 
 type SignUpProps = {
-    setLoggedInUser(data: User): void;
+    setLoggedInUser(data: Traveller): void;
 }
 
 export default function SignUp(props: SignUpProps) {
@@ -18,7 +18,7 @@ export default function SignUp(props: SignUpProps) {
             })
     }
 
-    function handleNewUser(data: User) {
+    function handleNewUser(data: Traveller) {
         props.setLoggedInUser(data)
     }
 
