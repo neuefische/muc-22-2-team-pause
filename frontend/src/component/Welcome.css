@@ -80,17 +80,6 @@ body {
     margin: 0;
 }
 
-.btn {
-    position: absolute;
-    font-size: 20px;
-    top: 60%;
-    left: 32%;
-    color: #616161;
-}
-
-.btn:hover {
-    color: #c48b9f;
-}
 
 @-webkit-keyframes opacity {
     0% {

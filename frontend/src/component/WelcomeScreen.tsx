@@ -17,7 +17,6 @@ export default function WelcomeScreen() {
 
                 </ul>
             </div>
-            <div className="btn"> Log in | Sign up</div>
 
         </div>)
 }
