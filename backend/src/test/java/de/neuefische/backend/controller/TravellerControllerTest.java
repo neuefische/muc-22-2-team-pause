@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
@@ -33,13 +34,14 @@ class TravellerControllerTest {
     @Autowired
     private WebApplicationContext context;
 
-    @BeforeAll
+    /*@BeforeAll
     public void setup(){
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity()).
                 build();
-    }
+    }*/
+    @Order(1)
     @WithMockUser("spring")
     @Test
     void listUsers_expect_empty_list() throws Exception {
@@ -50,6 +52,7 @@ class TravellerControllerTest {
                         """));
     }
 
+    @Order(2)
     @WithMockUser("spring")
     @Test
     void update_expect_NotFound_status() throws Exception {
