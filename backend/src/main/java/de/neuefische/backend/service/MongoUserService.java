@@ -5,11 +5,14 @@ import de.neuefische.backend.model.MongoUserRequest;
 import de.neuefische.backend.model.Traveller;
 import de.neuefische.backend.repository.MongoUserRepo;
 import de.neuefische.backend.repository.TravellerRepo;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
+
 @Service
 public class MongoUserService {
     private final TravellerRepo travellerRepo;
@@ -48,5 +51,13 @@ public class MongoUserService {
         mongoUserRepo.deleteById(id);
 
         return id;
+    }
+
+    public String getIdByUsername(String name){
+        Optional<MongoUser> mongoUser = mongoUserRepo.findByUsername(name);
+         if(mongoUser.isPresent()){
+             return mongoUser.get().id();
+         }
+        throw new UsernameNotFoundException("no such user");
     }
 }

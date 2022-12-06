@@ -1,17 +1,25 @@
 import {useEffect, useState} from "react";
-import {Traveller} from "../model/User";
+import {LoginUser, Traveller} from "../model/User";
+import {getLoggedInTraveller, getLoggedUserName, logoutUser} from "../apiCalls";
 
 export default function useLoggedInUser(){
     const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id:"",name:"",visitedCountries:[]});
-    const [loggedInUserName, setLoggedInUsername] = useState<string>("");
 
     useEffect(()=> {
+        getLoggedUserName()
+            .then(data=>getLoggedInTraveller(data)
+                .then(data => setLoggedInTraveller(data)))
         //check who's logged in if annoyUser sent to login
         //get Traveller via username
     }, [])
-    function loginUser(username:string, password:string):Promise<string>{
-        return loginUser(username,password).then(data=> data)
+    function loginUser(user:LoginUser):Promise<string>{
+        return loginUser(user).then(data=> data)
     }
 
     //logout function
+    function logout(){
+        return logoutUser()
+    }
+
+    return{loggedInTraveller,logout,loginUser}
 }

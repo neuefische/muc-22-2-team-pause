@@ -1,9 +1,12 @@
 import {ChangeEvent, FormEvent, useState} from "react";
-import {login} from "../apiCalls";
-
-export default function Login() {
+import {LoginUser} from "../model/User";
+type LoginProps ={
+    handleLogInUser(user:LoginUser):void
+}
+export default function Login(props:LoginProps) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+
 
     function handleUsernameChange(event: ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
@@ -16,11 +19,7 @@ export default function Login() {
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        login({
-            username,
-            password
-        })
-            .then((data) => console.log(data))
+        props.handleLogInUser({username:username,password:password})
     }
 
     return (<div>

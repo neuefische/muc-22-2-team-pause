@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
@@ -8,14 +8,17 @@ import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
 import WelcomeScreen from "./component/WelcomeScreen";
 import Login from "./component/Login";
+import useLoggedInUser from "./hook/useLoggedInUser";
+import ProtectedRoutes from "./component/ProtectedRoutes";
 
 
 function App() {
-    const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id: "null", name: "loading", visitedCountries: []})
+
     const {countries} = useCountries()
+    const {loggedInTraveller, logout, loginUser} = useLoggedInUser()
 
     function handleLoginTraveller(loggedInUser: Traveller) {
-        setLoggedInTraveller(loggedInUser)
+
     }
 
     return (
@@ -24,16 +27,16 @@ function App() {
                 <Routes>
                     <Route path="/" element={<WelcomeScreen/>}/>
                     <Route path="/signup" element={<SignUp setLoggedInTraveller={handleLoginTraveller}/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/overview" element={<UserOverview loggedInTraveller={loggedInTraveller}
-                                                                   setLoggedInTraveller={handleLoginTraveller}/>}>
-                    </Route>
-                    <Route path="/overview/:id" element={<p>detail</p>}></Route>
-                    <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
-                    <Route path="/overview/:id/countries" element={<AddVisitCountry
-                        countries={countries}
-                        loggedInTraveller={loggedInTraveller}
-                    />}>
+                    <Route path="/login" element={<Login handleLogInUser={loginUser} />}/>
+                    <Route element={<ProtectedRoutes username={loggedInTraveller.name}/>}>
+                        <Route path="/overview" element={<UserOverview loggedInTraveller={loggedInTraveller}/>}></Route>
+                        <Route path="/overview/:id" element={<p>detail</p>}></Route>
+                        <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
+                        <Route path="/overview/:id/countries" element={<AddVisitCountry
+                            countries={countries}
+                            loggedInTraveller={loggedInTraveller}
+                        />}>
+                        </Route>
                     </Route>
                 </Routes>
             </BrowserRouter>

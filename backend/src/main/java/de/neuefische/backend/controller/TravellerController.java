@@ -28,4 +28,10 @@ public class TravellerController {
         Traveller toEditUser = new Traveller(id,travellerRequest.name(),travellerRequest.visitedCountries());
         return travellerService.updateTraveller(id,toEditUser);
     }
+
+    @GetMapping("/{id}")
+    public Traveller getById(@PathVariable String id){
+
+        return travellerService.findTravellerById(id);
+    }
 }

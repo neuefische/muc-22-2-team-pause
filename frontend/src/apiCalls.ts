@@ -33,3 +33,21 @@ export function login(toLoginUser: LoginUser) {
         }
     }).then(response => response.data)
 }
+
+export function getLoggedUserName(){
+   return  axios.get("/api/user/login/me")
+        .then(response=>response.data)
+}
+
+export function getLoggedInTraveller(name:string){
+    return axios.get("/api/user/"+name)
+        .then(response=>response.data)
+        .then(data=>axios.get("/api/traveller/" +data)
+            .then(response=>response.data)
+        )
+}
+
+export function logoutUser(){
+    return axios.post("/api/user/logout")
+        .then(response => response.data)
+}

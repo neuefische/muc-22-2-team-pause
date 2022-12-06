@@ -40,4 +40,7 @@ public class TravellerService {
         }
         throw new NoSuchTravellerException("User with id"+ id+" not found ");
     }
+
+
+
 }
