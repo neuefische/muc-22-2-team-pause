@@ -6,7 +6,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
@@ -52,7 +51,6 @@ class TravellerControllerTest {
                         """));
     }
 
-    @Order(2)
     @WithMockUser("spring")
     @Test
     void update_expect_NotFound_status() throws Exception {
