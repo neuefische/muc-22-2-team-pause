@@ -42,7 +42,7 @@ class TravellerControllerTest {
                 build();
     }*/
 
-    @Order(1)
+    @DirtiesContext()
     @WithMockUser("spring")
     @Test
     void listUsers_expect_empty_list() throws Exception {
@@ -53,7 +53,7 @@ class TravellerControllerTest {
                         """));
     }
 
-    @Order(2)
+    @DirtiesContext()
     @WithMockUser("spring")
     @Test
     void update_expect_NotFound_status() throws Exception {
