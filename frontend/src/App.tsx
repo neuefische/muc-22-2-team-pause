@@ -3,7 +3,6 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
-import {Traveller} from "./model/User";
 import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
 import WelcomeScreen from "./component/WelcomeScreen";
@@ -15,20 +14,17 @@ import ProtectedRoutes from "./component/ProtectedRoutes";
 function App() {
 
     const {countries} = useCountries()
-    const {loggedInTraveller, logout, loginUser} = useLoggedInUser()
+    const {loggedInTraveller, loginUser} = useLoggedInUser()
 
-    function handleLoginTraveller(loggedInUser: Traveller) {
-
-    }
 
     return (
         <div>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<WelcomeScreen/>}/>
-                    <Route path="/signup" element={<SignUp setLoggedInTraveller={handleLoginTraveller}/>}/>
+                    <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/login" element={<Login handleLogInUser={loginUser} />}/>
-                    <Route element={<ProtectedRoutes username={loggedInTraveller.name}/>}>
+                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller}/>}>
                         <Route path="/overview" element={<UserOverview loggedInTraveller={loggedInTraveller}/>}></Route>
                         <Route path="/overview/:id" element={<p>detail</p>}></Route>
                         <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>

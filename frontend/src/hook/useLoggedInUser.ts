@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {LoginUser, Traveller} from "../model/User";
-import {getLoggedInTraveller, getLoggedUserName, logoutUser} from "../apiCalls";
+import {getLoggedInTraveller, getLoggedUserName, login, logoutUser} from "../apiCalls";
 
 export default function useLoggedInUser(){
     const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id:"",name:"",visitedCountries:[]});
@@ -13,7 +13,7 @@ export default function useLoggedInUser(){
         //get Traveller via username
     }, [])
     function loginUser(user:LoginUser):Promise<string>{
-        return loginUser(user).then(data=> data)
+        return login(user).then(data=> data)
     }
 
     //logout function

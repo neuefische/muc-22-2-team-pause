@@ -48,6 +48,5 @@ export function getLoggedInTraveller(name:string){
 }
 
 export function logoutUser(){
-    return axios.post("/api/user/logout")
-        .then(response => response.data)
+    return axios.post("/api/user/logout").then(response => response.data)
 }

@@ -1,13 +1,13 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {LoginUser} from "../model/User";
+import {useNavigate} from "react-router-dom";
 type LoginProps ={
-    handleLogInUser(user:LoginUser):void
+    handleLogInUser(user:LoginUser):Promise<string>
 }
 export default function Login(props:LoginProps) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-
-
+    const navigate = useNavigate();
     function handleUsernameChange(event: ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
     }
@@ -19,7 +19,9 @@ export default function Login(props:LoginProps) {
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        props.handleLogInUser({username:username,password:password})
+        props.handleLogInUser({username:username,password:password}).then(() => {
+            navigate("/overview")
+        })
     }
 
     return (<div>

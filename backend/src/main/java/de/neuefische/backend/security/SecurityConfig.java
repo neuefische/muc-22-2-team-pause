@@ -2,6 +2,7 @@ package de.neuefische.backend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -22,7 +23,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
-                .httpBasic().and()
+                .httpBasic()
+                .authenticationEntryPoint((request, response, authException) ->
+                        response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase()))
+                .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/user/login").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/api/user/").authenticated()
