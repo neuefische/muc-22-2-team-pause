@@ -14,7 +14,7 @@ import ProtectedRoutes from "./component/ProtectedRoutes";
 function App() {
 
     const {countries} = useCountries()
-    const {loggedInTraveller, loginUser} = useLoggedInUser()
+    const {loggedInTraveller, loginUser, username} = useLoggedInUser()
 
 
     return (
@@ -24,7 +24,7 @@ function App() {
                     <Route path="/" element={<WelcomeScreen/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/login" element={<Login handleLogInUser={loginUser} />}/>
-                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller}/>}>
+                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
                         <Route path="/overview" element={<UserOverview loggedInTraveller={loggedInTraveller}/>}></Route>
                         <Route path="/overview/:id" element={<p>detail</p>}></Route>
                         <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>

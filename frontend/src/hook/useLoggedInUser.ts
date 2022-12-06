@@ -4,16 +4,19 @@ import {getLoggedInTraveller, getLoggedUserName, login, logoutUser} from "../api
 
 export default function useLoggedInUser(){
     const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id:"",name:"",visitedCountries:[]});
+    const [username, setUsername] = useState<string>("")
 
     useEffect(()=> {
         getLoggedUserName()
-            .then(data=>getLoggedInTraveller(data)
+            .then(()=>getLoggedInTraveller(username)
                 .then(data => setLoggedInTraveller(data)))
-        //check who's logged in if annoyUser sent to login
-        //get Traveller via username
-    }, [])
+    }, [username])
+
     function loginUser(user:LoginUser):Promise<string>{
-        return login(user).then(data=> data)
+        return login(user).then(data=> {
+            setUsername(data)
+            return data
+        })
     }
 
     //logout function
@@ -21,5 +24,5 @@ export default function useLoggedInUser(){
         return logoutUser()
     }
 
-    return{loggedInTraveller,logout,loginUser}
+    return{loggedInTraveller,logout,loginUser, username}
 }

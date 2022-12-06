@@ -39,7 +39,7 @@ export function getLoggedUserName(){
         .then(response=>response.data)
 }
 
-export function getLoggedInTraveller(name:string){
+export function getLoggedInTraveller(name: string){
     return axios.get("/api/user/"+name)
         .then(response=>response.data)
         .then(data=>axios.get("/api/traveller/" +data)
