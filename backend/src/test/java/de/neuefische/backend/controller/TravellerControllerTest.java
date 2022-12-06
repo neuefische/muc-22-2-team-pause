@@ -34,15 +34,14 @@ class TravellerControllerTest {
     @Autowired
     private WebApplicationContext context;
 
-    /*@BeforeAll
+    @BeforeAll
     public void setup(){
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity()).
                 build();
-    }*/
+    }
 
-    @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
     @WithMockUser("spring")
     @Test
     void listUsers_expect_empty_list() throws Exception {
