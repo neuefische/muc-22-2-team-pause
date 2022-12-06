@@ -20,10 +20,8 @@ export default function WorldMap(props: WorldMapProps) {
     const [selectedCountries, setSelectedCountries] = useState<string[]>([])
 
 
-    const handleClick = (event: any) => {
+    const handleClick = (countryID: string) => {
         const countries = props.countries
-        const countryID = event
-
 
         for (const country of countries) {
             if (countryID === country.threeLetterCode) {
