@@ -58,6 +58,6 @@ public class MongoUserService {
          if(mongoUser.isPresent()){
              return mongoUser.get().id();
          }
-        throw new UsernameNotFoundException("no such user");
+        throw new UsernameNotFoundException("Bad info");
     }
 }
