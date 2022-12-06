@@ -1,6 +1,7 @@
 import UserList from "./UserList";
 import useUsers from "../hook/useUsers";
 import {Traveller} from "../model/User";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
 type UserOverviewProps = {
     loggedInTraveller: Traveller
@@ -33,13 +34,17 @@ export default function UserOverview(props: UserOverviewProps) {
     }
 
 
+    function openMap() {
+        navigate("/overview/map")
+    }
+
     return (<div>
         <UserList
             users={filteredUsers}
-
             handleDeleteUser={handleDeleteUser}
             handleEditTravellerName={handleEditTravellerName}
             loggedInUser={props.loggedInTraveller}/>
         Logged in as : {props.loggedInTraveller && props.loggedInTraveller.name}
+        <button onClick={openMap}>map </button>
     </div>)
 }
