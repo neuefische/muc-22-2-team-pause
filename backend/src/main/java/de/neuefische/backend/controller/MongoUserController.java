@@ -3,6 +3,7 @@ package de.neuefische.backend.controller;
 import de.neuefische.backend.model.MongoUserRequest;
 import de.neuefische.backend.model.Traveller;
 import de.neuefische.backend.service.MongoUserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
@@ -25,7 +26,7 @@ public class MongoUserController {
 
     @PostMapping("/login")
     public String login(){
-
-        return "ok";
+        //lets give back a nice object.
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

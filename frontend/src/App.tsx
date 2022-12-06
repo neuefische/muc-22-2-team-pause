@@ -11,11 +11,11 @@ import Login from "./component/Login";
 
 
 function App() {
-    const [loggedInUser, setLoggedInUser] = useState<Traveller>({id: "null", name: "loading", visitedCountries: []})
+    const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id: "null", name: "loading", visitedCountries: []})
     const {countries} = useCountries()
 
-    function handleLoginUser(loggedInUser: Traveller) {
-        setLoggedInUser(loggedInUser)
+    function handleLoginTraveller(loggedInUser: Traveller) {
+        setLoggedInTraveller(loggedInUser)
     }
 
     return (
@@ -23,16 +23,16 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<WelcomeScreen/>}/>
-                    <Route path="/signup" element={<SignUp setLoggedInUser={handleLoginUser}/>}/>
+                    <Route path="/signup" element={<SignUp setLoggedInTraveller={handleLoginTraveller}/>}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/overview" element={<UserOverview loggedInUser={loggedInUser}
-                                                                   setLoggedInUser={handleLoginUser}/>}>
+                    <Route path="/overview" element={<UserOverview loggedInTraveller={loggedInTraveller}
+                                                                   setLoggedInTraveller={handleLoginTraveller}/>}>
                     </Route>
                     <Route path="/overview/:id" element={<p>detail</p>}></Route>
                     <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
                     <Route path="/overview/:id/countries" element={<AddVisitCountry
                         countries={countries}
-                        loggedInUser={loggedInUser}
+                        loggedInTraveller={loggedInTraveller}
                     />}>
                     </Route>
                 </Routes>

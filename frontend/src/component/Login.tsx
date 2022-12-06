@@ -20,7 +20,7 @@ export default function Login() {
             username,
             password
         })
-            .then(console.log)
+            .then((data) => console.log(data))
     }
 
     return (<div>

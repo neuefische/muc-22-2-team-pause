@@ -4,7 +4,7 @@ import {addUser} from "../apiCalls";
 import {useNavigate} from "react-router-dom";
 
 type SignUpProps = {
-    setLoggedInUser(data: Traveller): void;
+    setLoggedInTraveller(data: Traveller): void;
 }
 
 export default function SignUp(props: SignUpProps) {
@@ -19,7 +19,7 @@ export default function SignUp(props: SignUpProps) {
     }
 
     function handleNewUser(data: Traveller) {
-        props.setLoggedInUser(data)
+        props.setLoggedInTraveller(data)
     }
 
     return (

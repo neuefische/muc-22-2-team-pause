@@ -4,8 +4,8 @@ import {Traveller} from "../model/User";
 import {ChangeEvent, useState} from "react";
 
 type UserOverviewProps = {
-    loggedInUser: Traveller
-    setLoggedInUser(user: Traveller): void;
+    loggedInTraveller: Traveller
+    setLoggedInTraveller(user: Traveller): void;
 }
 
 export default function UserOverview(props: UserOverviewProps) {
@@ -14,7 +14,7 @@ export default function UserOverview(props: UserOverviewProps) {
     const [searchQuery, setSearchQuery] = useState("")
 
     function handleLoginAs(user: Traveller) {
-        props.setLoggedInUser(user)
+        props.setLoggedInTraveller(user)
     }
 
     function handleDeleteUser(id: string) {
@@ -34,7 +34,7 @@ export default function UserOverview(props: UserOverviewProps) {
     }
 
     function handleEditUserName(id: string, user: Traveller) {
-        props.setLoggedInUser(user)
+        props.setLoggedInTraveller(user)
         editUserName(id, user)
     }
 
@@ -48,7 +48,7 @@ export default function UserOverview(props: UserOverviewProps) {
             handleLoginAs={handleLoginAs}
             handleDeleteUser={handleDeleteUser}
             handleEditUser={handleEditUserName}
-            loggedInUser={props.loggedInUser}/>
-        Logged in as : {props.loggedInUser && props.loggedInUser.name}
+            loggedInUser={props.loggedInTraveller}/>
+        Logged in as : {props.loggedInTraveller && props.loggedInTraveller.name}
     </div>)
 }

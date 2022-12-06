@@ -8,7 +8,7 @@ import {updateUser} from "../apiCalls";
 
 type AddVisitCountryProps = {
     countries: Country[],
-    loggedInUser: Traveller
+    loggedInTraveller: Traveller
 }
 export default function AddVisitCountry(props: AddVisitCountryProps) {
     const [searchQuery, setSearchQuery] = useState("")
@@ -26,13 +26,13 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
 
 
     function addCountryToUser(country: Country) {
-        if (!props.loggedInUser.visitedCountries) {
-            props.loggedInUser.visitedCountries = []
+        if (!props.loggedInTraveller.visitedCountries) {
+            props.loggedInTraveller.visitedCountries = []
         }
 
-        props.loggedInUser.visitedCountries.push(country)
+        props.loggedInTraveller.visitedCountries.push(country)
 
-        updateUser(props.loggedInUser.id, props.loggedInUser)
+        updateUser(props.loggedInTraveller.id, props.loggedInTraveller)
             .then(() => {
                 navigate("/overview")
             })

@@ -31,5 +31,5 @@ export function login(toLoginUser: LoginUser) {
             username:toLoginUser.username,
             password:toLoginUser.password
         }
-    })
+    }).then(response => response.data)
 }

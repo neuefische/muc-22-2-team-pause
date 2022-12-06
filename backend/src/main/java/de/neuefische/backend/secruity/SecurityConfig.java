@@ -24,6 +24,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .httpBasic().and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.POST,"/api/user/login").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/api/user/").authenticated()
                 .antMatchers("/api/traveller").authenticated()
                 .and().build();
