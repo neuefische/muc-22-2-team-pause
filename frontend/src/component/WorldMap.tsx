@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import {Country} from "../model/Country";
 import {User} from "../model/User"
@@ -13,23 +13,33 @@ type WorldMapProps = {
 }
 
 const visited:Country []=[]
+const visitedId:string []=[]
 
 const geoUrl =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json"
 export default function WorldMap(props:WorldMapProps) {
 
+    const[selectedCountries,setSelectedCountries] = useState<string[]>([])
+
+
     const handleClick = (event: any) => {
         const countries = props.countries
         const countryID = event
+
+
 
         for (const country of countries) {
             if (countryID === country.threeLetterCode) {
                 console.log(country)
                 visited.push(country)
+                visitedId.push(countryID)
+                setSelectedCountries(visitedId)
+
             }
         }
-        console.log(countryID)
-        console.log(visited)
+        console.log("event",event)
+        //console.log(countryID)
+        console.log("visitedId: ",visitedId)
         return visited
     }
 
@@ -38,20 +48,7 @@ export default function WorldMap(props:WorldMapProps) {
                     {({geographies}) =>
                         geographies.map((geo) => (
                             <Geography
-                                style={{
-                                    default: {
-                                        fill: "#f8bbd0",
-                                        outline: "none"
-                                    },
-                                    hover: {
-                                        fill: "#ad1457",
-                                        outline: "none"
-                                    },
-                                    pressed: {
-                                        fill: "#78002e",
-                                        outline: "none"
-                                    }
-                                }}
+                                fill = {selectedCountries.includes(geo.id) ? "#78002e" : "#f8bbd0"}
                                 onClick={() => {
                                 handleClick(`${geo.id}`)
                             }} key={geo.rsmKey} geography={geo}/>
