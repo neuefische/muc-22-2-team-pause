@@ -41,6 +41,7 @@ class TravellerControllerTest {
                 .apply(SecurityMockMvcConfigurers.springSecurity()).
                 build();
     }*/
+
     @Order(1)
     @WithMockUser("spring")
     @Test
