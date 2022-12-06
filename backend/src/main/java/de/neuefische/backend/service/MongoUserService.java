@@ -58,6 +58,6 @@ public class MongoUserService {
          if(mongoUser.isPresent()){
              return mongoUser.get().id();
          }
-        throw new UsernameNotFoundException("Bad info");
+        throw new UsernameNotFoundException("bad credentials");
     }
 }
