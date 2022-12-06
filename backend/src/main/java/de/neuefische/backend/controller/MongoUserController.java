@@ -29,4 +29,9 @@ public class MongoUserController {
         //lets give back a nice object.
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
+
+    @PostMapping("/logout")
+    public void logout(){
+        SecurityContextHolder.clearContext();
+    }
 }

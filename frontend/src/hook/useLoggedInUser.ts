@@ -12,4 +12,6 @@ export default function useLoggedInUser(){
     function loginUser(username:string, password:string):Promise<string>{
         return loginUser(username,password).then(data=> data)
     }
+
+    //logout function
 }
