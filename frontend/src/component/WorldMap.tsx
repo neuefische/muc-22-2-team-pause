@@ -80,4 +80,3 @@ export default function WorldMap(props: WorldMapProps) {
 
     )
 }
-
