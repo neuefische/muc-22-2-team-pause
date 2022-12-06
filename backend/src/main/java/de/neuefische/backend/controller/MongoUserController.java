@@ -22,4 +22,10 @@ public class MongoUserController {
     public String delete(@PathVariable String id) {
        return mongoUserService.deleteUserAndTravellerById(id);
     }
+
+    @PostMapping("/login")
+    public String login(){
+
+        return "ok";
+    }
 }

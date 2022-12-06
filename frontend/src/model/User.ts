@@ -1,12 +1,17 @@
 import {Country} from "./Country";
 
 export type Traveller = {
-    name : string,
+    name: string,
     id: string,
     visitedCountries: Country[]
 }
 
 export type NewUser = {
     password: string;
-    username : string,
+    username: string,
+}
+
+export type LoginUser = {
+    password: string,
+    username: string
 }

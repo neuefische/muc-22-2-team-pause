@@ -7,6 +7,7 @@ import {Traveller} from "./model/User";
 import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
 import WelcomeScreen from "./component/WelcomeScreen";
+import Login from "./component/Login";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<WelcomeScreen/>}/>
                     <Route path="/signup" element={<SignUp setLoggedInUser={handleLoginUser}/>}/>
+                    <Route path="/login" element={<Login/>}/>
                     <Route path="/overview" element={<UserOverview loggedInUser={loggedInUser}
                                                                    setLoggedInUser={handleLoginUser}/>}>
                     </Route>
