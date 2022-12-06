@@ -1,4 +1,4 @@
-package de.neuefische.backend.secruity;
+package de.neuefische.backend.security;
 import de.neuefische.backend.model.MongoUser;
 import de.neuefische.backend.repository.MongoUserRepo;
 import org.springframework.security.core.userdetails.UserDetails;
