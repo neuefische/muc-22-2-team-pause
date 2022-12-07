@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import {User} from "../model/User";
-import {deleteUser, getUsers, updateUser} from "../apiCalls";
+import {Traveller} from "../model/User";
+import {deleteUser, getTravellers, updateUser} from "../apiCalls";
 
 export default function useUsers() {
-    const [users, setUsers] = useState<User[]>([])
+    const [travellers, setTravellers] = useState<Traveller[]>([])
     useEffect(() => {
-        getUsers()
-            .then(data => setUsers(data))
+        getTravellers()
+            .then(data => setTravellers(data))
             .catch(console.error)
     }, [])
 
@@ -14,22 +14,22 @@ export default function useUsers() {
     function deleteUserByID(id: string) {
         deleteUser(id)
             .then(() => {
-                const updateUsers = users.filter((user: User) => user.id !== id)
-                setUsers(updateUsers)
+                const updateUsers = travellers.filter((user: Traveller) => user.id !== id)
+                setTravellers(updateUsers)
             }).catch(console.error)
     }
 
-    function editUserName(id: string, newUser: User) {
+    function editUserName(id: string, newUser: Traveller) {
         updateUser(id, newUser)
             .then((editedUserWithId) => {
-                const updatedUsers = users.map((user) => {
+                const updatedUsers = travellers.map((user) => {
                     return user.id === id ? editedUserWithId : user
                 })
-                setUsers(updatedUsers)
+                setTravellers(updatedUsers)
             }).catch(console.error)
     }
 
-    return {users, deleteUserByID, editUserName}
+    return {users: travellers, deleteUserByID, editTravellerName: editUserName}
 
 
 }

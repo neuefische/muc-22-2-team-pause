@@ -7,7 +7,8 @@ type AddUserProps ={
 
 export default function AddUser(props:AddUserProps){
     const emptyUser:NewUser={
-        name:""
+        username:"",
+        password:""
     }
     const [newUser, setNewUser] = useState<NewUser>(emptyUser)
 
@@ -29,12 +30,24 @@ export default function AddUser(props:AddUserProps){
                     UserName:
                     <input
                         type={"text"}
-                        name={"name"}
-                        value={newUser.name}
+                        name={"username"}
+                        value={newUser.username}
                         onChange={handleOnChange}
                         placeholder={"hi, traveller"}
                     />
                 </label>
+
+                <label>
+                    Password:
+                    <input
+                        type={"password"}
+                        name={"password"}
+                        value={newUser.password}
+                        onChange={handleOnChange}
+                        placeholder={"******"}
+                    />
+                </label>
+
                 <button type={"submit"}>Register</button>
             </form>
         </div>

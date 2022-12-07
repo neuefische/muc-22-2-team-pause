@@ -1,21 +1,19 @@
 import UserList from "./UserList";
 import useUsers from "../hook/useUsers";
-import {User} from "../model/User";
+import {Traveller} from "../model/User";
 import {ChangeEvent, useState} from "react";
 
 type UserOverviewProps = {
-    loggedInUser: User
-    setLoggedInUser(user: User): void;
+    loggedInTraveller: Traveller
+
 }
 
 export default function UserOverview(props: UserOverviewProps) {
-    const {users, deleteUserByID, editUserName} = useUsers()
+    const {users, deleteUserByID, editTravellerName} = useUsers()
 
     const [searchQuery, setSearchQuery] = useState("")
 
-    function handleLoginAs(user: User) {
-        props.setLoggedInUser(user)
-    }
+
 
     function handleDeleteUser(id: string) {
         deleteUserByID(id)
@@ -33,9 +31,9 @@ export default function UserOverview(props: UserOverviewProps) {
         setSearchQuery(event.target.value)
     }
 
-    function handleEditUserName(id: string, user: User) {
-        props.setLoggedInUser(user)
-        editUserName(id, user)
+    function handleEditTravellerName(id: string, user: Traveller) {
+
+        editTravellerName(id, user)
     }
 
 
@@ -45,10 +43,10 @@ export default function UserOverview(props: UserOverviewProps) {
         </div>
         <UserList
             users={filteredUsers}
-            handleLoginAs={handleLoginAs}
+
             handleDeleteUser={handleDeleteUser}
-            handleEditUser={handleEditUserName}
-            loggedInUser={props.loggedInUser}/>
-        Logged in as : {props.loggedInUser && props.loggedInUser.name}
+            handleEditTravellerName={handleEditTravellerName}
+            loggedInUser={props.loggedInTraveller}/>
+        Logged in as : {props.loggedInTraveller && props.loggedInTraveller.name}
     </div>)
 }

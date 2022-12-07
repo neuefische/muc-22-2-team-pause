@@ -2,13 +2,13 @@ import {Country} from "../model/Country";
 import {ChangeEvent, useState} from "react";
 import VisitCountryCard from "./VisitCountryCard";
 import "./AddVisitCountry.css";
-import {User} from "../model/User";
+import {Traveller} from "../model/User";
 import {useNavigate} from "react-router-dom";
 import {updateUser} from "../apiCalls";
 
 type AddVisitCountryProps = {
     countries: Country[],
-    loggedInUser: User
+    loggedInTraveller: Traveller
 }
 export default function AddVisitCountry(props: AddVisitCountryProps) {
     const [searchQuery, setSearchQuery] = useState("")
@@ -26,13 +26,13 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
 
 
     function addCountryToUser(country: Country) {
-        if (!props.loggedInUser.visitedCountries) {
-            props.loggedInUser.visitedCountries = []
+        if (!props.loggedInTraveller.visitedCountries) {
+            props.loggedInTraveller.visitedCountries = []
         }
 
-        props.loggedInUser.visitedCountries.push(country)
+        props.loggedInTraveller.visitedCountries.push(country)
 
-        updateUser(props.loggedInUser.id, props.loggedInUser)
+        updateUser(props.loggedInTraveller.id, props.loggedInTraveller)
             .then(() => {
                 navigate("/overview")
             })

@@ -1,13 +1,13 @@
-import {User} from "../model/User";
+import {Traveller} from "../model/User";
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 type UserCardProps = {
-    user: User
-    loggedInUser: User
-    handleLoginAs(user: User): void
+    user: Traveller
+    loggedInUser: Traveller
+
     handleDeleteUser(id: string): void
-    handleEditUser(id: string, userToEdit: User): void
+    handleEditUser(id: string, userToEdit: Traveller): void
 }
 
 export default function UserCard(props: UserCardProps) {
@@ -29,9 +29,7 @@ export default function UserCard(props: UserCardProps) {
         setChangedUserName(event.target.value)
     }
 
-    function handleLoginAs() {
-        props.handleLoginAs(props.user)
-    }
+
 
     function handleAddCountry() {
         navigate("/overview/" + props.user.id + "/countries")
@@ -60,7 +58,6 @@ export default function UserCard(props: UserCardProps) {
                 onClick={handleAddCountry}>
                 Add country you've visited
             </button>}
-            {props.loggedInUser.id !== props.user.id && < button onClick={handleLoginAs}>Login as</button>}
         </div>
     )
 }
