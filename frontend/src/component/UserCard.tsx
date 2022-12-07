@@ -1,5 +1,5 @@
 import {Traveller} from "../model/User";
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Box, Button, ButtonGroup, Card, CardContent, TextField, Typography, useMediaQuery} from "@mui/material";
 import "./UserCard.css"
@@ -33,10 +33,11 @@ export default function UserCard(props: UserCardProps) {
     }
 
 
-
     function handleAddCountry() {
         navigate("/overview/" + props.user.id + "/countries")
     }
+
+    const orientation = matches ? `horizontal` : `vertical`
 
     return (<Card variant={"outlined"} className={"card"}>
             <CardContent className={"cardContent"}>
@@ -48,12 +49,6 @@ export default function UserCard(props: UserCardProps) {
 
                     <Typography variant={"h4"} align={"center"}>{props.user.name}</Typography>
 
-                    {props.loggedInUser.id !== props.user.id &&
-                        <Button variant={"contained"}
-                                onClick={handleLoginAs}>
-                            Login as
-                        </Button>
-                    }
                 </Box>
                 <Box display={"flow"}
                      flexDirection={"row"}
@@ -101,8 +96,7 @@ export default function UserCard(props: UserCardProps) {
                 <ButtonGroup
                     variant={"contained"}
                     fullWidth={true}
-                    orientation={`${matches ? `horizontal` : `vertical`}`}>
-
+                    orientation={orientation}>
                     {props.loggedInUser.id === props.user.id && <Button
                         startIcon={<DeleteForever/>}
                         onClick={handleDeleteUser}
