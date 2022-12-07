@@ -1,5 +1,5 @@
 import axios from "axios";
-import {LoginUser, NewUser, Traveller} from "./model/User";
+import {UserLoginRequest, NewUser, Traveller} from "./model/User";
 
 export function getTravellers() {
     return axios.get("/api/traveller")
@@ -25,7 +25,7 @@ export function updateUser(id: string, user: Traveller) {
         .then(response => response.data)
 }
 
-export function login(toLoginUser: LoginUser) {
+export function login(toLoginUser: UserLoginRequest) {
     return axios.post("/api/user/login", undefined, {
         auth: {
             username:toLoginUser.username,
@@ -34,7 +34,7 @@ export function login(toLoginUser: LoginUser) {
     }).then(response => response.data)
 }
 
-export function getLoggedUserName(){
+export function getLoggedInUserName(){
    return  axios.get("/api/user/login/me")
         .then(response=>response.data)
 }

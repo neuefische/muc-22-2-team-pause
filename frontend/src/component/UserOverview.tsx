@@ -9,7 +9,7 @@ type UserOverviewProps = {
 }
 
 export default function UserOverview(props: UserOverviewProps) {
-    const {users, deleteUserByID, editUserName} = useUsers()
+    const {users, deleteUserByID, editTravellerName} = useUsers()
 
     const [searchQuery, setSearchQuery] = useState("")
 
@@ -31,9 +31,9 @@ export default function UserOverview(props: UserOverviewProps) {
         setSearchQuery(event.target.value)
     }
 
-    function handleEditUserName(id: string, user: Traveller) {
+    function handleEditTravellerName(id: string, user: Traveller) {
 
-        editUserName(id, user)
+        editTravellerName(id, user)
     }
 
 
@@ -45,7 +45,7 @@ export default function UserOverview(props: UserOverviewProps) {
             users={filteredUsers}
 
             handleDeleteUser={handleDeleteUser}
-            handleEditUser={handleEditUserName}
+            handleEditTravellerName={handleEditTravellerName}
             loggedInUser={props.loggedInTraveller}/>
         Logged in as : {props.loggedInTraveller && props.loggedInTraveller.name}
     </div>)

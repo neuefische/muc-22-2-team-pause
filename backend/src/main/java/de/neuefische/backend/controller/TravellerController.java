@@ -25,8 +25,8 @@ public class TravellerController {
 
     @PutMapping("/{id}")
     public Traveller update(@PathVariable String id, @RequestBody TravellerRequest travellerRequest){
-        Traveller toEditUser = new Traveller(id,travellerRequest.name(),travellerRequest.visitedCountries());
-        return travellerService.updateTraveller(id,toEditUser);
+        Traveller editTraveller = new Traveller(id,travellerRequest.name(),travellerRequest.visitedCountries());
+        return travellerService.updateTraveller(id,editTraveller);
     }
 
     @GetMapping("/{id}")

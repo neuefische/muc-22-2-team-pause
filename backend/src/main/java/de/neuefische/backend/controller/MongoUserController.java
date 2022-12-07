@@ -38,7 +38,6 @@ public class MongoUserController {
 
     @PostMapping("/login")
     public String login() {
-        //lets give back a nice object.
         return SecurityContextHolder
                 .getContext()
                 .getAuthentication()

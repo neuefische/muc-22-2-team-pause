@@ -29,7 +29,7 @@ export default function useUsers() {
             }).catch(console.error)
     }
 
-    return {users: travellers, deleteUserByID, editUserName}
+    return {users: travellers, deleteUserByID, editTravellerName: editUserName}
 
 
 }

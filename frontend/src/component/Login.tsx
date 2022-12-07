@@ -1,8 +1,8 @@
 import {ChangeEvent, FormEvent, useState} from "react";
-import {LoginUser} from "../model/User";
+import {UserLoginRequest} from "../model/User";
 import {useNavigate} from "react-router-dom";
 type LoginProps ={
-    handleLogInUser(user:LoginUser):Promise<string>
+    handleLogInUser(user:UserLoginRequest):Promise<string>
 }
 export default function Login(props:LoginProps) {
     const [username, setUsername] = useState("")

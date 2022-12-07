@@ -11,7 +11,7 @@ export type NewUser = {
     username: string,
 }
 
-export type LoginUser = {
+export type UserLoginRequest = {
     password: string,
     username: string
 }

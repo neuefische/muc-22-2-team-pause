@@ -7,14 +7,14 @@ import AddVisitCountry from "./component/AddVisitCountry";
 import useCountries from "./hook/useCountries";
 import WelcomeScreen from "./component/WelcomeScreen";
 import Login from "./component/Login";
-import useLoggedInUser from "./hook/useLoggedInUser";
+import useLoggedInUserAndTraveller from "./hook/useLoggedInUserAndTraveller";
 import ProtectedRoutes from "./component/ProtectedRoutes";
 
 
 function App() {
 
     const {countries} = useCountries()
-    const {loggedInTraveller, loginUser, username} = useLoggedInUser()
+    const {loggedInTraveller, loginUser, username} = useLoggedInUserAndTraveller()
 
 
     return (
@@ -24,6 +24,7 @@ function App() {
                     <Route path="/" element={<WelcomeScreen/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/login" element={<Login handleLogInUser={loginUser} />}/>
+
                     <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
                         <Route path="/overview" element={<UserOverview loggedInTraveller={loggedInTraveller}/>}></Route>
                         <Route path="/overview/:id" element={<p>detail</p>}></Route>

@@ -6,7 +6,6 @@ import de.neuefische.backend.repository.TravellerRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class TravellerService {
@@ -23,7 +22,7 @@ public class TravellerService {
 
     public Traveller findTravellerById(String id){
         return travellerRepo.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("User with id " + id + "does not exist"));
+                .orElseThrow(() -> new NoSuchTravellerException("Traveller does not exist"));
     }
 
     public Traveller updateTraveller(String id, Traveller editedUser){

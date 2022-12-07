@@ -6,7 +6,7 @@ type UserListProps = {
     loggedInUser:Traveller
     handleDeleteUser(id:string):void
 
-    handleEditUser(id:string, userToEdit: Traveller):void
+    handleEditTravellerName(id:string, userToEdit: Traveller):void
 }
 
 export default function UserList(props: UserListProps) {
@@ -21,7 +21,7 @@ export default function UserList(props: UserListProps) {
 
                 loggedInUser={props.loggedInUser}
                 handleDeleteUser={props.handleDeleteUser}
-                handleEditUser={props.handleEditUser}
+                handleEditUser={props.handleEditTravellerName}
             />)}
         </div>
     )
