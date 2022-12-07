@@ -21,15 +21,16 @@ export default function useUsers() {
 
     function editUserName(id: string, newUser: Traveller) {
         updateUser(id, newUser)
-            .then((editedUserWithId) => {
-                const updatedUsers = travellers.map((user) => {
-                    return user.id === id ? editedUserWithId : user
-                })
-                setTravellers(updatedUsers)
-            }).catch(console.error)
+            .then(handleUpdate)
+            .catch(console.error)
+    }
+
+    function handleUpdate(editedUserWithId: Traveller) {
+        const updatedUsers = travellers.map((user) => {
+            return user.id === editedUserWithId.id ? editedUserWithId : user
+        })
+        setTravellers(updatedUsers)
     }
 
     return {users: travellers, deleteUserByID, editTravellerName: editUserName}
-
-
 }
