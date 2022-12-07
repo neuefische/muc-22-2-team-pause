@@ -31,7 +31,7 @@ class TravellerServiceTest {
 
     @Test
     void findTravellerById_expect_throws_exception() {
-        assertThrows(NoSuchElementException.class, () -> travellerService.findTravellerById("0"));
+        assertThrows(NoSuchTravellerException.class, () -> travellerService.findTravellerById("0"));
     }
 
     @Test
