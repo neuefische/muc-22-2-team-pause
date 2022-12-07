@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,7 +38,7 @@ class MongoUserControllerTest {
     private WebApplicationContext context;
 
     @BeforeAll
-    public void setup(){
+    public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity()).
@@ -54,35 +55,38 @@ class MongoUserControllerTest {
                                    "visitedCountries": [],
                                    "password": "test123"
                                 }
-                                 """))
+                                 """).with(csrf())
+
+                )
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
         Traveller resultTraveller = objectMapper.readValue(travellerResult, Traveller.class);
-        assertEquals("nick",resultTraveller.name());
+        assertEquals("nick", resultTraveller.name());
 
     }
 
     @Test
     void delete_expect_status_isOk() throws Exception {
-        mvc.perform(delete(userEndPoint+"/1")
+        mvc.perform(delete(userEndPoint + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).with(csrf())
+                )
                 .andExpect(status().isOk());
     }
 
     @Test
     void login_expect_401() throws Exception {
-        mvc.perform(get(userEndPoint+"/login"))
+        mvc.perform(get(userEndPoint + "/login"))
                 .andExpect(status().isUnauthorized());
     }
 
 
     @Test
     void login_me_expect_anonymousUser() throws Exception {
-        mvc.perform(get(userEndPoint+"/login/me"))
+        mvc.perform(get(userEndPoint + "/login/me"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("anonymousUser"));
     }
@@ -90,14 +94,16 @@ class MongoUserControllerTest {
     @WithMockUser("spring")
     @Test
     void login_me_expect_spring_user() throws Exception {
-        mvc.perform(get(userEndPoint+"/login/me"))
+        mvc.perform(get(userEndPoint + "/login/me"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("spring"));
     }
 
     @Test
     void logout_expect_anonymousUser() throws Exception {
-        mvc.perform(post(userEndPoint+"/logout"))
+        mvc.perform(post(userEndPoint + "/logout")
+                        .with(csrf())
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string("anonymousUser"));
     }
