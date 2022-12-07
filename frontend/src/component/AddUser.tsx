@@ -35,6 +35,16 @@ export default function AddUser(props:AddUserProps){
         >
             <form className={"formContainer"} onSubmit={handleSubmit}>
                 <TextField
+                    label={"Name"}
+                    type={"text"}
+                    name={"username"}
+                    value={newUser.username}
+                    onChange={handleOnChange}
+                    placeholder={"hi, new traveller"}
+                    required={true}
+                />
+
+                <TextField
                     label={"Password"}
                     type={"password"}
                     name={"password"}
@@ -44,15 +54,6 @@ export default function AddUser(props:AddUserProps){
                     required={true}
                 />
 
-                <TextField
-                    label={"Name"}
-                    type={"text"}
-                    name={"name"}
-                    value={newUser.username}
-                    onChange={handleOnChange}
-                    placeholder={"hi, new traveller"}
-                    required={true}
-                />
                 <IconButton color={"secondary"} type={"submit"}>
                     <AddSharp/>
                 </IconButton>

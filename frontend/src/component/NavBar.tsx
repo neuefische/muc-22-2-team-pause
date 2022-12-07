@@ -15,7 +15,7 @@ export default function NavBar(props:NavBarProps) {
         }
         , {
             name: 'Sign Up',
-            path: "/",
+            path: "/signup",
             icon: <PersonAdd/>
         }, {
             name: 'Overview',
