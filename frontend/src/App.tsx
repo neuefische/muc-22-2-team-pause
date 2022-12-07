@@ -38,10 +38,10 @@ function App() {
             </head>
 
                 <BrowserRouter>
-                    <NavBar loggedInUser={loggedInUser}/>
+                    <NavBar username={username}/>
                     <Routes>
                         <Route path="/" element={<WelcomeScreen/>}/>
-                        <Route path="/signup" element={<SignUp/>}/>
+                        <Route path="/signup" element={<SignUp />}/>
                         <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
 
                         <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>

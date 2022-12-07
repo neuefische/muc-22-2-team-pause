@@ -2,10 +2,9 @@ import {AppBar, Box, Button, IconButton, Toolbar, Tooltip, Typography} from "@mu
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import {Home, List, Person, PersonAdd, Public} from "@mui/icons-material";
-import {User} from "../model/User";
 
 type NavBarProps = {
-    loggedInUser:User
+    username:string
 }
 export default function NavBar(props:NavBarProps) {
     const navItems = [
@@ -51,7 +50,7 @@ export default function NavBar(props:NavBarProps) {
                 </Box>
 
                 <Box flexGrow={0}>
-                    <Tooltip title={props.loggedInUser.name}>
+                    <Tooltip title={props.username}>
                         <Person/>
                     </Tooltip>
                 </Box>

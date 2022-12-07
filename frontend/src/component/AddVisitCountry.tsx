@@ -14,13 +14,13 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
     const navigate = useNavigate()
 
     function addCountryToUser(event: SyntheticEvent<Element, Event>, value: Country | null) {
-        if (!props.loggedInUser.visitedCountries) {
-            props.loggedInUser.visitedCountries = []
+        if (!props.loggedInTraveller.visitedCountries) {
+            props.loggedInTraveller.visitedCountries = []
         }
         if (value != null) {
-            props.loggedInUser.visitedCountries.push(value)
+            props.loggedInTraveller.visitedCountries.push(value)
 
-            updateUser(props.loggedInUser.id, props.loggedInUser)
+            updateUser(props.loggedInTraveller.id, props.loggedInTraveller)
                 .then(() => {
                     navigate("/overview")
                 })
