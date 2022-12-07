@@ -26,9 +26,10 @@ class MongoUserServiceTest {
         MongoUserRequest givenMongoUserRequest = new MongoUserRequest("nick","pw");
         String givenId = uuidGeneratorService.generateUuid();
         Traveller givenTraveller = mongoUserService.createTraveller(givenId, givenMongoUserRequest);
+        MongoUser givenMongoUser = mongoUserService.createMongoUser(givenId, givenMongoUserRequest);
 
-        when(mongoUserRepo.save(mongoUserService.createMongoUser(givenId, givenMongoUserRequest)))
-                .thenReturn(mongoUserService.createMongoUser(givenId, givenMongoUserRequest));
+        when(mongoUserRepo.save(givenMongoUser))
+                .thenReturn(givenMongoUser);
         when(travellerRepo.save(givenTraveller))
                 .thenReturn(givenTraveller);
 
@@ -51,13 +52,13 @@ class MongoUserServiceTest {
     @Test
     void getIdByUsername_expect_same_id() {
         String givenName = "nick";
-        MongoUser toReturnUser = new MongoUser("0","nick","123");
+        MongoUser expectedMongoUser = new MongoUser("0","nick","123");
 
-        when(mongoUserRepo.findByUsername(givenName)).thenReturn(Optional.of(toReturnUser));
+        when(mongoUserRepo.findByUsername(givenName)).thenReturn(Optional.of(expectedMongoUser));
 
         String resultUserId = mongoUserService.getIdByUsername(givenName);
 
-        assertEquals(toReturnUser.id(),resultUserId);
+        assertEquals(expectedMongoUser.id(),resultUserId);
     }
 
     @Test

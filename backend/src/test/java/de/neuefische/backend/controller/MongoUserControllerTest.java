@@ -1,7 +1,10 @@
 package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.neuefische.backend.model.MongoUser;
 import de.neuefische.backend.model.Traveller;
+import de.neuefische.backend.repository.MongoUserRepo;
+import de.neuefische.backend.repository.TravellerRepo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,6 +19,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -36,6 +41,11 @@ class MongoUserControllerTest {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    private  MongoUserRepo mongoUserRepo;
+    @Autowired
+    private TravellerRepo travellerRepo;
 
     @BeforeAll
     public void setup() {
@@ -70,6 +80,9 @@ class MongoUserControllerTest {
 
     @Test
     void delete_expect_status_isOk() throws Exception {
+        mongoUserRepo.save(new MongoUser("1","a","123"));
+        travellerRepo.save(new Traveller("1","a",new HashSet<>()));
+
         mvc.perform(delete(userEndPoint + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON).with(csrf())
