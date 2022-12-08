@@ -3,7 +3,7 @@ import {User} from "../model/User";
 import {Country} from "../model/Country";
 import {useState} from "react";
 import {scaleLinear} from "d3-scale";
-import {getUsers} from "../apiCalls";
+import useUsers from "../hook/useUsers";
 
 type HeatMapProps= {
     registeredUsers : User
@@ -20,8 +20,7 @@ const colorScale = scaleLinear<string>()
 export default function HeatMap(props: HeatMapProps) {
 
     const countryList = props.countries
-    const userList = getUsers()
-
+    const users1 = useUsers().users
     let registeredUsers: User[] = []
 
     let registeredUser0: User = {id: "1", name: "KoljaTraveller", visitedCountries: [countryList[15], countryList[2], countryList[3]]}
@@ -31,6 +30,10 @@ export default function HeatMap(props: HeatMapProps) {
     registeredUsers.push(registeredUser0)
     registeredUsers.push(registeredUser1)
     registeredUsers.push(registeredUser2)
+    registeredUsers.push(users1[0])
+    registeredUsers.push(users1[2])
+    registeredUsers.push(users1[1])
+
 
     const [output,setOutput]=useState<{
         country:string,
@@ -45,7 +48,7 @@ export default function HeatMap(props: HeatMapProps) {
                 count: 0
             };
         }
-
+        console.log(registeredUsers)
         let output = onlyThreeLetterCodes.map(setCount);//Map new array output containing
         for (let i = 0; i < registeredUsers.length; i++) {  //3 "registrierte" User
             for (let j = 0; j < registeredUsers[i].visitedCountries.length; j++) {
@@ -58,8 +61,9 @@ export default function HeatMap(props: HeatMapProps) {
                 }
             }
         }
+        console.log(users1)
+        console.log(registeredUsers)
         setOutput(output)
-        console.log(userList)
     }
 
         return (
