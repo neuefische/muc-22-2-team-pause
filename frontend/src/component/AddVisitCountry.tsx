@@ -26,7 +26,7 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
 
         updateUser(props.loggedInTraveller.id, copyOfLoggedInTraveller)
             .then(() => {
-                props.loggedInTraveller.visitedCountries = newPlusOldCountries
+                //props.loggedInTraveller.visitedCountries = newPlusOldCountries
                 navigate("/overview")
             })
             .catch(console.error)
