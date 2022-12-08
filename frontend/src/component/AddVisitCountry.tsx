@@ -17,7 +17,7 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
         if (!props.loggedInTraveller.visitedCountries) {
             props.loggedInTraveller.visitedCountries = []
         }
-        if (value != null) {
+        if (value) {
             props.loggedInTraveller.visitedCountries.push(value)
 
             updateUser(props.loggedInTraveller.id, props.loggedInTraveller)
