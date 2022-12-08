@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
 import AddVisitedCountry from "./component/AddVisitCountry";
+import AddVisitCountry from "./component/AddVisitCountry";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {themeOptions} from "./mui-theme";
 import WelcomeScreen from "./component/WelcomeScreen";
@@ -45,6 +46,7 @@ function App() {
                             <Route path="/overview/:id" element={<p>detail</p>}></Route>
                             <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
                             <Route path="/overview/:id/countries" element={<AddVisitedCountry
+                            <Route path="/overview/:id/countries" element={<AddVisitCountry
                                 loggedInTraveller={loggedInTraveller}
                             />}>
                             </Route>

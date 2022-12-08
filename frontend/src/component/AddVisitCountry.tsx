@@ -6,6 +6,8 @@ import {updateUser} from "../apiCalls";
 import {Autocomplete, Box, Button, Chip, LinearProgress, TextField, Typography} from "@mui/material";
 import useCountries from "../hook/useCountries";
 import {AddCircle} from "@mui/icons-material";
+import {Autocomplete, Box, LinearProgress, TextField} from "@mui/material";
+import useCountries from "../hook/useCountries";
 
 type AddVisitCountryProps = {
     loggedInTraveller: Traveller
@@ -14,7 +16,7 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
     const navigate = useNavigate()
     const {countries} = useCountries()
     const [selectedCountries, setSelectedCountries] = useState<Country[]>([])
-
+    
     function addCountriesToUser() {
         if (!props.loggedInTraveller.visitedCountries) {
             props.loggedInTraveller.visitedCountries = []
@@ -94,6 +96,23 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
             margin={20}>
             <LinearProgress color={"secondary"}/>
         </Box>)
+    }
+    if(countries){
+        return (
+            <Autocomplete className={"autocomplete"}
+                          onChange={addCountryToUser}
+                          renderInput={(params) =>
+                              <TextField {...params} label={"Choose a country"}/>}
+                          getOptionLabel={(option) => option.name+ " " + option.flag}
+                          options={countries}
+            />
+        )
+    }else {
+        return (<Box
+            alignItems={"center"}
+            margin={30}>
+        <LinearProgress color={"secondary"}/>
+    </Box>)
     }
 
 }
