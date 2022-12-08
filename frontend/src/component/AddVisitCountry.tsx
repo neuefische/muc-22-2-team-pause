@@ -6,8 +6,7 @@ import {updateUser} from "../apiCalls";
 import {Autocomplete, Box, Button, Chip, LinearProgress, TextField, Typography} from "@mui/material";
 import useCountries from "../hook/useCountries";
 import {AddCircle} from "@mui/icons-material";
-import {Autocomplete, Box, LinearProgress, TextField} from "@mui/material";
-import useCountries from "../hook/useCountries";
+
 
 type AddVisitCountryProps = {
     loggedInTraveller: Traveller
@@ -97,22 +96,4 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
             <LinearProgress color={"secondary"}/>
         </Box>)
     }
-    if(countries){
-        return (
-            <Autocomplete className={"autocomplete"}
-                          onChange={addCountryToUser}
-                          renderInput={(params) =>
-                              <TextField {...params} label={"Choose a country"}/>}
-                          getOptionLabel={(option) => option.name+ " " + option.flag}
-                          options={countries}
-            />
-        )
-    }else {
-        return (<Box
-            alignItems={"center"}
-            margin={30}>
-        <LinearProgress color={"secondary"}/>
-    </Box>)
-    }
-
 }
