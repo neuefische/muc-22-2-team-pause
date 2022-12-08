@@ -18,10 +18,13 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
             props.loggedInTraveller.visitedCountries = []
         }
         if (value) {
-            props.loggedInTraveller.visitedCountries.push(value)
+            const copyVisitedCountries = [...props.loggedInTraveller.visitedCountries,value]
+            const copyLoggedInTraveller = props.loggedInTraveller
+            copyLoggedInTraveller.visitedCountries = copyVisitedCountries
 
-            updateUser(props.loggedInTraveller.id, props.loggedInTraveller)
+            updateUser(props.loggedInTraveller.id, copyLoggedInTraveller)
                 .then(() => {
+                    props.loggedInTraveller.visitedCountries= copyVisitedCountries
                     navigate("/overview")
                 })
                 .catch(console.error)
