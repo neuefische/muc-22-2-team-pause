@@ -14,7 +14,6 @@ export default function WelcomeScreen() {
                 <ul className="content__container__list">
                     <li className="content__container__list__item">world</li>
                     <li className="content__container__list__item">travellers</li>
-
                 </ul>
             </div>
             <Box sx={{mt: 4}}>

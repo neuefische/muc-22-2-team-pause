@@ -1,10 +1,12 @@
-import {AppBar, Box, Button, IconButton, Toolbar, Tooltip, Typography} from "@mui/material";
-import React from "react";
+import {alpha, AppBar, Box, Button, IconButton, InputBase, styled, Toolbar, Tooltip, Typography} from "@mui/material";
+import React, {ChangeEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Home, List, Person, PersonAdd, Public} from "@mui/icons-material";
+import SearchIcon from '@mui/icons-material/Search';
 
 type NavBarProps = {
     username:string
+    handleCallback(searchText: string): void
 }
 export default function NavBar(props:NavBarProps) {
     const navItems = [
@@ -23,10 +25,58 @@ export default function NavBar(props:NavBarProps) {
             icon:<List/>
         }];
 
+    const Search = styled('div')(({ theme }) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(1),
+            width: 'auto',
+        },
+    }));
+
+    const SearchIconWrapper = styled('div')(({ theme }) => ({
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }));
+
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+        color: 'inherit',
+        '& .MuiInputBase-input': {
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                width: '12ch',
+                '&:focus': {
+                    width: '20ch',
+                },
+            },
+        },
+    }));
+
     const navigate = useNavigate();
 
     function handleNavigation(path: string) {
         navigate(path)
+    }
+    const [searchQuery, setSearchQuery] = useState("")
+
+    function handleSearchText(event: ChangeEvent<HTMLInputElement>) {
+        setSearchQuery(event.target.value)
+        props.handleCallback(searchQuery)
     }
 
     return (<AppBar position={"sticky"}
@@ -48,6 +98,19 @@ export default function NavBar(props:NavBarProps) {
                         <Button startIcon={item.icon} key={item.name} onClick={() => handleNavigation(item.path)}>{item.name}</Button>
                     ))}
                 </Box>
+
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        type={"search"}
+                        value={searchQuery}
+                        placeholder={"Search user or countries.."}
+                        inputProps={{ 'aria-label': 'search' }}
+                        onChange={handleSearchText}
+                    />
+                </Search>
 
                 <Box flexGrow={0}>
                     <Tooltip title={props.username}>
