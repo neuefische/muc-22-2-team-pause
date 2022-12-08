@@ -4,14 +4,15 @@ import "./AddVisitCountry.css";
 import {Traveller} from "../model/User";
 import {useNavigate} from "react-router-dom";
 import {updateUser} from "../apiCalls";
-import {Autocomplete, TextField} from "@mui/material";
+import {Autocomplete, Box, LinearProgress, TextField} from "@mui/material";
+import useCountries from "../hook/useCountries";
 
 type AddVisitCountryProps = {
-    countries: Country[],
     loggedInTraveller: Traveller
 }
 export default function AddVisitCountry(props: AddVisitCountryProps) {
     const navigate = useNavigate()
+    const {countries} = useCountries()
 
     function addCountryToUser(event: SyntheticEvent<Element, Event>, value: Country | null) {
         if (!props.loggedInTraveller.visitedCountries) {
@@ -31,13 +32,22 @@ export default function AddVisitCountry(props: AddVisitCountryProps) {
         }
 
     }
+    if(countries){
+        return (
+            <Autocomplete className={"autocomplete"}
+                          onChange={addCountryToUser}
+                          renderInput={(params) =>
+                              <TextField {...params} label={"Choose a country"}/>}
+                          getOptionLabel={(option) => option.name+ " " + option.flag}
+                          options={countries}
+            />
+        )
+    }else {
+        return (<Box
+            alignItems={"center"}
+            margin={30}>
+        <LinearProgress color={"secondary"}/>
+    </Box>)
+    }
 
-    return (<Autocomplete className={"autocomplete"}
-            onChange={addCountryToUser}
-            renderInput={(params) =>
-                <TextField {...params} label={"Choose a country"}/>}
-            getOptionLabel={(option) => option.name+ " " + option.flag}
-            options={props.countries}
-        />
-    )
 }

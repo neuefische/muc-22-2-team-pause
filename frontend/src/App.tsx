@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
 import AddVisitCountry from "./component/AddVisitCountry";
-import useCountries from "./hook/useCountries";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {themeOptions} from "./mui-theme";
 import WelcomeScreen from "./component/WelcomeScreen";
@@ -14,10 +13,7 @@ import NavBar from "./component/NavBar";
 
 
 function App() {
-    const {countries} = useCountries()
     const {loggedInTraveller, loginUser, username} = useLoggedInUserAndTraveller()
-
-
     const theme = createTheme(themeOptions)
 
     return (
@@ -49,7 +45,6 @@ function App() {
                             <Route path="/overview/:id" element={<p>detail</p>}></Route>
                             <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
                             <Route path="/overview/:id/countries" element={<AddVisitCountry
-                                countries={countries}
                                 loggedInTraveller={loggedInTraveller}
                             />}>
                             </Route>
