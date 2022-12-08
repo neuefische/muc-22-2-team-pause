@@ -16,7 +16,7 @@ import java.util.List;
 public class RestCountriesController {
 
     private final RestCountriesWebClient webClient =
-            new RestCountriesWebClient("https://restcountries.com/v3.1/all");
+            new RestCountriesWebClient("https://restcountries.com/v3.1/all?fields=name,flag,cca3");
     private final RestCountriesService restCountriesService;
 
     public RestCountriesController( RestCountriesService restCountriesService) {

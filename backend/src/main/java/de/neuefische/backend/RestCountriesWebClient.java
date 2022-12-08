@@ -3,7 +3,6 @@ package de.neuefische.backend;
 import de.neuefische.backend.exception.RestCountryException;
 import de.neuefische.backend.model.restcountries.RestCountry;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Arrays;
@@ -20,14 +19,8 @@ public class RestCountriesWebClient {
     }
 
     private void setUp(){
-        final int size = 16 * 1024 * 1024;
-        final ExchangeStrategies strategies = ExchangeStrategies.builder()
-                .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(size))
-                .build();
-
         this.webClient = WebClient.builder()
                 .baseUrl(this.baseUrl)
-                .exchangeStrategies(strategies)
                 .build();
     }
 
@@ -40,7 +33,7 @@ public class RestCountriesWebClient {
         if (restCountries != null) {
             return Arrays.asList(restCountries);
         }else {
-            throw new RestCountryException("Respone is null");
+            throw new RestCountryException("Response is null");
         }
     }
 
