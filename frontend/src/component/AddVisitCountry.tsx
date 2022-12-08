@@ -20,10 +20,10 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
             props.loggedInTraveller.visitedCountries = []
         }
         const newPlusOldCountries = [...props.loggedInTraveller.visitedCountries, ...selectedCountries]
-        const copyLoggedInTraveller = props.loggedInTraveller
-        copyLoggedInTraveller.visitedCountries = newPlusOldCountries
+        const copyOfLoggedInTraveller = props.loggedInTraveller
+        copyOfLoggedInTraveller.visitedCountries = newPlusOldCountries
 
-        updateUser(props.loggedInTraveller.id, copyLoggedInTraveller)
+        updateUser(props.loggedInTraveller.id, copyOfLoggedInTraveller)
             .then(() => {
                 props.loggedInTraveller.visitedCountries = newPlusOldCountries
                 navigate("/overview")
@@ -32,21 +32,20 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
     }
 
     function handleRemoveCountryFromList(countryId: string) {
-
         setSelectedCountries((prevState) => {
             return prevState.filter((country) => country.threeLetterCode !== countryId);
         })
     }
 
-    function addCountryToList(event: SyntheticEvent<Element, Event>, value: Country | null) {
-        if (value) {
-            setSelectedCountries((prevState) => {
-                return [...prevState, value]
+    function handleAddCountryToList(event: SyntheticEvent<Element, Event>, selectedCountry: Country | null) {
+        if (selectedCountry) {
+            setSelectedCountries((prevSelectedCountries) => {
+                return [...prevSelectedCountries, selectedCountry]
             })
         }
     }
 
-    const buttonDisabled: boolean = selectedCountries.length < 1
+    const isButtonDisabled: boolean = selectedCountries.length < 1
 
     if (countries) {
         return (<Box display={"flex"}
@@ -57,7 +56,7 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
                      flexWrap={"wrap"}
                      alignItems={"center"}
             >
-                <Autocomplete sx={{width: "80%"}} onChange={addCountryToList}
+                <Autocomplete sx={{width: "80%"}} onChange={handleAddCountryToList}
                               renderInput={(params) =>
                                   <TextField {...params} label={"Choose a country"}/>}
                               getOptionLabel={(option) => option.name + " " + option.flag}
@@ -82,7 +81,7 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
                         variant={"contained"}
                         onClick={addCountriesToUser}
                         startIcon={<AddCircle/>}
-                        disabled={buttonDisabled}>
+                        disabled={isButtonDisabled}>
 
                         Save
                     </Button>
