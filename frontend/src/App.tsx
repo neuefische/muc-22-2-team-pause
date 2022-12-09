@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
-import AddVisitedCountry from "./component/AddVisitCountry";
+import AddVisitCountry from "./component/AddVisitCountry";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {themeOptions} from "./mui-theme";
 import WelcomeScreen from "./component/WelcomeScreen";
@@ -17,7 +17,8 @@ function App() {
     const theme = createTheme(themeOptions)
 
     const [searchText, setSearchText] = useState<string>("")
-    function handleCallback(text:string){
+
+    function handleCallback(text: string) {
         setSearchText(text)
     }
 
@@ -36,23 +37,25 @@ function App() {
                     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
                 />
             </head>
-                <BrowserRouter>
-                    <NavBar username={username} handleSearch={handleCallback}/>
-                    <Routes>
-                        <Route path="/" element={<WelcomeScreen/>}/>
-                        <Route path="/signup" element={<SignUp />}/>
-                        <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
+            <BrowserRouter>
+                <NavBar username={username} handleSearch={handleCallback}/>
+                <Routes>
+                    <Route path="/" element={<WelcomeScreen/>}/>
+                    <Route path="/signup" element={<SignUp/>}/>
+                    <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
 
-                        <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
-                            <Route path="/overview"
-                                   element={<UserOverview searchText={searchText} loggedInTraveller={loggedInTraveller}/>}></Route>
-                            <Route path="/overview/:id" element={<p>detail</p>}></Route>
-                            <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
-                            <Route path="/overview/:id/countries" element={<AddVisitCountry
-                                loggedInTraveller={loggedInTraveller}
-                            />}>
-                            </Route>
+                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
+                        <Route path="/overview"
+                               element={<UserOverview searchText={searchText}
+                                                      loggedInTraveller={loggedInTraveller}/>}></Route>
+                        <Route path="/overview/:id" element={<p>detail</p>}></Route>
+                        <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
+                        <Route path="/overview/:id/countries" element={<AddVisitCountry
+                            loggedInTraveller={loggedInTraveller}
+                        />}>
+
                         </Route>
+
                     </Route>
                 </Routes>
             </BrowserRouter>
