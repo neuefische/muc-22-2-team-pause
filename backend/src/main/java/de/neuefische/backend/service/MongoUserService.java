@@ -1,6 +1,7 @@
 package de.neuefische.backend.service;
 
 import de.neuefische.backend.exception.NoSuchTravellerException;
+import de.neuefische.backend.exception.NoSuchUsernameException;
 import de.neuefische.backend.model.AuthenticationResponse;
 import de.neuefische.backend.model.MongoUser;
 import de.neuefische.backend.model.MongoUserRequest;
@@ -76,6 +77,6 @@ public class MongoUserService {
                 throw new NoSuchTravellerException(badCredentials);
             }
         }
-        throw new UsernameNotFoundException(badCredentials);
+        throw new NoSuchUsernameException(badCredentials);
     }
 }
