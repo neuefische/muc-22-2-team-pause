@@ -5,7 +5,7 @@ import {Box, IconButton, TextField, Typography} from "@mui/material";
 import {LoginSharp} from "@mui/icons-material";
 
 type LoginProps = {
-    handleLogInUser(user: UserLoginRequest): Promise<string>
+    handleLogInUser(user: UserLoginRequest): Promise<void>
 }
 export default function Login(props: LoginProps) {
     const [username, setUsername] = useState("")
