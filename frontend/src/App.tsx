@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
-import AddVisitCountry from "./component/AddVisitCountry";
+import AddVisitedCountry from "./component/AddVisitCountry";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {themeOptions} from "./mui-theme";
 import WelcomeScreen from "./component/WelcomeScreen";
@@ -32,25 +32,25 @@ function App() {
                 />
             </head>
 
-                <BrowserRouter>
-                    <NavBar username={username}/>
-                    <Routes>
-                        <Route path="/" element={<WelcomeScreen/>}/>
-                        <Route path="/signup" element={<SignUp />}/>
-                        <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
+            <BrowserRouter>
+                <NavBar username={username}/>
+                <Routes>
+                    <Route path="/" element={<WelcomeScreen/>}/>
+                    <Route path="/signup" element={<SignUp/>}/>
+                    <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
 
-                        <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
-                            <Route path="/overview"
-                                   element={<UserOverview loggedInTraveller={loggedInTraveller}/>}></Route>
-                            <Route path="/overview/:id" element={<p>detail</p>}></Route>
-                            <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
-                            <Route path="/overview/:id/countries" element={<AddVisitCountry
-                                loggedInTraveller={loggedInTraveller}
-                            />}>
-                            </Route>
+                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
+                        <Route path="/overview"
+                               element={<UserOverview loggedInTraveller={loggedInTraveller}/>}></Route>
+                        <Route path="/overview/:id" element={<p>detail</p>}></Route>
+                        <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
+                        <Route path="/overview/:id/countries" element={<AddVisitedCountry
+                            loggedInTraveller={loggedInTraveller}
+                        />}>
                         </Route>
-                    </Routes>
-                </BrowserRouter>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
         </ThemeProvider>
 
     );
