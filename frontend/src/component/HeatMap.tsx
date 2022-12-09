@@ -1,74 +1,56 @@
 import {ComposableMap, Geographies, Geography,} from "react-simple-maps";
 import {User} from "../model/User";
 import {Country} from "../model/Country";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {scaleLinear} from "d3-scale";
 import useUsers from "../hook/useUsers";
 
 type HeatMapProps= {
-    registeredUsers : User
     countries: Country[]
 }
-
-const geoUrl =
-    "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json"
-
-const colorScale = scaleLinear<string>()
-    .domain([0, 4])
-    .range(["#ffeeff", "#c48b9f"]);
+const geoUrl = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json"
 
 export default function HeatMap(props: HeatMapProps) {
 
+    const [maxDomain, setMaxDomain ]=useState(1)
+
+    const colorScale = scaleLinear<string>()
+        .domain([0, maxDomain ])
+        .range(["#f8bbd0", "#ad1457"]);
+
     const countryList = props.countries
-    const users1 = useUsers().users
-    let registeredUsers: User[] = []
-
-    let registeredUser0: User = {id: "1", name: "KoljaTraveller", visitedCountries: [countryList[15], countryList[2], countryList[3]]}
-    let registeredUser1: User = {id: "2", name: "OljaTraveller", visitedCountries: [countryList[15], countryList[2]]}
-    let registeredUser2: User = {id: "3", name: "LjaTraveller", visitedCountries: [countryList[15]]}
-
-    registeredUsers.push(registeredUser0)
-    registeredUsers.push(registeredUser1)
-    registeredUsers.push(registeredUser2)
-    registeredUsers.push(users1[0])
-    registeredUsers.push(users1[2])
-    registeredUsers.push(users1[1])
-
+    let userList: User[] = useUsers().users
 
     const [output,setOutput]=useState<{
         country:string,
         count: number }[]>([])
 
-    function handleClick() {
-        const onlyThreeLetterCodes = countryList.map(Country => Country.threeLetterCode) //Map to only get TLC
-
-        function setCount(country: string) { //Create eachCount Object containing TLC and count
+    useEffect(() => {
+        const threeLetterCodeList = countryList.map(Country => Country.threeLetterCode)
+        function setCount(country: string) {
             return {
                 country,
                 count: 0
             };
         }
-        console.log(registeredUsers)
-        let output = onlyThreeLetterCodes.map(setCount);//Map new array output containing
-        for (let i = 0; i < registeredUsers.length; i++) {  //3 "registrierte" User
-            for (let j = 0; j < registeredUsers[i].visitedCountries.length; j++) {
-                const countedCountryCode = registeredUsers[i].visitedCountries[j].threeLetterCode
-                for (let k = 0; k < output.length; k++) {
-                    if (output[k].country === countedCountryCode) {
-                        output[k].count++ //funktioniert soweit sogut ausser hochzählen UseState
-                    }
 
+        let output = threeLetterCodeList.map(setCount);
+        for (const element of userList) {
+            for (const item of element.visitedCountries) {
+                const threeLetterCodeToCount = item.threeLetterCode
+                for (const element of output) if (element.country === threeLetterCodeToCount) {
+                    element.count++
                 }
             }
         }
-        console.log(users1)
-        console.log(registeredUsers)
+        let countVisits=[]
+        for (const element of output) countVisits.push(element.count)
+        let maxVisits = Math.max(...countVisits)
+        setMaxDomain(maxVisits)
         setOutput(output)
-    }
+    }, [])
 
         return (
-            <div>
-                <button onClick={handleClick}>SecondTry</button>
                 <ComposableMap
                     projectionConfig={{
                         rotate: [-10, 0, 0],
@@ -79,13 +61,13 @@ export default function HeatMap(props: HeatMapProps) {
                         <Geographies geography={geoUrl}>
                             {({geographies}) =>
                                 geographies.map((geo) => {
-                                    for (let i = 0; i < output.length; i++) {
-                                    if (geo.id === output[i].country){
-                                    return (
-                                        <Geography
-                                            key={geo.rsmKey}
-                                            geography={geo}
-                                            fill={colorScale(output[i].count)}
+                                    for (const element of output) {
+                                        if (geo.id === element.country) {
+                                            return (
+                                                <Geography
+                                                    key={geo.rsmKey}
+                                                    geography={geo}
+                                                    fill={colorScale(element.count)}
                                         />
                                     );
                                     }
@@ -95,7 +77,6 @@ export default function HeatMap(props: HeatMapProps) {
                         </Geographies>
                     )}
                 </ComposableMap>
-            </div>
 
         );
 
