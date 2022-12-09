@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ComposableMap, Geographies, Geography} from 'react-simple-maps';
 import {Country} from "../model/Country";
 import {User} from "../model/User"
@@ -15,29 +15,29 @@ const geoUrl =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json"
 export default function WorldMap(props: WorldMapProps) {
 
-    const [selectedCountries, setSelectedCountries] = useState<string[]>([])
+    const [countries, setCountries] = useState<string[]>([])
 
     useEffect(() => {
 
-        props.loggedInUser.visitedCountries.forEach((visitedCountry) => {
-            setSelectedCountries(prevState => [...prevState, visitedCountry.threeLetterCode])
+        props.loggedInUser.visitedCountries.forEach((country) => {
+            setCountries(prevState => [...prevState, country.threeLetterCode])
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
-    const handleCountryClick = (countryId: string) => {
-        const countryByCountryId = props.countries.find((country) => {
+    const handleClick = (countryId: string) => {
+        const countryById = props.countries.find((country) => {
             if (country.threeLetterCode === countryId) {
                 return country
-            }else{
+            } else {
                 return undefined
             }
         });
 
-        if (countryByCountryId) {
-            props.loggedInUser.visitedCountries.push(countryByCountryId)
-            setSelectedCountries(prevState => [...prevState, countryByCountryId.threeLetterCode])
+        if (countryById) {
+            props.loggedInUser.visitedCountries.push(countryById)
+            setCountries(prevState => [...prevState, countryById.threeLetterCode])
             updateUser(props.loggedInUser.id, props.loggedInUser)
                 .catch(console.error)
         }
@@ -48,7 +48,7 @@ export default function WorldMap(props: WorldMapProps) {
                 {({geographies}) =>
                     geographies.map((geo) => (
                         <Geography
-                            fill={selectedCountries.includes(geo.id) ? "#78002e" : "#f8bbd0"}
+                            fill={countries.includes(geo.id) ? "#78002e" : "#f8bbd0"}
                             style={{
                                 default: {
                                     outline: "black"
@@ -59,7 +59,7 @@ export default function WorldMap(props: WorldMapProps) {
                                 },
                             }}
                             onClick={() => {
-                                handleCountryClick(`${geo.id}`)
+                                handleClick(`${geo.id}`)
                             }} key={geo.rsmKey} geography={geo}/>
                     ))
                 }
@@ -67,3 +67,4 @@ export default function WorldMap(props: WorldMapProps) {
         </ComposableMap>
     )
 }
+
