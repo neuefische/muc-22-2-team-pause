@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {ComposableMap, Geographies, Geography} from 'react-simple-maps';
 import {Country} from "../model/Country";
-import {User} from "../model/User"
+import {Traveller} from "../model/User"
 import "./WorldMap.css";
 import {updateUser} from "../apiCalls";
+import useCountries from "../hook/useCountries";
 
 
 type WorldMapProps = {
-    loggedInUser: User,
-    countries: Country[]
+    loggedInUser: Traveller,
 }
 
 const geoUrl =
@@ -16,10 +16,10 @@ const geoUrl =
 export default function WorldMap(props: WorldMapProps) {
 
     const [countries,setCountries] = useState<string[]>([])
-
+    const {countries} = useCountries();
     useEffect(() => {
 
-        props.loggedInUser.visitedCountries.forEach((country) => {
+        props.loggedInUser.visitedCountries.forEach((country:Country) => {
             setCountries(prevState => [...prevState, country.threeLetterCode])
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
