@@ -3,12 +3,11 @@ import {Traveller} from "../model/User";
 
 type ProtectedRoutesProps={
     loggedInTraveller:Traveller | undefined;
-    username:string
 }
 
 export default function ProtectedRoutes(props:ProtectedRoutesProps){
 
-    const isAuthenticated = props.loggedInTraveller !== undefined && props.username !== ""
+    const isAuthenticated = props.loggedInTraveller !== undefined
     return(
         isAuthenticated?<Outlet/>:<Navigate to={"/login"}/>
     )

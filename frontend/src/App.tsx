@@ -44,7 +44,7 @@ function App() {
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
 
-                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
+                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller}/>}>
                         <Route path="/overview"
                                element={<UserOverview searchText={searchText}
                                                       loggedInTraveller={loggedInTraveller}/>}></Route>

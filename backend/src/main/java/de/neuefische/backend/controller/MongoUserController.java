@@ -1,5 +1,6 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.model.AuthenticationResponse;
 import de.neuefische.backend.model.MongoUserRequest;
 import de.neuefische.backend.model.Traveller;
 import de.neuefische.backend.service.MongoUserService;
@@ -7,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/user")
@@ -29,19 +29,13 @@ public class MongoUserController {
     }
 
     @GetMapping("/login/me")
-    public String helloMe(Principal principal) {
-        if (principal != null) {
-            return principal.getName();
-        }
-        return "anonymousUser";
+    public AuthenticationResponse helloMe() {
+        return mongoUserService.getTravellerBySecurityContext();
     }
 
     @PostMapping("/login")
-    public String login() {
-        return SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName();
+    public AuthenticationResponse login() {
+        return mongoUserService.getTravellerBySecurityContext();
     }
 
     @PostMapping("/logout")
