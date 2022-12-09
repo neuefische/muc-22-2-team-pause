@@ -1,25 +1,23 @@
 import {
-    alpha,
     AppBar,
     Box,
     Button,
     IconButton,
     InputAdornment,
-    InputBase,
     styled,
     TextField,
     Toolbar,
     Tooltip,
     Typography
 } from "@mui/material";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import {useNavigate} from "react-router-dom";
 import {Home, List, Person, PersonAdd, Public} from "@mui/icons-material";
 import SearchIcon from '@mui/icons-material/Search';
 
 type NavBarProps = {
     username:string
-    handleCallback(searchText: string): void
+    handleSearch(searchText: string): void
 }
 export default function NavBar(props:NavBarProps) {
     const navItems = [
@@ -38,30 +36,7 @@ export default function NavBar(props:NavBarProps) {
             icon:<List/>
         }];
 
-    const TextFieldSearch = styled(TextField)(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    }));
 
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
 
     const TextFieldStyle = styled(TextField)(({ theme }) => ({
         color: 'inherit',
@@ -85,11 +60,9 @@ export default function NavBar(props:NavBarProps) {
     function handleNavigation(path: string) {
         navigate(path)
     }
-    const [searchQuery, setSearchQuery] = useState("")
 
     function handleSearchText(event: ChangeEvent<HTMLInputElement>) {
-        setSearchQuery(event.target.value)
-        props.handleCallback(searchQuery)
+        props.handleSearch(event.target.value)
     }
 
     return (<AppBar position={"sticky"}
@@ -116,12 +89,11 @@ export default function NavBar(props:NavBarProps) {
                         color="secondary"
                         size="small"
                         type={"search"}
-                        value={searchQuery}
                         placeholder={"Search..."}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                        <SearchIcon />
+                                        <SearchIcon color="primary"/>
                                 </InputAdornment>
                             ),
                         }}

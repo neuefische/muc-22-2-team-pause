@@ -38,7 +38,7 @@ function App() {
             </head>
 
                 <BrowserRouter>
-                    <NavBar username={username} handleCallback={handleCallback}/>
+                    <NavBar username={username} handleSearch={handleCallback}/>
                     <Routes>
                         <Route path="/" element={<WelcomeScreen/>}/>
                         <Route path="/signup" element={<SignUp />}/>
