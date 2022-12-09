@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
-import AddVisitCountry from "./component/AddVisitCountry";
+import AddVisitedCountry from "./component/AddVisitCountry";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {themeOptions} from "./mui-theme";
 import WelcomeScreen from "./component/WelcomeScreen";
@@ -36,7 +36,6 @@ function App() {
                     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
                 />
             </head>
-
                 <BrowserRouter>
                     <NavBar username={username} handleSearch={handleCallback}/>
                     <Routes>
@@ -54,8 +53,9 @@ function App() {
                             />}>
                             </Route>
                         </Route>
-                    </Routes>
-                </BrowserRouter>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
         </ThemeProvider>
 
     );
