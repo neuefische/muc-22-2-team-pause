@@ -1,7 +1,8 @@
 import UserList from "./UserList";
 import useUsers from "../hook/useUsers";
+import {useNavigate} from "react-router-dom";
+import {Country} from "../model/Country";
 import {Traveller} from "../model/User";
-import {NavigateFunction, useNavigate} from "react-router-dom";
 
 type UserOverviewProps = {
     loggedInTraveller: Traveller
@@ -11,7 +12,7 @@ type UserOverviewProps = {
 
 export default function UserOverview(props: UserOverviewProps) {
     const {users, deleteUserByID, editTravellerName} = useUsers()
-
+    const navigate = useNavigate()
 
 
     function handleDeleteUser(id: string) {
@@ -20,7 +21,7 @@ export default function UserOverview(props: UserOverviewProps) {
 
     const filteredUsers = users.filter(user => {
         return user.name.toLowerCase().includes(props.searchText.toLowerCase())
-            || user.visitedCountries.filter(country => {
+            || user.visitedCountries.filter((country:Country) => {
                 return country.name.toLowerCase().includes(props.searchText.toLowerCase())
                     || country.threeLetterCode.toLowerCase().includes(props.searchText.toLowerCase())
             }).length > 0

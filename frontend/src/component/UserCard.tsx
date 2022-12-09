@@ -6,9 +6,7 @@ import "./UserCard.css"
 import {Add, DeleteForever, Edit} from "@mui/icons-material";
 
 type UserCardProps = {
-    user: Traveller
-    loggedInUser: Traveller
-
+    loggedInTraveller: Traveller
     handleDeleteUser(id: string): void
     handleEditUser(id: string, userToEdit: Traveller): void
 }
@@ -19,13 +17,13 @@ export default function UserCard(props: UserCardProps) {
     const matches = useMediaQuery("(min-width:600px)");
 
     function handleDeleteUser() {
-        props.handleDeleteUser(props.user.id)
+        props.handleDeleteUser(props.loggedInTraveller.id)
         navigate("/")
     }
 
     function handleEditName() {
-        props.user.name = changedUserName
-        props.handleEditUser(props.loggedInUser.id, props.user)
+        props.loggedInTraveller.name = changedUserName
+        props.handleEditUser(props.loggedInTraveller.id, props.loggedInTraveller)
     }
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
@@ -34,7 +32,7 @@ export default function UserCard(props: UserCardProps) {
 
 
     function handleAddCountry() {
-        navigate("/overview/" + props.user.id + "/countries")
+        navigate("/overview/" + props.loggedInTraveller.id + "/countries")
     }
 
     const orientation = matches ? `horizontal` : `vertical`
@@ -47,7 +45,7 @@ export default function UserCard(props: UserCardProps) {
                     alignItems={"flex-end"}
                     flexWrap={"wrap"}>
 
-                    <Typography variant={"h4"} align={"center"}>{props.user.name}</Typography>
+                    <Typography variant={"h4"} align={"center"}>{props.loggedInTraveller.name}</Typography>
 
                 </Box>
                 <Box display={"flow"}
@@ -55,14 +53,14 @@ export default function UserCard(props: UserCardProps) {
                      flexWrap={"wrap"}
                      alignItems={"flex-start"}
                      sx={{my: 3}}>
-                    {props.user.visitedCountries &&
-                        props.user.visitedCountries.map((country) =>
+                    {props.loggedInTraveller.visitedCountries &&
+                        props.loggedInTraveller.visitedCountries.map((country) =>
                             <Typography variant={"subtitle1"} key={country.threeLetterCode}>
                                 {country.name}[{country.threeLetterCode}] {country.flag}
                             </Typography>)
                     }
                 </Box>
-                {props.loggedInUser.id === props.user.id &&
+                {props.loggedInTraveller.id === props.loggedInTraveller.id &&
                     <Box display={"flex"}
                          flexWrap={"wrap"}
                          flexDirection={"row"}
@@ -97,14 +95,14 @@ export default function UserCard(props: UserCardProps) {
                     variant={"contained"}
                     fullWidth={true}
                     orientation={orientation}>
-                    {props.loggedInUser.id === props.user.id && <Button
+                    {props.loggedInTraveller.id === props.loggedInTraveller.id && <Button
                         startIcon={<DeleteForever/>}
                         onClick={handleDeleteUser}
                     >
                         Delete
                     </Button>}
 
-                    {props.loggedInUser.id === props.user.id &&
+                    {props.loggedInTraveller.id === props.loggedInTraveller.id &&
                         <Button
                             startIcon={<Add/>}
                             onClick={handleAddCountry}>
