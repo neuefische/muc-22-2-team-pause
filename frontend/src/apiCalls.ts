@@ -34,7 +34,7 @@ export function login(toLoginUser: UserLoginRequest) {
     }).then(response => response.data)
 }
 
-export function getLoggedInTravellerByUsername(){
+export function getLoggedInTravellerByLoggedInUser(){
    return axios.get("/api/user/login/me")
         .then(response=>response.data)
 }

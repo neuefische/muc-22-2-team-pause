@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import {UserLoginRequest, Traveller} from "../model/User";
-import {getLoggedInTravellerByUsername, login, logoutUser} from "../apiCalls";
+import {getLoggedInTravellerByLoggedInUser, login, logoutUser} from "../apiCalls";
 
 export default function useLoggedInUserAndTraveller(){
     const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id:"",name:"",visitedCountries:[]});
     const [username, setUsername] = useState<string>("")
 
     useEffect(()=> {
-        getLoggedInTravellerByUsername().then(data => {
+        getLoggedInTravellerByLoggedInUser().then(data => {
             setUsername(data.username)
             setLoggedInTraveller(data.traveller)
         }).catch(console.error)
