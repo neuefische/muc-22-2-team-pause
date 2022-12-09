@@ -98,18 +98,23 @@ class MongoUserControllerTest {
 
 
     @Test
-    void login_me_expect_anonymousUser() throws Exception {
+    void login_me_expect_404() throws Exception {
         mvc.perform(get(userEndPoint + "/login/me"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("anonymousUser"));
+                .andExpect(status().isNotFound());
     }
 
     @WithMockUser("spring")
     @Test
     void login_me_expect_spring_user() throws Exception {
+        mongoUserRepo.save(new MongoUser("0","spring","123"));
+        travellerRepo.save(new Traveller("0","spring",new HashSet<>()));
         mvc.perform(get(userEndPoint + "/login/me"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("spring"));
+                .andExpect(content().json("""
+                        {
+                        "traveller":{"id":"0","name":"spring","visitedCountries":[]},
+                        "username":"spring"}
+                        """));
     }
 
     @Test
