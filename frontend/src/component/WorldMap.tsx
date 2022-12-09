@@ -15,7 +15,7 @@ const geoUrl =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json"
 export default function WorldMap(props: WorldMapProps) {
 
-    const [countries, setCountries] = useState<string[]>([])
+    const [countries,setCountries] = useState<string[]>([])
 
     useEffect(() => {
 
