@@ -1,4 +1,17 @@
-import {alpha, AppBar, Box, Button, IconButton, InputBase, styled, Toolbar, Tooltip, Typography} from "@mui/material";
+import {
+    alpha,
+    AppBar,
+    Box,
+    Button,
+    IconButton,
+    InputAdornment,
+    InputBase,
+    styled,
+    TextField,
+    Toolbar,
+    Tooltip,
+    Typography
+} from "@mui/material";
 import React, {ChangeEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Home, List, Person, PersonAdd, Public} from "@mui/icons-material";
@@ -25,7 +38,7 @@ export default function NavBar(props:NavBarProps) {
             icon:<List/>
         }];
 
-    const Search = styled('div')(({ theme }) => ({
+    const TextFieldSearch = styled(TextField)(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -50,7 +63,7 @@ export default function NavBar(props:NavBarProps) {
         justifyContent: 'center',
     }));
 
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    const TextFieldStyle = styled(TextField)(({ theme }) => ({
         color: 'inherit',
         '& .MuiInputBase-input': {
             padding: theme.spacing(1, 1, 1, 0),
@@ -99,18 +112,22 @@ export default function NavBar(props:NavBarProps) {
                     ))}
                 </Box>
 
-                <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
+                    <TextField
+                        color="secondary"
+                        size="small"
                         type={"search"}
                         value={searchQuery}
-                        placeholder={"Search user or countries.."}
-                        inputProps={{ 'aria-label': 'search' }}
+                        placeholder={"Search..."}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                        <SearchIcon />
+                                </InputAdornment>
+                            ),
+                        }}
                         onChange={handleSearchText}
                     />
-                </Search>
+
 
                 <Box flexGrow={0}>
                     <Tooltip title={props.username}>
