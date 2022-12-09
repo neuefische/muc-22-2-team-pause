@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignUp from "./component/SignUp";
 import UserOverview from "./component/UserOverview";
@@ -16,6 +16,11 @@ function App() {
     const {loggedInTraveller, loginUser, username} = useLoggedInUserAndTraveller()
     const theme = createTheme(themeOptions)
 
+    const [searchText, setSearchText] = useState<string>("")
+    function handleCallback(text:string){
+        setSearchText(text)
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <head>
@@ -31,22 +36,22 @@ function App() {
                     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
                 />
             </head>
+                <BrowserRouter>
+                    <NavBar username={username} handleSearch={handleCallback}/>
+                    <Routes>
+                        <Route path="/" element={<WelcomeScreen/>}/>
+                        <Route path="/signup" element={<SignUp />}/>
+                        <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
 
-            <BrowserRouter>
-                <NavBar username={username}/>
-                <Routes>
-                    <Route path="/" element={<WelcomeScreen/>}/>
-                    <Route path="/signup" element={<SignUp/>}/>
-                    <Route path="/login" element={<Login handleLogInUser={loginUser}/>}/>
-
-                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
-                        <Route path="/overview"
-                               element={<UserOverview loggedInTraveller={loggedInTraveller}/>}></Route>
-                        <Route path="/overview/:id" element={<p>detail</p>}></Route>
-                        <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
-                        <Route path="/overview/:id/countries" element={<AddVisitedCountry
-                            loggedInTraveller={loggedInTraveller}
-                        />}>
+                        <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
+                            <Route path="/overview"
+                                   element={<UserOverview searchText={searchText} loggedInTraveller={loggedInTraveller}/>}></Route>
+                            <Route path="/overview/:id" element={<p>detail</p>}></Route>
+                            <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
+                            <Route path="/overview/:id/countries" element={<AddVisitCountry
+                                loggedInTraveller={loggedInTraveller}
+                            />}>
+                            </Route>
                         </Route>
                     </Route>
                 </Routes>
