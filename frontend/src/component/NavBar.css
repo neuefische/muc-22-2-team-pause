@@ -1,0 +1,11 @@
+.search,
+.search:hover,
+.search:focus {
+   border-color: #b3c489 !important;
+    border-inline-color: #eeeeee;
+
+}
+.search input{
+    color: #eeeeee;
+
+}
