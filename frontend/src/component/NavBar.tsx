@@ -3,7 +3,7 @@ import {
     Box,
     Button,
     IconButton,
-    InputAdornment, Menu, MenuItem,
+    InputAdornment, styled, Menu, MenuItem,
     TextField,
     Toolbar,
     Tooltip,
@@ -13,11 +13,34 @@ import React, {ChangeEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Home, List, Map, Person, PersonAdd, Public} from "@mui/icons-material";
 import SearchIcon from '@mui/icons-material/Search';
+import "./NavBar.css";
 
 type NavBarProps = {
     username: string
     handleSearch(searchText: string): void
 }
+
+const CssTextField = styled(TextField)({
+    '& label.Mui-focused': {
+        color: '#f8bbd0',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: '#f8bbd0',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#f8bbd0',
+        },
+        '&:hover fieldset': {
+            borderColor: '#f8bbd0',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#f8bbd0',
+        },
+    },
+});
+
+
 export default function NavBar(props: NavBarProps) {
     const navItems = [
         {
@@ -44,7 +67,6 @@ export default function NavBar(props: NavBarProps) {
     function handleMenuClose() {
         setAnchorEl(null);
     }
-
 
     const navigate = useNavigate();
 
@@ -98,23 +120,25 @@ export default function NavBar(props: NavBarProps) {
                     </Menu>
                 </Box>
 
-                <TextField
-                    sx={{
-                        mr: 2
-                    }}
 
-                    size="small"
-                    type={"search"}
-                    placeholder={"Search..."}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon color="primary"/>
-                            </InputAdornment>
-                        ),
+
+                    <CssTextField
+                        sx={{
+                            mr:2
                     }}
-                    onChange={handleSearchText}
-                />
+                        className="search"
+                        size="small"
+                        type={"search"}
+                        placeholder={"Search..."}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                        <SearchIcon color="primary"/>
+                                </InputAdornment>
+                            ),
+                        }}
+                        onChange={handleSearchText}
+                    />
 
 
                 <Box flexGrow={0}>
