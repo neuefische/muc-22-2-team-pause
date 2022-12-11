@@ -98,9 +98,14 @@ class MongoUserControllerTest {
 
 
     @Test
-    void login_me_expect_404() throws Exception {
+    void login_me_expect_ok_and_anonymousUser() throws Exception {
         mvc.perform(get(userEndPoint + "/login/me"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "traveller":{"id":"","name":"anonymousUser","visitedCountries":[]},
+                        "username":"anonymousUser"}
+                        """));
     }
 
     @WithMockUser("spring")
