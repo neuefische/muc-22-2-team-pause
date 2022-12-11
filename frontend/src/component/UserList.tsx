@@ -3,7 +3,7 @@ import UserCard from "./UserCard";
 import "./UserList.css"
 
 type UserListProps = {
-    users: Traveller[]
+    travellers: Traveller[]
     loggedInUser:Traveller
     handleDeleteUser(id:string):void
 
@@ -16,8 +16,9 @@ export default function UserList(props: UserListProps) {
 
     return (
         <div className={"userList"}>
-            {props.users.map(user => <UserCard
-                key={user.id}
+            {props.travellers.map(traveller => <UserCard
+                key={traveller.id}
+                traveller={traveller}
                 loggedInTraveller={props.loggedInUser}
                 handleDeleteUser={props.handleDeleteUser}
                 handleEditUser={props.handleEditTravellerName}

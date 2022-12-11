@@ -41,7 +41,7 @@ export default function UserOverview(props: UserOverviewProps) {
 
     return (<div>
         <UserList
-            users={filteredUsers}
+            travellers={filteredUsers}
             handleDeleteUser={handleDeleteUser}
             handleEditTravellerName={handleEditTravellerName}
             loggedInUser={props.loggedInTraveller}/>
