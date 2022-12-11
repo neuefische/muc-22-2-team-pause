@@ -121,7 +121,7 @@ export default function NavBar(props: NavBarProps) {
                           open={Boolean(anchorEl)}
                           onClose={handleMenuClose}>
                         {(props.username !== "" && props.username !== "anonymousUser") &&<MenuItem onClick={openPrivateWorldMap}>Private Map</MenuItem>}
-                        <MenuItem onClick={openHeatMap}>Private Map</MenuItem>
+                        <MenuItem onClick={openHeatMap}>Heatmap</MenuItem>
                     </Menu>
                 </Box>
 

@@ -30,9 +30,10 @@ public class SecurityConfig {
                         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase()))
                 .and()
                 .authorizeRequests()
-                //.antMatchers("/api/user/login/me").permitAll()
+                .antMatchers("/api/user/login/me").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/user/").authenticated()
+                .antMatchers(HttpMethod.GET,"/api/traveller").permitAll()
                 .antMatchers("/api/traveller").authenticated()
                 .and().build();
     }
