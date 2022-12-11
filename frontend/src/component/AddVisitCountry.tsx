@@ -4,16 +4,15 @@ import {Traveller} from "../model/User";
 import {useNavigate} from "react-router-dom";
 import {updateUser} from "../apiCalls";
 import {Autocomplete, Box, Button, Chip, LinearProgress, TextField, Typography} from "@mui/material";
-import useCountries from "../hook/useCountries";
 import {AddCircle} from "@mui/icons-material";
 
 
 type AddVisitCountryProps = {
     loggedInTraveller: Traveller
+    countries:Country[]
 }
 export default function AddVisitedCountry(props: AddVisitCountryProps) {
     const navigate = useNavigate()
-    const {countries} = useCountries()
     const [selectedCountries, setSelectedCountries] = useState<Country[]>([])
     
     function addCountriesToUser() {
@@ -47,7 +46,7 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
 
     const isButtonDisabled: boolean = selectedCountries.length < 1
 
-    if (countries) {
+    if (props.countries) {
         return (<Box display={"flex"}
                      width={'100%'}
                      justifyContent={"center"}
@@ -60,7 +59,7 @@ export default function AddVisitedCountry(props: AddVisitCountryProps) {
                               renderInput={(params) =>
                                   <TextField {...params} label={"Choose a country"}/>}
                               getOptionLabel={(option) => option.name + " " + option.flag}
-                              options={countries}
+                              options={props.countries}
                 />
                 <Box marginTop={3}>
                     <Typography textAlign={"center"}
