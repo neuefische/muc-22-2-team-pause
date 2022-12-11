@@ -1,32 +1,34 @@
 import {ComposableMap, Geographies, Geography,} from "react-simple-maps";
-import {User} from "../model/User";
 import {Country} from "../model/Country";
 import {useEffect, useState} from "react";
 import {scaleLinear} from "d3-scale";
 import useUsers from "../hook/useUsers";
+import {Traveller} from "../model/User";
 
-type HeatMapProps= {
+type HeatMapProps = {
     countries: Country[]
 }
 const geoUrl = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json"
 
 export default function HeatMap(props: HeatMapProps) {
 
-    const [maxDomain, setMaxDomain ]=useState(1)
+    const [maxDomain, setMaxDomain] = useState(1)
 
     const colorScale = scaleLinear<string>()
-        .domain([0, maxDomain ])
+        .domain([0, maxDomain])
         .range(["#f8bbd0", "#ad1457"]);
 
     const countryList = props.countries
-    let userList: User[] = useUsers().users
+    let userList:Traveller[] = useUsers().users
 
-    const [output,setOutput]=useState<{
-        country:string,
-        count: number }[]>([])
+    const [countryCounts, setCountryCounts] = useState<{
+        country: string,
+        count: number
+    }[]>([])
 
     useEffect(() => {
         const threeLetterCodeList = countryList.map(Country => Country.threeLetterCode)
+
         function setCount(country: string) {
             return {
                 country,
@@ -43,41 +45,41 @@ export default function HeatMap(props: HeatMapProps) {
                 }
             }
         }
-        let countVisits=[]
+        let countVisits = []
         for (const element of output) countVisits.push(element.count)
         let maxVisits = Math.max(...countVisits)
         setMaxDomain(maxVisits)
-        setOutput(output)
+        setCountryCounts(output)
     }, [])
 
-        return (
-                <ComposableMap
-                    projectionConfig={{
-                        rotate: [-10, 0, 0],
-                        scale: 147
-                    }}
-                >
-                    {output.length > 0 && (
-                        <Geographies geography={geoUrl}>
-                            {({geographies}) =>
-                                geographies.map((geo) => {
-                                    for (const element of output) {
-                                        if (geo.id === element.country) {
-                                            return (
-                                                <Geography
-                                                    key={geo.rsmKey}
-                                                    geography={geo}
-                                                    fill={colorScale(element.count)}
+    return (
+        <ComposableMap
+            projectionConfig={{
+                rotate: [-10, 0, 0],
+                scale: 147
+            }}
+        >
+            {countryCounts.length > 0 && (
+                <Geographies geography={geoUrl}>
+                    {({geographies}) =>
+                        geographies.map((geo) => {
+                            for (const element of countryCounts) {
+                                if (geo.id === element.country) {
+                                    return (
+                                        <Geography
+                                            key={geo.rsmKey}
+                                            geography={geo}
+                                            fill={colorScale(element.count)}
                                         />
                                     );
-                                    }
-                                    }
-                                })
+                                }
                             }
-                        </Geographies>
-                    )}
-                </ComposableMap>
+                        })
+                    }
+                </Geographies>
+            )}
+        </ComposableMap>
 
-        );
+    );
 
 };

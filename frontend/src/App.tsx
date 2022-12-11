@@ -12,6 +12,7 @@ import ProtectedRoutes from "./component/ProtectedRoutes";
 import NavBar from "./component/NavBar";
 import useCountries from "./hook/useCountries";
 import WorldMap from "./component/WorldMap";
+import HeatMap from "./component/HeatMap";
 
 
 function App() {
@@ -47,9 +48,9 @@ function App() {
                     <Route path="/" element={<WelcomeScreen/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/login" element={<Login handleLogInUser={loginUser} loggedInUsername={username}/>}/>
+                    <Route path="/heatmap" element={<HeatMap countries={countries}/>}/>
 
                     <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
-
                         <Route path="/overview/:username/map" element={
                             <WorldMap
                                 countries={countries}
@@ -68,7 +69,6 @@ function App() {
                                 loggedInTraveller={loggedInTraveller}
                             />}>
                         </Route>
-
                     </Route>
                 </Routes>
             </BrowserRouter>
