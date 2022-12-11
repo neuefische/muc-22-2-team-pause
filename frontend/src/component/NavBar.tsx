@@ -3,22 +3,22 @@ import {
     Box,
     Button,
     IconButton,
-    InputAdornment,
+    InputAdornment, Menu, MenuItem,
     TextField,
     Toolbar,
     Tooltip,
     Typography
 } from "@mui/material";
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Home, List, Person, PersonAdd, Public} from "@mui/icons-material";
+import {Home, List, Map, Person, PersonAdd, Public} from "@mui/icons-material";
 import SearchIcon from '@mui/icons-material/Search';
 
 type NavBarProps = {
-    username:string
+    username: string
     handleSearch(searchText: string): void
 }
-export default function NavBar(props:NavBarProps) {
+export default function NavBar(props: NavBarProps) {
     const navItems = [
         {
             name: 'Home',
@@ -32,8 +32,19 @@ export default function NavBar(props:NavBarProps) {
         }, {
             name: 'Overview',
             path: "/overview",
-            icon:<List/>
+            icon: <List/>
         }];
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    function handleMenuOpen(event: React.MouseEvent<HTMLElement>) {
+        setAnchorEl(event.currentTarget);
+    }
+
+    function handleMenuClose() {
+        setAnchorEl(null);
+    }
+
 
     const navigate = useNavigate();
 
@@ -43,6 +54,11 @@ export default function NavBar(props:NavBarProps) {
 
     function handleSearchText(event: ChangeEvent<HTMLInputElement>) {
         props.handleSearch(event.target.value)
+    }
+
+    function openPrivateWorldMap() {
+        handleMenuClose();
+        handleNavigation("/overview/"+props.username+"/map")
     }
 
     return (<AppBar position={"sticky"}
@@ -61,27 +77,44 @@ export default function NavBar(props:NavBarProps) {
 
                 <Box flexGrow={1}>
                     {navItems.map((item) => (
-                        <Button startIcon={item.icon} key={item.name} onClick={() => handleNavigation(item.path)}>{item.name}</Button>
+                        <Button startIcon={item.icon} key={item.name}
+                                onClick={() => handleNavigation(item.path)}>{item.name}</Button>
                     ))}
+                    <Button startIcon={<Map/>} key={"maps-menu"} onClick={handleMenuOpen}>Maps</Button>
+                    <Menu anchorEl={anchorEl}
+                          anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'right',
+                          }}
+                          transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                          }}
+                          PaperProps={{sx:{overflow:'visible' , '&:before': {position:"absolute"}}}}
+                          keepMounted
+                          open={Boolean(anchorEl)}
+                          onClose={handleMenuClose}>
+                        <MenuItem onClick={openPrivateWorldMap}>Private Map</MenuItem>
+                    </Menu>
                 </Box>
 
-                    <TextField
-                        sx={{
-                            mr:2
+                <TextField
+                    sx={{
+                        mr: 2
                     }}
 
-                        size="small"
-                        type={"search"}
-                        placeholder={"Search..."}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                        <SearchIcon color="primary"/>
-                                </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleSearchText}
-                    />
+                    size="small"
+                    type={"search"}
+                    placeholder={"Search..."}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon color="primary"/>
+                            </InputAdornment>
+                        ),
+                    }}
+                    onChange={handleSearchText}
+                />
 
 
                 <Box flexGrow={0}>

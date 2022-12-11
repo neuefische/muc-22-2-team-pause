@@ -49,7 +49,8 @@ function App() {
                     <Route path="/login" element={<Login handleLogInUser={loginUser} loggedInUsername={username}/>}/>
 
                     <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
-                        <Route path="/overview/map" element={
+
+                        <Route path="/overview/:username/map" element={
                             <WorldMap
                                 countries={countries}
                                 loggedInTraveller={loggedInTraveller}
@@ -61,14 +62,13 @@ function App() {
                                                       loggedInTraveller={loggedInTraveller}/>}>
                         </Route>
 
-                        <Route path="/overview/:id" element={<p>detail</p>}></Route>
-                        <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
                         <Route path="/overview/:id/countries" element={
                             <AddVisitCountry
                                 countries={countries}
                                 loggedInTraveller={loggedInTraveller}
                             />}>
                         </Route>
+
                     </Route>
                 </Routes>
             </BrowserRouter>
