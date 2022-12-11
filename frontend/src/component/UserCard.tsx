@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {Box, Button, ButtonGroup, Card, CardContent, TextField, Typography, useMediaQuery} from "@mui/material";
 import "./UserCard.css"
 import {Add, DeleteForever, Edit} from "@mui/icons-material";
+import useLoggedInUserAndTraveller from "../hook/useLoggedInUserAndTraveller";
 
 type UserCardProps = {
     user: Traveller
@@ -17,6 +18,7 @@ export default function UserCard(props: UserCardProps) {
     const navigate = useNavigate()
     const [changedUserName, setChangedUserName] = useState("")
     const matches = useMediaQuery("(min-width:600px)");
+    const {updateLoggedInTraveller} = useLoggedInUserAndTraveller();
 
     function handleDeleteUser() {
         props.handleDeleteUser(props.user.id)
@@ -32,9 +34,17 @@ export default function UserCard(props: UserCardProps) {
         setChangedUserName(event.target.value)
     }
 
-
     function handleAddCountry() {
         navigate("/overview/" + props.user.id + "/countries")
+    }
+
+    function handleDeleteCountry(threeLetterCode: string) {
+        const updatedCountries = props.loggedInUser.visitedCountries
+            .filter((country) => country.threeLetterCode !== threeLetterCode)
+        const updatedTraveller = {...props.loggedInUser, visitedCountries: updatedCountries}
+        updateLoggedInTraveller(props.loggedInUser.id, updatedTraveller)
+        // funktioniert nicht,
+        props.user = updatedTraveller
     }
 
     const orientation = matches ? `horizontal` : `vertical`
@@ -59,8 +69,13 @@ export default function UserCard(props: UserCardProps) {
                         props.user.visitedCountries.map((country) =>
                             <Typography variant={"subtitle1"} key={country.threeLetterCode}>
                                 {country.name}[{country.threeLetterCode}] {country.flag}
+                                {props.loggedInUser.id === props.user.id &&
+                                    <Button startIcon={<DeleteForever/>}
+                                            onClick={() => handleDeleteCountry(country.threeLetterCode)}></Button>
+                                }
                             </Typography>)
                     }
+
                 </Box>
                 {props.loggedInUser.id === props.user.id &&
                     <Box display={"flex"}
