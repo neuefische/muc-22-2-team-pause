@@ -82,6 +82,11 @@ export default function NavBar(props: NavBarProps) {
         handleNavigation("/overview/" + props.username + "/map")
     }
 
+    function openHeatMap() {
+        handleMenuClose();
+        handleNavigation("/heatmap")
+    }
+
     return (<AppBar position={"sticky"}
                     color={"secondary"}
                     component={"nav"}>
@@ -115,7 +120,8 @@ export default function NavBar(props: NavBarProps) {
                           keepMounted
                           open={Boolean(anchorEl)}
                           onClose={handleMenuClose}>
-                        <MenuItem onClick={openPrivateWorldMap}>Private Map</MenuItem>
+                        {(props.username !== "" && props.username !== "anonymousUser") &&<MenuItem onClick={openPrivateWorldMap}>Private Map</MenuItem>}
+                        <MenuItem onClick={openHeatMap}>Private Map</MenuItem>
                     </Menu>
                 </Box>
 
