@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {ComposableMap, Geographies, Geography} from 'react-simple-maps';
 import {Country} from "../model/Country";
 import {Traveller} from "../model/User"
-import "./WorldMap.css";
 import {updateUser} from "../apiCalls";
 
 
