@@ -40,7 +40,7 @@ export default function NavBar(props:NavBarProps) {
                     variant="h6"
                     component="div"
                     sx={{flexGrow: 1, display: 'flex'}}>
-                    Country tracker
+                    Country Tracker
                 </Typography>
 
                 <Box flexGrow={1}>
