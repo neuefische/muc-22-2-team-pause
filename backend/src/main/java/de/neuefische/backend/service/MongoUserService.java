@@ -1,7 +1,6 @@
 package de.neuefische.backend.service;
 
 import de.neuefische.backend.exception.NoSuchTravellerException;
-import de.neuefische.backend.exception.NoSuchUsernameException;
 import de.neuefische.backend.model.AuthenticationResponse;
 import de.neuefische.backend.model.MongoUser;
 import de.neuefische.backend.model.MongoUserRequest;
@@ -67,8 +66,10 @@ public class MongoUserService {
     }
 
     public AuthenticationResponse getTravellerBySecurityContext() {
+        String userNameBySecurityContext = SecurityContextHolder.getContext().getAuthentication().getName();
+
         Optional<MongoUser> userByUsername = mongoUserRepo
-                .findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+                .findByUsername(userNameBySecurityContext);
         if (userByUsername.isPresent()){
             Optional<Traveller> travellerById = travellerRepo.findById(userByUsername.get().id());
             if (travellerById.isPresent()){
@@ -77,6 +78,8 @@ public class MongoUserService {
                 throw new NoSuchTravellerException(badCredentials);
             }
         }
-        throw new NoSuchUsernameException(badCredentials);
+        return new AuthenticationResponse(
+                new Traveller("",userNameBySecurityContext,new HashSet<>()),
+                userNameBySecurityContext);
     }
 }

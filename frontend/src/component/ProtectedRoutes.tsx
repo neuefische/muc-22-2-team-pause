@@ -8,7 +8,8 @@ type ProtectedRoutesProps = {
 export default function ProtectedRoutes(props: ProtectedRoutesProps) {
 
     const  isAuthenticated = props.loggedInTraveller.id !== "";
+
     return (
-        {isAuthenticated} ? <Outlet/> : <Navigate to={"/login"}/>
+        isAuthenticated ? <Outlet/> : <Navigate to={"/login"}/>
     )
 }
