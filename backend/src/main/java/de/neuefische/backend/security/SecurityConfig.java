@@ -14,7 +14,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig {
 
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Argon2PasswordEncoder();
@@ -31,8 +30,9 @@ public class SecurityConfig {
                         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase()))
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/api/user/login").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/api/user/").authenticated()
+                //.antMatchers("/api/user/login/me").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/user/").authenticated()
                 .antMatchers("/api/traveller").authenticated()
                 .and().build();
     }

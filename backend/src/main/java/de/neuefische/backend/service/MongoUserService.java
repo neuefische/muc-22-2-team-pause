@@ -1,11 +1,13 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.exception.NoSuchTravellerException;
+import de.neuefische.backend.model.AuthenticationResponse;
 import de.neuefische.backend.model.MongoUser;
 import de.neuefische.backend.model.MongoUserRequest;
 import de.neuefische.backend.model.Traveller;
 import de.neuefische.backend.repository.MongoUserRepo;
 import de.neuefische.backend.repository.TravellerRepo;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class MongoUserService {
     private final UuidGeneratorService uuidGeneratorService;
     private final MongoUserRepo mongoUserRepo;
     private final PasswordEncoder encoder = new Argon2PasswordEncoder();
+    private static final String badCredentials = "bad credentials";
 
     public MongoUserService(TravellerRepo travellerRepo, UuidGeneratorService uuidGeneratorService, MongoUserRepo mongoUserRepo) {
         this.travellerRepo = travellerRepo;
@@ -53,11 +56,22 @@ public class MongoUserService {
         return id;
     }
 
-    public String getIdByUsername(String name){
-        Optional<MongoUser> mongoUser = mongoUserRepo.findByUsername(name);
-         if(mongoUser.isPresent()){
-             return mongoUser.get().id();
-         }
-        throw new UsernameNotFoundException("bad credentials");
+
+    public AuthenticationResponse getTravellerBySecurityContext() {
+        String userNameBySecurityContext = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Optional<MongoUser> userByUsername = mongoUserRepo
+                .findByUsername(userNameBySecurityContext);
+        if (userByUsername.isPresent()){
+            Optional<Traveller> travellerById = travellerRepo.findById(userByUsername.get().id());
+            if (travellerById.isPresent()){
+                return new AuthenticationResponse(travellerById.get(),userByUsername.get().username());
+            }else {
+                throw new NoSuchTravellerException(badCredentials);
+            }
+        }
+        return new AuthenticationResponse(
+                new Traveller("",userNameBySecurityContext,new HashSet<>()),
+                userNameBySecurityContext);
     }
 }

@@ -1,28 +1,33 @@
 import {useEffect, useState} from "react";
 import {UserLoginRequest, Traveller} from "../model/User";
-import {getLoggedInTraveller, getLoggedInUserName, login, logoutUser} from "../apiCalls";
+import {getLoggedInTravellerByLoggedInUser, login, logoutUser} from "../apiCalls";
 
-export default function useLoggedInUserAndTraveller(){
-    const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id:"",name:"",visitedCountries:[]});
+export default function useLoggedInUserAndTraveller() {
+    const [loggedInTraveller, setLoggedInTraveller] = useState<Traveller>({id: "", name: "", visitedCountries: []});
     const [username, setUsername] = useState<string>("")
 
-    useEffect(()=> {
-        getLoggedInUserName()
-            .then(()=>getLoggedInTraveller(username)
-                .then(data => setLoggedInTraveller(data)))
-    }, [username])
+    useEffect(() => {
+        getLoggedInTravellerByLoggedInUser().then(data => {
+            setUsername(data.username)
+            setLoggedInTraveller(data.traveller)
+        }).catch(error => {
+            if (error.response.status !== 404){
+                console.error(error)
+            }
+        })
+    }, [])
 
-    function loginUser(user:UserLoginRequest):Promise<string>{
-        return login(user).then(data=> {
-            setUsername(data)
-            return data
+    function loginUser(user: UserLoginRequest):Promise<void> {
+        return login(user).then(data => {
+            setUsername(data.username)
+            setLoggedInTraveller(data.traveller)
         })
     }
 
     //logout function
-    function logout(){
+    function logout() {
         return logoutUser()
     }
 
-    return{loggedInTraveller,logout,loginUser, username}
+    return {loggedInTraveller, logout, loginUser, username}
 }

@@ -23,6 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -91,25 +92,46 @@ class MongoUserControllerTest {
     }
 
     @Test
-    void login_expect_401() throws Exception {
-        mvc.perform(get(userEndPoint + "/login"))
-                .andExpect(status().isUnauthorized());
+    void login_expect_anonyymousUser() throws Exception {
+        mvc.perform(post(userEndPoint + "/login").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "traveller":{"id":"","name":"anonymousUser","visitedCountries":[]},
+                        "username":"anonymousUser"}
+                        """));
     }
 
+    @WithMockUser
+    @Test
+    void login_expect_ok() throws Exception {
+        mvc.perform(post(userEndPoint + "/login").with(csrf()))
+                .andExpect(status().isOk());
+    }
 
     @Test
-    void login_me_expect_anonymousUser() throws Exception {
+    void login_me_expect_ok_and_anonymousUser() throws Exception {
         mvc.perform(get(userEndPoint + "/login/me"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("anonymousUser"));
+                .andExpect(content().json("""
+                        {
+                        "traveller":{"id":"","name":"anonymousUser","visitedCountries":[]},
+                        "username":"anonymousUser"}
+                        """));
     }
 
     @WithMockUser("spring")
     @Test
     void login_me_expect_spring_user() throws Exception {
+        mongoUserRepo.save(new MongoUser("0","spring","123"));
+        travellerRepo.save(new Traveller("0","spring",new HashSet<>()));
         mvc.perform(get(userEndPoint + "/login/me"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("spring"));
+                .andExpect(content().json("""
+                        {
+                        "traveller":{"id":"0","name":"spring","visitedCountries":[]},
+                        "username":"spring"}
+                        """));
     }
 
     @Test
