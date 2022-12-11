@@ -20,6 +20,8 @@ function App() {
 
     const [searchText, setSearchText] = useState<string>("")
 
+    const {countries} = useCountries();
+
     function handleCallback(text: string) {
         setSearchText(text)
     }
@@ -46,18 +48,27 @@ function App() {
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/login" element={<Login handleLogInUser={loginUser} loggedInUsername={username}/>}/>
 
-                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller}/>}>
-                        <Route path="/overview/map" element={<WorldMap/>}></Route>
-                        <Route path="/overview"
-                               element={<UserOverview searchText={searchText}
-                                                      loggedInTraveller={loggedInTraveller}/>}></Route>
-                        <Route path="/overview/:id" element={<p>detail</p>}></Route>
-                        <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
-                        <Route path="/overview/:id/countries" element={<AddVisitCountry
-                            loggedInTraveller={loggedInTraveller}
-                        />}>
+                    <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
+                        <Route path="/overview/map" element={
+                            <WorldMap
+                                countries={countries}
+                                loggedInTraveller={loggedInTraveller}
+                            />}>
                         </Route>
 
+                        <Route path="/overview"
+                               element={<UserOverview searchText={searchText}
+                                                      loggedInTraveller={loggedInTraveller}/>}>
+                        </Route>
+
+                        <Route path="/overview/:id" element={<p>detail</p>}></Route>
+                        <Route path="/overview/:id/profile" element={<p>edit name</p>}></Route>
+                        <Route path="/overview/:id/countries" element={
+                            <AddVisitCountry
+                                countries={countries}
+                                loggedInTraveller={loggedInTraveller}
+                            />}>
+                        </Route>
                     </Route>
                 </Routes>
             </BrowserRouter>
