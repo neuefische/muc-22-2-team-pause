@@ -8,7 +8,6 @@ import de.neuefische.backend.model.Traveller;
 import de.neuefische.backend.repository.MongoUserRepo;
 import de.neuefische.backend.repository.TravellerRepo;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,13 +56,6 @@ public class MongoUserService {
         return id;
     }
 
-    public String getIdByUsername(String name){
-        Optional<MongoUser> mongoUser = mongoUserRepo.findByUsername(name);
-         if(mongoUser.isPresent()){
-             return mongoUser.get().id();
-         }
-        throw new UsernameNotFoundException(badCredentials);
-    }
 
     public AuthenticationResponse getTravellerBySecurityContext() {
         String userNameBySecurityContext = SecurityContextHolder.getContext().getAuthentication().getName();

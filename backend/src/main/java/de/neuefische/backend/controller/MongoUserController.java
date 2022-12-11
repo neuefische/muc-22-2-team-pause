@@ -45,10 +45,4 @@ public class MongoUserController {
         return "anonymousUser";
     }
 
-
-    @GetMapping("/{name}")
-    public String getId(@PathVariable String name) {
-        return mongoUserService.getIdByUsername(name);
-    }
-
 }
