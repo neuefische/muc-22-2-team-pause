@@ -9,6 +9,8 @@ type UserCardProps = {
     loggedInTraveller: Traveller
     handleDeleteUser(id: string): void
     handleEditUser(id: string, userToEdit: Traveller): void
+
+    traveller: Traveller
 }
 
 export default function UserCard(props: UserCardProps) {
@@ -45,7 +47,7 @@ export default function UserCard(props: UserCardProps) {
                     alignItems={"flex-end"}
                     flexWrap={"wrap"}>
 
-                    <Typography variant={"h4"} align={"center"}>{props.loggedInTraveller.name}</Typography>
+                    <Typography variant={"h4"} align={"center"}>{props.traveller.name}</Typography>
 
                 </Box>
                 <Box display={"flow"}
@@ -53,14 +55,14 @@ export default function UserCard(props: UserCardProps) {
                      flexWrap={"wrap"}
                      alignItems={"flex-start"}
                      sx={{my: 3}}>
-                    {props.loggedInTraveller.visitedCountries &&
-                        props.loggedInTraveller.visitedCountries.map((country) =>
+                    {props.traveller.visitedCountries &&
+                        props.traveller.visitedCountries.map((country) =>
                             <Typography variant={"subtitle1"} key={country.threeLetterCode}>
                                 {country.name}[{country.threeLetterCode}] {country.flag}
                             </Typography>)
                     }
                 </Box>
-                {props.loggedInTraveller.id === props.loggedInTraveller.id &&
+                {props.loggedInTraveller.id === props.traveller.id &&
                     <Box display={"flex"}
                          flexWrap={"wrap"}
                          flexDirection={"row"}
@@ -95,14 +97,14 @@ export default function UserCard(props: UserCardProps) {
                     variant={"contained"}
                     fullWidth={true}
                     orientation={orientation}>
-                    {props.loggedInTraveller.id === props.loggedInTraveller.id && <Button
+                    {props.loggedInTraveller.id === props.traveller.id && <Button
                         startIcon={<DeleteForever/>}
                         onClick={handleDeleteUser}
                     >
                         Delete
                     </Button>}
 
-                    {props.loggedInTraveller.id === props.loggedInTraveller.id &&
+                    {props.loggedInTraveller.id === props.traveller.id &&
                         <Button
                             startIcon={<Add/>}
                             onClick={handleAddCountry}>
