@@ -92,9 +92,14 @@ class MongoUserControllerTest {
     }
 
     @Test
-    void login_expect_401() throws Exception {
-        mvc.perform(get(userEndPoint + "/login"))
-                .andExpect(status().isUnauthorized());
+    void login_expect_anonyymousUser() throws Exception {
+        mvc.perform(post(userEndPoint + "/login").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "traveller":{"id":"","name":"anonymousUser","visitedCountries":[]},
+                        "username":"anonymousUser"}
+                        """));
     }
 
     @WithMockUser
