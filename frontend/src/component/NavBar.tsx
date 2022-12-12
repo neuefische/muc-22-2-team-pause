@@ -20,6 +20,7 @@ type NavBarProps = {
     handleSearch(searchText: string): void
 }
 
+
 const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
         color: '#f8bbd0',
@@ -39,6 +40,44 @@ const CssTextField = styled(TextField)({
         },
     },
 });
+const CssTextField = styled(TextField)({
+    '& label.Mui-focused': {
+        color: '#f8bbd0',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: '#f8bbd0',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#f8bbd0',
+        },
+        '&:hover fieldset': {
+            borderColor: '#f8bbd0',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#f8bbd0',
+        },
+    },
+});
+export default function NavBar(props:NavBarProps) {
+    const navItems = [
+        {
+            name: 'Home',
+            path: "/",
+            icon: <Home/>
+        }
+        , {
+            name: 'Sign Up',
+            path: "/signup",
+            icon: <PersonAdd/>
+        }, {
+            name: 'Overview',
+            path: "/overview",
+            icon:<List/>
+        }];
+
+
+
 
 
 export default function NavBar(props: NavBarProps) {
@@ -119,8 +158,6 @@ export default function NavBar(props: NavBarProps) {
                         <MenuItem onClick={openPrivateWorldMap}>Private Map</MenuItem>
                     </Menu>
                 </Box>
-
-
 
                     <CssTextField
                         sx={{
