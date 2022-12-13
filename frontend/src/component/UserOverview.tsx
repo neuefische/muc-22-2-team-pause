@@ -7,6 +7,7 @@ type UserOverviewProps = {
     loggedInTraveller: Traveller
     searchText:string
 
+
 }
 
 export default function UserOverview(props: UserOverviewProps) {

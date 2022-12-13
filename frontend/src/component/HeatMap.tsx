@@ -2,11 +2,11 @@ import {ComposableMap, Geographies, Geography,} from "react-simple-maps";
 import {Country} from "../model/Country";
 import {useEffect, useState} from "react";
 import {scaleLinear} from "d3-scale";
-import useUsers from "../hook/useUsers";
 import {Traveller} from "../model/User";
 
 type HeatMapProps = {
     countries: Country[]
+    travellers:Traveller[]
 }
 const geoUrl = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json"
 
@@ -19,7 +19,6 @@ export default function HeatMap(props: HeatMapProps) {
         .range(["#f8bbd0", "#ad1457"]);
 
     const countryList = props.countries
-    let userList:Traveller[] = useUsers().users
 
     const [countryCounts, setCountryCounts] = useState<{
         country: string,
@@ -37,7 +36,7 @@ export default function HeatMap(props: HeatMapProps) {
         }
 
         let output = threeLetterCodeList.map(setCount);
-        for (const element of userList) {
+        for (const element of props.travellers) {
             for (const item of element.visitedCountries) {
                 const threeLetterCodeToCount = item.threeLetterCode
                 for (const element of output) if (element.country === threeLetterCodeToCount) {

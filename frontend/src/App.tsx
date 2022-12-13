@@ -13,6 +13,7 @@ import NavBar from "./component/NavBar";
 import useCountries from "./hook/useCountries";
 import WorldMap from "./component/WorldMap";
 import HeatMap from "./component/HeatMap";
+import useUsers from "./hook/useUsers";
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
     const [searchText, setSearchText] = useState<string>("")
 
     const {countries} = useCountries();
-
+    const {users} = useUsers();
     function handleCallback(text: string) {
         setSearchText(text)
     }
@@ -48,7 +49,7 @@ function App() {
                     <Route path="/" element={<WelcomeScreen/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/login" element={<Login handleLogInUser={loginUser} loggedInUsername={username}/>}/>
-                    <Route path="/heatmap" element={<HeatMap countries={countries}/>}/>
+                    <Route path="/heatmap" element={<HeatMap countries={countries} travellers={users}/>}/>
 
                     <Route element={<ProtectedRoutes loggedInTraveller={loggedInTraveller} username={username}/>}>
                         <Route path="/overview/:username/map" element={
